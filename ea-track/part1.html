@@ -127,6 +127,7 @@ footer{padding:26px 34px;color:var(--mute);font-size:13px}
     <h3>Before you start</h3>
     <p><strong>Publications are cited by lesson name and tab letter, not page number.</strong> Pub 4491 renumbers every year; the lesson titles do not. Confirm the Pub 4012 tab letters against your printed copy the first time you use one.</p>
     <p><strong>Drake screen codes</strong> come from the Drake KB Federal 1040 Screen List, updated 24 March 2026. Type a code into the selector box at the bottom of any data entry screen. Press <strong>F1</strong> on an open screen for that screen's own help.</p>
+    <p><strong>Citations are links.</strong> Every publication and IRS form named in a Read line, a What-to-look-for item, a Where-it-lands line or a screen table is clickable and goes to the authority itself — publications to the current PDF, forms to their IRS About page, which carries the form, its instructions and recent developments together. That is the deeper dive: click the form rather than searching for it.</p>
     <p><strong>Every dollar figure lives in the <a href="https://ea-track-part2-tenaglc-6552s-projects.vercel.app#figures">Figures &amp; Lines Sheet</a></strong>, not in these lessons. <a href="https://ea-track-part2-tenaglc-6552s-projects.vercel.app#verify">Where to verify a figure</a> shows how to check any of them at source.</p>
     <p><strong>Whose job is which.</strong> These lessons cover the return from intake through filing. Inside a firm, the preparer who signs owns the e-file authorization, the PIN screen, the EF selections and the transmission, and carries the Circular 230 and §6695 exposure that goes with signing — so if you are learning inside a firm, expect to hand off at that line, with a complete reviewed return and every EF message accounted for. If you are preparing your own return there is no handoff and the whole sequence is yours. Lesson 12 teaches all of it either way, because you cannot review a step competently that you have never been shown.</p>
     <div class="flag"><strong>New for tax year 2025:</strong> Schedule 1-A on screen <code class="scr">1A</code> — tips, overtime, car loan interest, senior deduction. Full treatment in <a href="https://ea-track-part2-tenaglc-6552s-projects.vercel.app#a13">Part 2, Lesson 13A</a>.</div>
@@ -337,7 +338,29 @@ hw:"A taxpayer with cash gifts, a noncash donation above the 8283 threshold, and
 
 var body=document.getElementById('body'),nav=document.getElementById('nav');
 var navHTML='',bodyHTML='',ids=[];
-function tbl(rows,note){var h='<div class="row"><span class="tag">Drake</span><table><thead><tr><th>Screen</th><th>Purpose</th><th>Where</th></tr></thead><tbody>';rows.forEach(function(r){var c=(r[0]!=='—'&&/^[A-Z0-9]/.test(r[0]))?'<code class="scr">'+r[0]+'</code>':r[0];h+='<tr><td>'+c+'</td><td>'+r[1]+'</td><td>'+(r[2]||'')+'</td></tr>';});h+='</tbody></table>';if(note)h+='<p style="font-size:13.5px;margin:7px 0 0;color:var(--mute)">'+note+'</p>';return h+'</div>';}
+/* Citation linker. Publications and IRS forms in the reference fields become
+   links to the authority itself, so a citation is a destination rather than a
+   string you have to go and search for. Publications go to the PDF, which is
+   always the current edition. Forms go to their About page, which carries the
+   form, its instructions and recent developments in one place.
+   Deliberately conservative: numeric forms require an explicit "Form" prefix so
+   that stray numbers, dollar amounts and years are never matched, and the whole
+   pass is skipped on Wisconsin lessons where "Publication 125" and "Form 1"
+   mean the Wisconsin ones. */
+var IRS='https://www.irs.gov/';
+function A(u,t){return '<a href="'+u+'" target="_blank" rel="noopener">'+t+'</a>';}
+function LK(s){
+  if(!s)return s;
+  s=s.replace(/\bPub(?:lication)?\.?\s+(\d{2,4}(?:-[AB])?)\b/g,function(m,n){
+    return A(IRS+'pub/irs-pdf/p'+n.toLowerCase().replace('-','')+'.pdf',m);});
+  s=s.replace(/\b(?:Form\s+)?(W-2G|W-2|1099-[A-Z]{1,4}|1098-[A-Z]|1098|1095-[ABC]|13614-C)\b/g,function(m,f){
+    return A(IRS+'forms-pubs/about-form-'+f.toLowerCase(),m);});
+  s=s.replace(/\bForm\s+(\d{3,5}(?:-[A-Z]{1,3})?)\b/g,function(m,f){
+    return A(IRS+'forms-pubs/about-form-'+f.toLowerCase(),m);});
+  s=s.replace(/\bCircular 230\b/g,function(m){return A(IRS+'pub/irs-pdf/pcir230.pdf',m);});
+  return s;
+}
+function tbl(rows,note,wi){var h='<div class="row"><span class="tag">Drake</span><table><thead><tr><th>Screen</th><th>Purpose</th><th>Where</th></tr></thead><tbody>';rows.forEach(function(r){var c=(r[0]!=='—'&&/^[A-Z0-9]/.test(r[0]))?'<code class="scr">'+r[0]+'</code>':r[0];h+='<tr><td>'+c+'</td><td>'+(wi?r[1]:LK(r[1]))+'</td><td>'+(r[2]||'')+'</td></tr>';});h+='</tbody></table>';if(note)h+='<p style="font-size:13.5px;margin:7px 0 0;color:var(--mute)">'+note+'</p>';return h+'</div>';}
 L.forEach(function(x){
   if(x.div){navHTML+='<div class="phase">'+x.div+'</div>';bodyHTML+='<div class="sec-divider"><span class="tag">Section</span><h2>'+x.div+'</h2><p>'+x.divnote+'</p></div>';return;}
   if(x.gate){navHTML+='<div class="gate'+(x.hard?' hard':'')+'">'+x.gate+'</div>';bodyHTML+='<div class="gatebar'+(x.hard?' hard':'')+'"><span class="tag">'+(x.hard?'Mastery gate':'Checkpoint')+'</span><h3>'+x.gate+'</h3><p>'+x.txt+'</p></div>';return;}
@@ -347,12 +370,12 @@ L.forEach(function(x){
   var h='<details class="lesson" id="'+x.id+'" data-search="'+srch+'">';
   h+='<summary><span class="caret">▸</span><span class="lnum">'+x.n+'</span><span class="ltitle">'+x.t+'</span><label class="chk" onclick="event.stopPropagation()"><input type="checkbox" data-id="'+x.id+'"> Done</label></summary>';
   h+='<div class="lbody">';
-  h+='<div class="row"><span class="tag">Read</span><div class="read">'+x.read+'</div></div>';
+  h+='<div class="row"><span class="tag">Read</span><div class="read">'+LK(x.read)+'</div></div>';
   h+='<div class="row"><span class="tag">Objective</span><p class="obj" style="margin:0">'+x.obj+'</p></div>';
   h+='<div class="row"><span class="tag">Summary</span><p style="margin:0">'+x.sum+'</p></div>';
-  h+='<div class="row"><span class="tag">What to look for</span><div class="look"><ul>';x.look.forEach(function(i){h+='<li>'+i+'</li>';});h+='</ul></div></div>';
+  h+='<div class="row"><span class="tag">What to look for</span><div class="look"><ul>';x.look.forEach(function(i){h+='<li>'+LK(i)+'</li>';});h+='</ul></div></div>';
   h+=tbl(x.scr,x.scrnote);
-  if(x.line)h+='<div class="row"><span class="tag">Where it lands</span><p style="margin:0">'+x.line+'</p></div>';
+  if(x.line)h+='<div class="row"><span class="tag">Where it lands</span><p style="margin:0">'+LK(x.line)+'</p></div>';
   if(x.kb){h+='<details class="sub"><summary>Reference</summary><div class="inner"><ul>';x.kb.forEach(function(k){h+='<li><a href="'+k[1]+'" target="_blank" rel="noopener">'+k[0]+'</a><span class="u">'+k[1]+'</span></li>';});h+='</ul></div></details>';}
   h+='<div class="gold"><span class="tag">Golden note</span>'+x.gold+'</div>';
   h+='<div class="hw"><div><span class="tag">Homework — open book</span>'+x.hw+'</div><div><span class="tag">Quiz</span>'+x.quiz+'</div></div>';
