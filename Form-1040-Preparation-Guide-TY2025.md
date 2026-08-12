@@ -16,7 +16,7 @@ Reference order in every section: **Publication → return line → Drake screen
 
 **Every section ends with a quiz.** Answers are in Appendix G. The quizzes test the two things that actually go wrong in practice: knowing which fact controls the outcome, and knowing where that fact is entered.
 
-**Drake screen codes** are given as `SCREEN` in bold caps. Codes marked **†** should be confirmed against your installed year before relying on them — Drake adds, splits, and retires screens between versions. Confirm any screen by pressing **F1** inside it, or by searching the code in the Federal 1040 Screen List (KB 20051).
+**Drake screen codes** are given as `SCREEN` in bold caps. Codes marked **†** are the ones still unconfirmed against a Drake source; everything unmarked has been checked against the Drake knowledge base. Confirm any screen by pressing **F1** inside it, or by searching the code in the Federal 1040 Screen List (KB 20051). Drake adds, splits, and retires screens between versions, so a dagger is a prompt to verify, not a claim that the screen does not exist.
 
 **Screen help, always:** open the screen in Drake and press **F1**. F1 returns the installed year's layout and field help. No document, including this one, can do that.
 
@@ -69,8 +69,14 @@ Pub 501 (status, dependents, standard deduction) · Pub 502 (medical) · Pub 503
 | Setup Options Overview | https://kb.drakesoftware.com/kb/Drake-Tax/18202.htm |
 | Schedule 1-A (TY2025) | https://kb.drakesoftware.com/kb/Drake-Tax/18889.htm |
 | W-2 wage verification | https://kb.drakesoftware.com/kb/Drake-Tax/10932.htm |
+| 2025 Changes for Form 1040 and Related Schedules | https://kb.drakesoftware.com/kb/Drake-Tax/18910.htm |
+| Schedule 1-A: Additional Deductions (TY2025) | https://kb.drakesoftware.com/kb/Drake-Tax/18890.htm |
+| Guide to 1098 and 1099 Informational Returns | https://kb.drakesoftware.com/kb/Drake-Tax/11742.htm |
 | Drake Tax Manual | https://www.drakesoftware.com/sharedassets/manuals/draketaxusersmanual.pdf |
+| Drake 101 — Data Entry (PDF) | https://kb.drakesoftware.com/kb/Resources/PDFs-Finished/Drake_101_Data_Entry.pdf |
 | Video tutorials | https://support.drakesoftware.com/videos/ |
+
+**Per-section KB articles are collected in Appendix H**, indexed to the guide section they support. All KB URLs follow the pattern `https://kb.drakesoftware.com/kb/Drake-Tax/<number>.htm`, so an article number is a complete reference. Article numbers are stable across years; their content is revised annually, so read them against the installed version.
 
 ---
 
@@ -102,7 +108,11 @@ Pub 501 (status, dependents, standard deduction) · Pub 502 (medical) · Pub 503
 
 ### 0.2 Navigation and field mechanics
 
-Screens **1** through **5** are the spine of the return and sit on the **General** tab, along with **W2**, **1099**, **SSA**, **A**, **2106**, and **2441**. Every other screen is opened by typing its code into the selector field at the bottom of any data entry screen. A **highlighted tab** means at least one screen on that tab has data — the fastest read on what a return already contains.
+Screens **1** through **5** are the spine of the return and sit on the **General** tab, along with **W2**, **1099**, **SSA**, **A**, **2106**, **2441**, and — new for TY2025 — **1A**. Screens are distributed across tabs by topic; confirmed tabs include **General**, **Adjustments** (where the K-1 QBI screen **K199** lives), and **Health Care** (**95A** and **8962**). **Any screen can also be opened by typing its code into the selector field** at the bottom of any data entry screen, which is faster than hunting tabs and is how this guide expects you to navigate. Where a screen's tab is not stated below, use the selector.
+
+A **highlighted tab** means at least one screen on that tab has data — the fastest read on what a return already contains.
+
+Several screens carry **sub-tabs** that hold fields easy to miss: **W2 > Additional Entries** (extra Box 12, Box 14, and state entries), **2 > Due Diligence**, **8863 > Educational Institutions**, **8867 > Overrides**, and **K1P > 1065 K1 13-20**.
 
 | Keystroke | Result |
 |---|---|
@@ -197,7 +207,9 @@ Using or disclosing a client's return information without a valid, signed, corre
 | Consent to **disclose** | Giving return information to anyone outside the firm, including a lender, another preparer, or the client's advisor |
 | §6103(c) disclosure | Authorizing the IRS to disclose e-file information to a designated party |
 
-Consents must be signed before the use or disclosure occurs, must state the purpose, and must not be bundled into an unrelated document.
+Consents must be signed before the use or disclosure occurs, must state the purpose, and must not be bundled into an unrelated document. In Drake, the taxpayer may sign the USE and DISC screens electronically and the signed consent prints with the return — **the preparer cannot sign or date these on the taxpayer's behalf.** Blank §7216 forms are also available at **Tools > Blank Forms**, searching "7216."
+
+KB: 10866 (consent forms) · 13355 (Drake E-Sign) · 11688 (alternative electronic signatures)
 
 ### 1.4 Drake — intake, identity, and consents
 
@@ -205,9 +217,9 @@ Consents must be signed before the use or disclosure occurs, must state the purp
 |---|---|---|---|
 | **IDS**† | Selector | Taxpayer and spouse identification documents: type, number, issuing authority, issue and expiration dates | Some states require ID information for e-file. Blank ID fields are a common state-only reject. |
 | **PIN** | Selector | Form 8879 signature dates, taxpayer and spouse PINs, ERO PIN | Also see 16.4 |
-| **USE**† | Selector | §7216 consent to **use** return information | Print, sign, retain |
-| **CONS**† | Selector | §7216 consent to **disclose** to another firm | Print, sign, retain |
-| **DISC**† | Selector | §6103(c) consent to disclose e-file information | Print, sign, retain |
+| **USE** | Selector | Consent to **use** tax return information | The taxpayer can e-sign the screen and the signed consent prints with the return. **The preparer may not sign or date it on the taxpayer's behalf.** |
+| **CONS** | Selector | Consent to **disclose** tax return information to other firms | Built for sub-EFIN / master-EFIN franchise and network arrangements |
+| **DISC** | Selector | Consent to disclose on behalf of the taxpayer | The preparer may not sign this for the taxpayer either |
 | **MISC** | Selector | Miscellaneous codes, IP PIN fields, third-party designee, prior-year comparison controls | The IP PIN for taxpayer, spouse, and dependents lives here in most versions† |
 | **ADMN**† | Selector | Return tracking, preparer and reviewer assignment, due diligence status | Firm workflow, not a tax form |
 | **NOTE** | Selector | Notes attached to the return; can be set to prevent the return from being marked complete | Use for unresolved intake items so the return cannot ship with an open question |
@@ -845,7 +857,7 @@ Under §121, up to $250,000 of gain ($500,000 MFJ) is excluded if the taxpayer o
 | **8949** | Selector | Individual transaction detail: description, dates, proceeds, basis, adjustment code and amount, Form 8949 box |
 | **8949**, adjustment code field | Selector | W (wash sale), B (incorrect basis), H (home sale exclusion), and others — the code drives the printed column |
 | **D** | Selector | Schedule D totals, summarized entries, and special-rate items |
-| **D2**† | Selector | Capital loss carryovers in and out, and other Schedule D entries |
+| **D2** | Selector | Capital loss carryovers in and out, plus **direct entry on Schedule D lines 1a and 8a** — the summary route for category A and D transactions with basis reported and no adjustments. Enter total proceeds and total basis rather than keying every sale. |
 | **DIV**, Box 2a | Selector | Capital gain distributions, which may reach line 7 without Schedule D |
 | **HOME**† | Selector | Sale of principal residence and the §121 exclusion |
 | **4797** | Selector | Sale of business property and depreciation recapture (5.8) |
@@ -921,7 +933,7 @@ A Schedule C loss offsets other income, but check: at-risk limits (Form 6198), p
 |---|---|---|
 | **C** | Selector | One screen per business. Business code, name, EIN, accounting method, material participation, receipts, expenses by line, 1099 filing questions |
 | **C**, "business income is QBI" / QBI fields† | Selector | Controls whether the activity feeds Form 8995 (Part 9) |
-| **4562** | Selector | Depreciation and amortization; asset-by-asset detail; §179 and bonus elections. Link each asset to the correct activity with the **multi-form code**. |
+| **4562** | Selector | Depreciation and amortization; asset-by-asset detail; §179 and bonus elections. Link each asset to the correct activity with the **multi-form code**. Use this detail screen, **not** the override screens 6–9, which exist only for depreciation computed outside Drake. |
 | **AUTO**† | Selector | Vehicle detail — mileage, actual expenses, business use percentage. Also linked by multi-form code. |
 | **8829** | Selector | Business use of home; simplified or actual method |
 | **SE** | Selector | Schedule SE; usually automatic, used for adjustments, optional methods, and clergy |
@@ -948,6 +960,9 @@ Screen help: F1 · https://kb.drakesoftware.com/kb/Drake-Tax/20051.htm
 - Reporting gross 1099-K receipts and separately reporting the same sales as cash receipts, double-counting income.
 - Leaving the multi-form code blank on a return with two businesses.
 - Answering the 1099 filing requirement questions without asking the client.
+- **Two software-specific depreciation traps.** Omitting the asset's **Life** on screen 4562 generates EF message 2408 and blocks e-file. And a description beginning with the word **LAND** suppresses the depreciation calculation entirely — enter "BUILDING AND LAND," never "LAND AND BUILDING." The second one fails silently. (KB 11881, 14188)
+
+KB: 11794 (4562 screen vs. screens 6-9) · 11881 (§179, limits, EF message 2408) · 14188 (description keywords) · 10108 (depreciation calculation) · 11565 (recapture) · 10893 (auto expenses) · 10520 (1099-K data entry) · 10519 (SE health insurance)
 
 ### Quiz 5.8
 
@@ -1434,13 +1449,17 @@ A deduction of $6,000 for each taxpayer age 65 or older by the end of the tax ye
 
 | Screen | Where | Detail |
 |---|---|---|
-| **1A**† | Selector | Schedule 1-A: tips, overtime, car loan interest (with VIN), and senior deduction, plus the MAGI computation in Part I |
+| **1A** | **General** | Schedule 1-A: tips, overtime, car loan interest, and senior deduction, plus the MAGI computation in Part I |
+| **1A**, line 14a | General | Qualified overtime compensation included in **Form W-2 Box 1** |
+| **1A**, line 14b | General | Qualified overtime compensation included in **Form 1099-NEC Box 1 or Form 1099-MISC Box 3** — the self-employed and contractor side, easy to miss |
+| **1A**, vehicle section | General | Up to **four vehicles**, each with a taxpayer/spouse selector, the VIN, and the **loan origination date**, which must be after 12/31/2024 |
 | **1** | General | Dates of birth, which drive the senior deduction |
 | **W2**, Boxes 7 and 14 | General | Source of reported tips and employer-reported qualified overtime |
 | **C** | Selector | Self-employed tip income and the business net income limit |
-| **1A**, VIN field† | Selector | Required for the car loan interest deduction |
 
-KB: https://kb.drakesoftware.com/kb/Drake-Tax/18889.htm · Screen help: F1
+The Schedule 1-A total carries to **Form 1040 line 13b** (Form 1040-SR line 13b; Form 1040-NR line 13c).
+
+KB: 18890 (Schedule 1-A) · 18874 (overtime) · 18926 (car loan interest) · 18889 (New Tax Bill) · 18910 (2025 changes for Form 1040) · Screen help: F1
 
 **Because this schedule is new, confirm its behavior in the installed software before relying on it in front of a client.** Verify that the deduction appears on Form 1040 line 13b, that the MAGI phaseouts compute, and that the senior deduction stacks with the additional standard deduction rather than replacing it.
 
@@ -1549,9 +1568,10 @@ There is a state wrinkle: several states require itemized deductions on the stat
 | Screen | Where | Detail |
 |---|---|---|
 | **1** | General | Filing status, DOB, blind, dependent-of-another — the entire standard deduction computation |
-| **A** | General | Schedule A: medical, taxes, interest, contributions, other. Detail worksheets (CTRL+W) behind most lines. |
+| **A** | General | Schedule A: medical, taxes, interest, contributions, other. Detail worksheets (CTRL+W) behind most lines. **Schedule A is not produced unless itemized deductions exceed the standard deduction or the schedule is forced** (KB 16988) — so its absence in View is an answer, not an error. |
 | **A**, sales tax fields | General | Election between income tax and sales tax |
-| **STAX**† | Selector | Optional sales tax table computation and large-purchase entries |
+| **STAX** | Selector | Optional sales tax table computation and large-purchase entries. Mark *Print the General Sales Tax Worksheet* to review the computation as **Wks STAX** in View. |
+| **Wks SALT** | View | The state and local tax limitation worksheet — read it to see how the TY2025 cap and phase-down were applied (KB 15833) |
 | **A**, prior-year carryover fields | General | Charitable contribution carryover **in** from prior years |
 | **A**, carryover-to-future link† | General | Charitable carryover **out** to next year — verify this populates before rollover |
 | **1098**† | Selector | Mortgage interest statement detail, including outstanding principal for the acquisition debt limit |
@@ -1625,7 +1645,9 @@ A **qualified business loss** carries forward and reduces QBI in the following y
 | **8995A**† | Selector | Full computation, wage and property limits, SSTB phase-in |
 | **C**, QBI fields† | Selector | Marks the Schedule C as a qualified trade or business and identifies SSTB status |
 | **E**, QBI fields† | Selector | Rental QBI treatment and safe harbor election |
-| **K1P** / **K1S**, §199A section | Selector | QBI, W-2 wages, UBIA, and SSTB indicator supplied by the entity — box 20 codes on a 1065 K-1, box 17 on an 1120-S K-1 |
+| **K199** | **Adjustments** | The dedicated K-1 QBI screen. Select **K1P**, **K1S**, or **K1F** in the *For* box and enter the **multi-form code**, which is required — a blank MFC misroutes the QBI data. |
+| **K1P > 1065 K1 13-20** | Tab | Box 20 QBI amounts, including code AD, entered in the Qualified Business Income section |
+| **C** / **F**, Override Calculated QBI field | Selector | Schedule C and F activities are treated as qualified trades or businesses **by default**. Enter zero here to exclude an activity you have determined is not one. |
 | **DIV**, Box 5 | Selector | §199A REIT dividends, which produce a deduction with no business at all |
 | **8995A**, aggregation† | Selector | Election to aggregate businesses to improve the wage and property limits |
 
@@ -1956,8 +1978,8 @@ Required when the taxpayer paid a household employee (nanny, housekeeper, caregi
 | **5329** | Selector | Additional taxes and exception codes; separate parts for IRAs, HSAs, MSAs, Coverdell, 529 |
 | **8959** | Selector | Additional Medicare tax; pulls wages and SE income automatically |
 | **8960** | Selector | Net investment income tax, with fields for allocable deductions |
-| **95A**† | Selector | Form 1095-A entry, month by month: enrollment premium, SLCSP, advance credit |
-| **8962** | Selector | Premium tax credit reconciliation, shared policy allocation, alternative calculation for year of marriage |
+| **95A** | **Health Care** | Form 1095-A entry, month by month: enrollment premium, SLCSP, advance credit. **One 95A screen per 1095-A**, differentiated by the Marketplace-assigned policy number — if that number exceeds 15 characters, enter only the **last 15**. |
+| **8962** | **Health Care** | Premium tax credit reconciliation, shared policy allocation, alternative calculation for the year of marriage. Overrides available for lines 4 and 11–23, which otherwise flow from 95A. |
 | **H**† | Selector | Schedule H, household employment taxes |
 | **5405** | Selector | First-time homebuyer credit repayment |
 | **6251** | Selector | AMT |
@@ -2217,11 +2239,11 @@ Document the question asked and the answer received, in the file, at the time. A
 
 | Screen | Where | Detail |
 |---|---|---|
-| **8867** | Selector | Paid preparer's due diligence checklist, credit by credit |
-| **8867 > Due Diligence Assist**† | Link | Guided completion prompting the required questions |
-| **8867 > Overrides tab**† | Tab | Overrides where the automatic answers are wrong |
-| **DD1** | Selector | Due diligence questions and documentation, including the head of household section |
-| **DD2**† | Selector | Additional due diligence documentation |
+| **8867** | **General** | Paid preparer's due diligence checklist, covering the EIC, AOTC, and CTC/ACTC/ODC interview questions. Where a covered credit is present, the applicable questions **must** be completed before the return will e-file. |
+| **8867 > Overrides** | Tab | Overrides where the automatic answers are wrong |
+| **DD1** | **General** | Due diligence questions and documentation, including the head of household section. Provides entry for **three children**, matching Schedule EIC. |
+| **DD2** | **General** | Additional due diligence documentation |
+| **2 > Due Diligence** | Tab | Per-dependent due diligence, including the indicator that the taxpayer holds Form 8332 or a substantially similar statement and qualifies for the child tax credit |
 | **NOTE** | Selector | Contemporaneous notes attached to the return |
 | **ADMN**† | Selector | Reviewer sign-off and workflow tracking |
 | **PDF** | Selector | Attach scanned supporting documents to the return file |
@@ -2398,8 +2420,8 @@ This list is the reason a returning client must be carried forward rather than r
 
 | Screen | Where | Detail |
 |---|---|---|
-| **X**† | Selector | Form 1040-X; open it after the original figures are in place so the software populates column A |
-| **EF** | Selector | Select the amended return for e-file |
+| **X** | Selector | Form 1040-X. Use the **auto-fill** function to pull the original column A figures from the return as originally prepared in Drake, or key them directly. Then **leave the X screen** and make the corrections in normal data entry — that is what produces the amended column. |
+| **EF** | Selector | Check the **1040-X** box to e-file the amended return, and select the state amended return from the drop list where the state supports it. Form 1040-X e-files for the current year and two prior years. Calculate and confirm a green check mark on Form 1040-X before transmitting. |
 | **PDF** | Selector | Attach supporting documentation |
 | **9465** | Selector | Installment agreement following a balance due |
 | **2848** / **8821**† | Selector | Representation and information authorization |
@@ -2460,7 +2482,7 @@ Drake also ships a **DOCS**† screen — a source document guide for 1098 and 1
 
 # APPENDIX B — DRAKE SCREEN INDEX
 
-Screens marked **†** should be confirmed against the installed year. Screens on the **General** tab are reachable directly; all others are typed into the selector field.
+Screens marked **†** are still unconfirmed against a Drake source — verify these against the installed year. Everything unmarked was confirmed via the Drake knowledge base (see Appendix H). Any screen can be reached by typing its code into the selector field; tab assignments are noted where confirmed.
 
 **The spine (General tab)**
 
@@ -2471,27 +2493,31 @@ Screens marked **†** should be confirmed against the installed year. Screens o
 | **3** | Additional income — Schedule 1 Part I |
 | **4** | Adjustments — Schedule 1 Part II |
 | **5** | Additional taxes and credits — Schedules 2 and 3 |
-| **1A**† | Additional deductions — Schedule 1-A (new TY2025) |
+| **1A** | Additional deductions — Schedule 1-A (new TY2025), **General tab** |
 
 **Income**
 
-`W2` · `W2G` · `INT` · `DIV` · `B` · `1099` · `SSA` · `RRB`† · `99G` · `99M` · `NEC` · `99K`† · `99C`† · `8949` · `D` · `D2`† · `HOME`† · `C` · `E` · `F` · `4835`† · `K1P` · `K1S` · `K1F` · `4797` · `6252` · `8824`† · `6781`† · `8814` · `8815` · `4137` · `8919` · `4852`
+`W2` · `W2G` · `INT` · `DIV` · `B` · `1099` · `SSA` · `RRB`† · `99G` · `99M` · `NEC` · `99K`† · `99C`† · `8949` · `D` · `D2` · `HOME`† · `C` · `E` · `F` · `4835` · `K1P` · `K1S` · `K1F` · `4797` · `6252` · `8824`† · `6781`† · `8814` · `8815` · `4137` · `8919` · `4852`
 
 **Business support**
 
-`4562` · `AUTO`† · `8829` · `SE` · `SEHI` · `SEP`† · `6198`† · `8582` · `461`† · `7203`† · `8995` · `8995A`†
+`4562` · `6`–`9` (depreciation overrides — avoid) · `AUTO`† · `8829` · `SE` · `SEHI` · `SEP`† · `6198` · `8582` · `461`† · `7203`† · `8995` · `8995A` · `K199` (Adjustments tab)
 
 **Adjustments**
 
-`4` · `8889` · `HSA`† · `8853` · `SEHI` · `LTC`† · `SEP`† · `8606` · `ROTH`† · `2106` · `3903`†
+`4` · `8889` · `HSA`† · `8853` · `SEHI` · `LTC`† · `SEP`† · `8606` · `ROTH` · `2106` · `3903`†
 
 **Deductions**
 
-`A` · `STAX`† · `1098`† · `8283` · `4952` · `4684`†
+`A` · `STAX` · `1098` · `8283` · `4952` · `4684`†
 
 **Credits**
 
-`8812` · `2441` · `8863` · `8880` · `1116` · `5695` · `8936` · `8839` · `8396`† · `R`† · `8801` · `8862` · `8962` · `95A`†
+`8812` · `2441` · `8863` · `8880` · `1116` · `5695` · `8936` · `8839` · `8396`† · `R`† · `8801` · `8862`
+
+**Health care tab**
+
+`95A` · `8962`
 
 **Other taxes**
 
@@ -2499,11 +2525,11 @@ Screens marked **†** should be confirmed against the installed year. Screens o
 
 **Payments and filing**
 
-`ES` · `DD` · `8888` · `PMT` · `2210` · `9465` · `4868`† · `PIN` · `EF` · `X`†
+`ES` · `DD` · `8888` · `PMT` · `2210` · `9465` · `4868`† · `PIN` · `EF` · `X`
 
 **Due diligence and administration**
 
-`8867` · `DD1` · `DD2`† · `IDS`† · `USE`† · `CONS`† · `DISC`† · `MISC` · `NOTE` · `PDF` · `ADMN`† · `PREP`† · `1310`† · `2848`† · `8821`† · `8958`† · `2120`† · `8332` · `8938` · `FBAR/114`†
+`8867` · `DD1` · `DD2` · `IDS`† · `USE` · `CONS` · `DISC` · `MISC` · `NOTE` · `PDF` · `PRNT` · `ADMN`† · `PREP`† · `1310`† · `2848`† · `8821`† · `8958`† · `2120`† · `8332` · `8938` · `FBAR/114`†
 
 ---
 
@@ -2723,8 +2749,8 @@ Complete before this guide is relied on for a live return, and once each filing 
 
 1. **Confirm every figure in Appendix C** against the IRS instructions or the annual revenue procedure. Correct in Appendix C only.
 2. **Confirm the Form 1040 line map in Appendix D** against the final TY2025 form, particularly lines 12 through 15 where Schedule 1-A was inserted.
-3. **Confirm every Drake screen code marked †** against the installed year using F1 or the Federal 1040 Screen List. Remove the dagger once confirmed.
-4. **Confirm Schedule 1-A behavior in the installed software** — that screen 1A exists, that the four deductions compute, that the phaseouts apply, that the VIN field is present, and that the senior deduction stacks with the age-65 additional standard deduction.
+3. **Confirm the remaining Drake screen codes marked †** against the installed year using F1 or the Federal 1040 Screen List (KB 20051). Remove the dagger once confirmed. The unmarked codes were verified against the Drake knowledge base; the daggered remainder is the short list still outstanding — chiefly `RRB`, `99K`, `99C`, `HOME`, `AUTO`, `SEP`, `HSA`, `LTC`, `IDS`, `ADMN`, `PREP`, and the administrative forms.
+4. **Confirm Schedule 1-A behavior in the installed software.** Screen **1A** on the General tab is confirmed, as is the carry to Form 1040 line 13b. Still verify in your installed year: that the four deductions compute, that the MAGI phaseouts apply, that line 14b captures overtime reported on Form 1099-NEC or 1099-MISC rather than only W-2 overtime on 14a, that all four vehicle entries accept a VIN and a post-12/31/2024 origination date, and that the senior deduction **stacks with** the age-65 additional standard deduction rather than replacing it.
 5. **Confirm Pub 4012 tab letters** against the printed edition.
 6. **Confirm the TY2025 energy and vehicle credit termination dates** (11.7) against current guidance, since these changed during the year.
 7. **Confirm the qualifying relative gross income limit** and the EITC maximum credit amounts, which are the two figures in Appendix C carrying the most uncertainty.
@@ -2967,6 +2993,225 @@ Complete before this guide is relied on for a live return, and once each filing 
 4. The client omitted a 1099-B, and the IRS proposed tax on the full proceeds assuming zero basis. Respond by the deadline with the basis documentation and a corrected Schedule D / Form 8949; the real liability is usually a small fraction of the proposal.
 5. Any five of: home improvement records; investment purchase records; Form 8606 IRA basis; depreciation schedules; carryover schedules; partnership and S corporation basis records; prior returns supporting a carryover or an election.
 6. Any eight of: capital loss carryover; charitable contribution carryover; passive activity loss carryover; NOL; §179 carryover; at-risk carryover; depreciation basis and accumulated depreciation; Form 8606 IRA basis; AMT credit; foreign tax credit carryover; residential clean energy credit carryover; adoption credit carryover; investment interest expense carryover; state overpayment applied; installment sale balances.
+
+---
+
+# APPENDIX H — DRAKE KB ARTICLE INDEX BY SECTION
+
+Every article below was confirmed to exist. Article numbers are stable across years; the **content** is updated per year, so an article still needs to be read against the installed version. F1 inside the screen remains the authority for the installed year's field layout.
+
+URL pattern: `https://kb.drakesoftware.com/kb/Drake-Tax/<number>.htm`
+
+**Orientation and navigation**
+
+| Article | Title |
+|---|---|
+| 20051 | Federal 1040: Screen List |
+| 13109 | Data Entry Basics |
+| 10221 | Creating a New Return |
+| 14287 | Data Entry Toolbar |
+| 18202 | Setup Options Overview |
+| 20072 | Viewing and Printing a Return |
+| 12615 | Right-Click Menus in Drake Software |
+| 10855 | Comparison Sheet FAQs (prior-year comparison) |
+| 12496 | Practice Management Tools |
+| — | Drake 101 – Data Entry (PDF): `kb.drakesoftware.com/kb/Resources/PDFs-Finished/Drake_101_Data_Entry.pdf` |
+
+**TY2025 / OBBBA — read these first**
+
+| Article | Title | Guide section |
+|---|---|---|
+| 18910 | 2025 Changes for Form 1040 and Related Schedules and Forms | Front matter |
+| 18889 | New Tax Bill | Front matter |
+| 18890 | Schedule 1-A: Additional Deductions | Part 7 |
+| 18874 | Qualified Overtime Compensation Deduction ("No Tax on Overtime") | 7.3 |
+| 18926 | Qualified Passenger Vehicle Loan Interest Deduction ("No Tax on Car Loan Interest") | 7.4 |
+| 18837 | Drake Tax Planner Updates for New Tax Bill | Part 14 |
+| 18950 | SC – New Tax Bill Non-Conformity (2025) — a template for checking state conformity | Part 8 |
+
+**Part 1 — Intake, identity, consent**
+
+| Article | Title |
+|---|---|
+| 10866 | Consent Forms for Use and Disclosure of Tax Return Information (§7216) |
+| 13355 | Drake E-Sign (in-person or online) |
+| 11688 | Setting Up Alternative Electronic Signatures |
+
+**Parts 3–4 — Filing status and dependents**
+
+| Article | Title |
+|---|---|
+| 10558 | 8332: Release / Revoke of Claim of Dependent |
+| 14867 | Not a Dependent: HOH Qualifier |
+| 14573 | Child Tax Credit – Fewer Than 7 Months in Home |
+| 18340 | 8812: CTC, ACTC, and ODC |
+
+**5.1 — Wages**
+
+| Article | Title |
+|---|---|
+| 10932 | 1040: Wage or Distribution and Withholding Verification Fields |
+| 10378 | W-2: Additional Entries for Boxes 12, 14, and States |
+| 10796 | W2 Import Feature |
+| 10623 | Forms W-2 and 1099 in View and Sets |
+
+**5.3–5.4 — Interest and dividends**
+
+| Article | Title |
+|---|---|
+| 11742 | Guide to 1098 and 1099 Informational Returns — the master source-document index |
+
+**5.5 — Retirement distributions**
+
+| Article | Title |
+|---|---|
+| 10437 | 1099-R: Taxable Amount FAQs |
+| 10177 | 1040: 1099-R ROLLOVER Checkbox or Literal |
+| 11185 | 1099-R – Roth Distributions and Rollovers |
+| 17107 | 1099-R – Additional Information Check Boxes |
+| 16070 | 1099-R – Box 7 Code J |
+| 13788 | 5329 – Common Scenarios and Questions |
+| 15519 | Forms 8915-A through 8915-E (disaster distributions) |
+
+**5.7 — Capital gains and basis**
+
+| Article | Title |
+|---|---|
+| 10542 | 1099-B – Broker and Barter Transactions |
+| 12530 | Schedule D: Lines 1a and 8a (summary reporting without Form 8949) |
+| 13157 | 8949: Code on Part I or II (adjustment codes) |
+| 10139 | Schedule D / Form 8949 Import |
+| 11978 | 8949 – Import Transactions, PDI Indicator or PDF Attachment |
+| 13244 | 1040: Importing Multiple Schedule D Transaction Spreadsheets |
+| 11409 | 8949: EF Message 5310 |
+| 14125 | Sale of Asset Used for Personal and Business Use |
+
+**5.8 — Self-employment and depreciation**
+
+| Article | Title |
+|---|---|
+| 11794 | 4562 Screen and Screens 6-9 (use the detail screen, not the overrides) |
+| 11881 | 4562: Common Issues, Limits, Section 179 Data Entry, EF Message 2408 |
+| 10108 | Depreciation Calculation |
+| 14188 | 4562: Description Keywords — **do not begin a description with LAND** or depreciation will not calculate |
+| 11419 | 4562: Printing Issues |
+| 11565 | 1040: Recapturing Depreciation |
+| 10893 | 1040: Auto expenses |
+| 10520 | 1099-K: Data Entry |
+| 10519 | Self-Employment Health Insurance Deduction |
+
+**5.9 — Rental and passive losses**
+
+| Article | Title |
+|---|---|
+| 10284 | 1040: Form 8582 |
+| 10311 | 1040: Prior Unallowed Passive Operating Losses |
+| 10128 | 1040: Losses Not on Schedule E, page 2 |
+| 18104 | Schedule E: Activity Type, Section 179, Note 120 |
+| 14249 | Schedule E: Disposition of Rental Property |
+| 10113 | Self-Rental and Land, Note 357 |
+| 10210 | 4835: Farm Rental Income and Expenses |
+| 11138 | 4797: Passive Activity Adjustment |
+
+**5.10 — K-1s**
+
+| Article | Title |
+|---|---|
+| 11124 | K1P: Income from PTP Considered Nonpassive |
+| 16617 | 1065/1120-S – Wks QBI Calculation and Override |
+
+**Part 6 — Adjustments**
+
+| Article | Title |
+|---|---|
+| 11734 | 8889 – Frequently Asked Questions (HSA) |
+| 15856 | 1040 – Death of HSA Account Beneficiary |
+| 10286 | 8606: Lines 4 or 8 are Blank |
+| 10365 | IRA: Recharacterization |
+| 14711 | 1040: IRA Deduction Not Showing on Return |
+| 10439 | 1098-E: Student Loan Interest Deduction |
+| 10519 | Self-Employment Health Insurance Deduction |
+
+**Part 8 — Schedule A**
+
+| Article | Title |
+|---|---|
+| 16988 | Schedule A – Force Itemized or Standard Deduction |
+| 15833 | Schedule A – State and Local Income Tax Deduction Limitation (Wks SALT) |
+| 10641 | 1098: Mortgage Interest Deduction Limitation |
+| 13229 | 1098: Splitting Mortgage Interest |
+| 11513 | 1098 – Mortgage Insurance Premiums |
+| 10584 | 1098-MA |
+| 11171 | 1098-C: Data Entry (vehicle donation) |
+
+**Part 9 — QBI**
+
+| Article | Title |
+|---|---|
+| 15919 | QBI Deduction: Frequently Asked Questions |
+| 16072 | QBI Deduction – Specified Service Trade or Business (SSTB) |
+| 16071 | QBI Deduction: Business Aggregation |
+| 16013 | QBI: Unadjusted Basis Immediately After Acquisition (UBIA) |
+| 16616 | QBI – Form 8995-A – Schedule C Loss Netting and Carryforward |
+| 16054 | QBI Deduction – W2 Wage Allocation 1120-S |
+| 16431 | QBI Deduction – 1120-S/1065 Message Amount Unallocated |
+
+**Part 11 — Credits**
+
+| Article | Title |
+|---|---|
+| 18340 | 8812: CTC, ACTC, and ODC |
+| 12153 | 8863: Education Benefits |
+| 10991 | 1098-T: Data Entry |
+| 10886 | EIC: Frequently Asked Questions |
+
+**Part 12 — Other taxes and ACA**
+
+| Article | Title |
+|---|---|
+| 13091 | ACA Reporting Forms 1095-A, 1095-B, 1094-C, 1095-C |
+| 14067 | 8962: Shared Policy Allocation (ACA) |
+| 17542 | Reject "F8962-070" – Forms 1095-A and 8962 Missing |
+
+**Parts 13–14 — Payments, refund, balance due**
+
+| Article | Title |
+|---|---|
+| 11656 | Form 8888: Direct Deposit |
+| 10136 | Federal and State Payments – Electronic Funds Withdrawal Setup |
+| 11567 | Wrong Direct Deposit or Direct Debit Bank Information on an e-Filed Return |
+| 13370 | State Returns: Estimated Tax Vouchers Direct Debit |
+
+**Part 15 — Due diligence**
+
+| Article | Title |
+|---|---|
+| 14291 | 1040: Due Diligence FAQs |
+| 14268 | Facts About Refundable Credits Due Diligence |
+
+**Part 16 — Review, e-file, transmission**
+
+| Article | Title |
+|---|---|
+| 10117 | Clearing EF Messages |
+| 10398 | EF Return Selector – Messages and Troubleshooting |
+| 19003 | Allow EF Selection from the Calculation Results Window (admin only) |
+| 18896 | EF Messages 5330, 5350, 0672, 5084, 5090, 5091, 5092 |
+| 10853 | 1040: EF Message 5331 |
+| 20076 | EF Message 6219 |
+| 14183 | 1040: EF Message 5429 |
+| 20072 | Viewing and Printing a Return |
+
+**Part 17 — After the return**
+
+| Article | Title |
+|---|---|
+| 16841 | 1040: Generating an Amended Return |
+| 10979 | 1040-X: FAQs and Troubleshooting |
+| 17897 | Superseded Returns |
+| 16938 | States Generally – Generating and e-Filing Amended Individual Returns |
+
+**Other entity screen lists**, for when a K-1 traces back to its source: 1065 — 20054 · 1120-S — 20056 · 1120 — 20055 · 1041 — 20053.
 
 ---
 
