@@ -115,6 +115,7 @@ footer .fine{font-size:11.5px;line-height:1.5;opacity:.85;margin-top:14px;paddin
     <div class="tabs" role="tablist">
       <button role="tab" id="tab1" aria-selected="true" aria-controls="pane1">Core lessons<span class="c" id="c1"></span></button>
       <button role="tab" id="tab2" aria-selected="false" aria-controls="pane2">OBBBA, energy, Social Security, Wisconsin<span class="c" id="c2"></span></button>
+      <button role="tab" id="tab3" aria-selected="false" aria-controls="pane3">Practice returns<span class="c" id="c3"></span></button>
     </div>
   </div>
   <div class="pane on" id="pane1" role="tabpanel" aria-labelledby="tab1">
@@ -143,6 +144,7 @@ footer .fine{font-size:11.5px;line-height:1.5;opacity:.85;margin-top:14px;paddin
     <div id="fm2"></div>
     <div id="body2"></div>
   </div>
+  <div class="pane" id="pane3" role="tabpanel" aria-labelledby="tab3"><div id="body3"></div></div>
   <footer>
     Screen codes verified against <a href="https://kb.drakesoftware.com/kb/Drake-Tax/20051.htm" target="_blank" rel="noopener">Drake KB 20051</a>; confirm against your installed year. Federal sources: Drake Knowledge Base, IRS Notice 2025-69, IRS Notice 2025-57, OBBBA §70505. Wisconsin sources: Wisconsin Tax Bulletin 232 (January 2026), 2025 Form 1 and Schedule I, SB instructions, Drake KB 20050 and 14923. Progress is stored in this browser only.
     <p class="fine">Not tax advice and not authority. Summaries and golden notes are teaching simplifications; real rules carry exceptions, limits and interactions a one-sentence takeaway cannot hold. The Code, regulations, form instructions and IRS publications govern — and for Wisconsin, the Wisconsin Statutes and Department of Revenue instructions — and where they disagree with this document, this document is wrong. Content reflects tax year 2025 and goes stale. © 2026 Tenaglia &amp; Associates, SC.</p>
@@ -501,6 +503,228 @@ quiz:"What must be attached to claim a Wisconsin extension? How long does a taxp
 /* ---- Part 2 front matter, moved verbatim from the second document ---- */
 var FM2="  <div class=\"block\" id=\"scope\">\n    <h2>Scope</h2>\n    <p>This covers the <strong>individual income tax return, Form 1040, from intake through filing</strong>. Everything a personal return can contain is either here or named in the table below as not yet written. Entity returns \u2014 1065, 1120-S, 1120, 1041, 709 \u2014 are out of scope except where a Schedule K-1 feeds the individual return.</p>\n    <p>Finishing the return is part of the work, not an afterthought: running View, clearing every EF message, checking the bank details, setting up the payment or the vouchers, the signature, and transmission. Lesson 12 in Part 1 covers all of it.</p>\n    <p><strong>One role note, which is about firms and not about this document.</strong> Where a return is prepared for compensation inside a firm, the preparer who signs it owns the e-file authorization, the PIN screen, the EF selections, and the transmission, and that person carries the Circular 230 and \u00a76695 exposure. If you are learning inside a firm, expect to hand off at that line. If you are preparing your own return, there is no handoff and the whole sequence is yours. Either way the return has to be finished correctly before anyone touches the transmit button, which is why the finishing steps are taught rather than skipped.</p>\n    <h3>Lesson coverage, and where the rest already lives</h3>\n    <p>The <em>lesson sequence</em> in Parts 1 and 2 covers Phase 0, Phase 1 and Ring A, plus Social Security pulled forward. The rings below are not yet written as lessons, and nobody should be told the curriculum is complete.</p>\n    <p><strong>The reference coverage is not the same thing as the lesson coverage.</strong> Every topic below is already written up in the companion <em>Form 1040 Preparation Guide</em>, in the same publication \u2192 line \u2192 Drake screen order, with the same traps and quizzes. So the material is usable as a complete reference for a personal return today, even though the guided path stops at Ring A. Use the guide section when you hit one of these mid-return; wait for the lesson when you want to be taught it.</p>\n    <table><thead><tr><th>Ring</th><th>Topic</th><th>Lessons</th><th>Reference section</th></tr></thead><tbody>\n    <tr><td>B</td><td>Schedule C, business expenses, home office and vehicle, Schedule SE, QBI</td><td>19\u201323</td><td>Guide 5.8, 12.2, Part 9</td></tr>\n    <tr><td>C</td><td>1099-R and distribution codes, early distribution penalty and Form 5329, basis and Form 8606, Roth conversions</td><td>24\u201326</td><td>Guide 5.5, 6.6</td></tr>\n    <tr><td>D</td><td>Basis fundamentals, Form 8949 and Schedule D, wash sales and carryovers, \u00a7121 sale of a residence</td><td>28\u201331</td><td>Guide 5.7</td></tr>\n    <tr><td>E</td><td>EITC and its due diligence file, education credits and Form 8863, dependent care and Form 2441, HSA distributions, premium tax credit and Form 8962</td><td>32\u201336</td><td>Guide 13.4, 11.4, 11.3, 6.4, 12.6</td></tr>\n    <tr><td>F</td><td>Schedule E rentals, K-1 intake, placement review of Schedule 1 Part I items, estimated tax and Form 1040-X</td><td>37\u201340</td><td>Guide 5.9, 5.10, 5.12, 5.13, 14.3, Part 17</td></tr>\n    <tr><td>WI</td><td>Homestead credit, school property tax credit, part-year and nonresident returns on Form 1NPR, Wisconsin credits generally</td><td>W6\u2013W8</td><td><span class=\"blank\">Not written anywhere yet \u2014 the real gap</span></td></tr>\n    </tbody></table>\n    <p>The guide additionally carries the parts of a personal return that never became rings at all: filing status and dependents in full, the complete income catalogue including gambling, cancellation of debt and digital assets, every Schedule 1 Part II adjustment, Schedule A in full, other taxes on Schedule 2, the payments block, refund and balance-due mechanics, penalties and estimates, quality review and e-file, and amended and superseded returns.</p>\n  </div>\n\n  <div class=\"block\" id=\"figures\">\n    <h2>Figures &amp; Lines Sheet \u2014 Tax Year 2025</h2>\n    <p>Every amount referenced in Parts 1 and 2 lives here and nowhere else. When a figure moves, this table changes and no lesson has to be rewritten.</p>\n    <p>The eleven blank figures have been filled from Rev. Proc. 2024-40, the Schedule 1-A instructions, and 2025 Wisconsin Act 15. Entries still shown in <span class=\"blank\">yellow</span> are the ones that remain, and they are deliberately narrow: the full federal bracket schedule, which should be read off the tax table rather than copied here; the educator expense cap, which is almost certainly unchanged at $300 but was not separately confirmed for 2025; and the Wisconsin MFJ and MFS upper bracket boundaries. Everything else in this sheet now carries a source.</p>\n\n    <h3>Federal \u2014 OBBBA provisions</h3>\n    <table><thead><tr><th>Item</th><th>Amount</th><th>Source</th></tr></thead><tbody>\n    <tr><td>Child tax credit</td><td>$2,200</td><td>Drake KB 18837</td></tr>\n    <tr><td>SALT cap</td><td>$40,000, reduced by 30% of AGI over $500,000</td><td>Drake KB 18837</td></tr>\n    <tr><td>Senior deduction, Schedule 1-A</td><td>$6,000 per eligible individual, age 65+, 2025\u20132028, not MFS</td><td>Drake KB 18890</td></tr>\n    <tr><td>Car loan interest phaseout</td><td>Begins $100,000 MAGI, $200,000 joint; reduced $200 per $1,000 over</td><td>Schedule 1-A instructions</td></tr>\n    <tr><td>\u00a7179 expense limit</td><td>$2,500,000, phaseout begins $4,000,000</td><td>Drake KB 18837</td></tr>\n    <tr><td>Bonus depreciation</td><td>100% for assets placed in service after 19 January 2025</td><td>Drake KB 18837</td></tr>\n    <tr><td>Tips deduction cap</td><td>$25,000</td><td>Schedule 1-A instructions</td></tr>\n    <tr><td>Overtime deduction cap</td><td>$12,500; $25,000 joint</td><td>Schedule 1-A instructions</td></tr>\n    <tr><td>Tips and overtime MAGI phaseout</td><td>Begins $150,000; $300,000 joint</td><td>Schedule 1-A instructions</td></tr>\n    <tr><td>Senior deduction MAGI phaseout</td><td>Begins $75,000; $150,000 joint</td><td>Schedule 1-A instructions</td></tr>\n    <tr><td>Senior deduction age test</td><td>Born before 2 January 1961, valid SSN required</td><td>Schedule 1-A instructions</td></tr>\n    </tbody></table>\n    <p style=\"font-size:13.5px;color:var(--mute);margin:9px 0 0\">Each of the four has its own phaseout and each is tested on the Schedule 1-A Part I MAGI, not on AGI from the face of the 1040. Tips, overtime and the senior deduction require a joint return if the taxpayer is married. Car loan interest does not \u2014 see the note in Lesson 13A.</p>\n\n    <h3>Federal \u2014 core amounts</h3>\n    <table><thead><tr><th>Item</th><th>Amount</th><th>Source</th></tr></thead><tbody>\n    <tr><td>Standard deduction by filing status</td><td>$15,750 single and MFS \u00b7 $31,500 MFJ and QSS \u00b7 $23,625 head of household</td><td>Rev. Proc. 2024-40, Form 1040 instructions</td></tr>\n    <tr><td>Additional standard deduction, 65+ or blind</td><td>$2,000 per condition if unmarried \u00b7 $1,600 per condition per person if married or QSS. Both 65 <em>and</em> blind: $4,000 unmarried, $3,200 per qualifying married individual.</td><td>Rev. Proc. 2024-40, Form 1040 instructions</td></tr>\n    <tr><td>Standard deduction, dependent of another</td><td>Greater of $1,350 or earned income + $450, capped at the regular amount</td><td>Rev. Proc. 2024-40</td></tr>\n    <tr><td>Tax rates</td><td>10 \u00b7 12 \u00b7 22 \u00b7 24 \u00b7 32 \u00b7 35 \u00b7 37 percent. The 24% bracket ends at $197,300 single and $394,600 joint \u2014 the same figures as the QBI threshold, which is not a coincidence. <span class=\"blank\">Use the tax table or computation worksheet for the full schedule; do not key brackets from memory.</span></td><td>Tax table / computation worksheet</td></tr>\n    <tr><td>Medical expense AGI floor</td><td>7.5%</td><td>Schedule A instructions</td></tr>\n    <tr><td>Schedule B filing threshold</td><td>$1,500 of taxable interest or ordinary dividends</td><td>Drake KB 10871</td></tr>\n    <tr><td>Mortgage acquisition debt limit</td><td>$750,000; $375,000 if MFS. Debt incurred before 16 December 2017 grandfathered at $1,000,000.</td><td>Drake KB 10641</td></tr>\n    <tr><td>IRA contribution limit</td><td>$7,000, plus $1,000 catch-up at 50</td><td>Pub 590-A</td></tr>\n    <tr><td>IRA deduction phaseout, covered by a plan</td><td>$79,000\u2013$89,000 single and HOH \u00b7 $126,000\u2013$146,000 MFJ</td><td>Pub 590-A</td></tr>\n    <tr><td>IRA deduction phaseout, not covered but spouse is</td><td>$236,000\u2013$246,000. MFS is $0\u2013$10,000 in every case.</td><td>Pub 590-A</td></tr>\n    <tr><td>HSA contribution limits</td><td>$4,300 self-only \u00b7 $8,550 family \u00b7 $1,000 catch-up at 55</td><td>Pub 969, Form 8889 instructions</td></tr>\n    <tr><td>HDHP qualification</td><td>Minimum deductible $1,650 self-only / $3,300 family \u00b7 out-of-pocket maximum $8,300 / $16,600</td><td>Pub 969</td></tr>\n    <tr><td>Student loan interest cap and phaseout</td><td>$2,500 cap \u00b7 $85,000\u2013$100,000 single, HOH and QSS \u00b7 $170,000\u2013$200,000 MFJ \u00b7 disallowed for MFS</td><td>Rev. Proc. 2024-40, Drake KB 10439, Wks SLID</td></tr>\n    <tr><td>Educator expense cap</td><td>$300 per eligible educator; $600 on a joint return where both qualify. 900-hour K\u201312 test. <span class=\"blank\">Confirm against the current Form 1040 instructions \u2014 not separately verified for 2025.</span></td><td>Drake KB 11196</td></tr>\n    <tr><td>Charitable substantiation thresholds</td><td>$250 \u2014 contemporaneous written acknowledgment \u00b7 over $500 \u2014 Form 8283 Section A \u00b7 over $5,000 \u2014 Section B plus a qualified appraisal</td><td>Pub 526, Form 8283 instructions</td></tr>\n    <tr><td>Charitable AGI limits</td><td>60% cash to public charities \u00b7 30% appreciated capital gain property \u00b7 five-year carryforward</td><td>Pub 526</td></tr>\n    <tr><td>Qualifying relative gross income limit</td><td>$5,200, up from $5,050 in 2024</td><td>Rev. Proc. 2024-40</td></tr>\n    </tbody></table>\n\n    <h3>Federal \u2014 residential energy, terminating</h3>\n    <table><thead><tr><th>Item</th><th>Amount</th><th>Ends</th></tr></thead><tbody>\n    <tr><td>25C general annual cap</td><td>$1,200</td><td>Placed in service after 31 Dec 2025</td></tr>\n    <tr><td>25C heat pumps and heat pump water heaters</td><td>$2,000, separate cap</td><td>Placed in service after 31 Dec 2025</td></tr>\n    <tr><td>25D residential clean energy</td><td>30%, uncapped</td><td>Expenditures after 31 Dec 2025</td></tr>\n    <tr><td>Clean vehicle credits</td><td>\u2014</td><td>Vehicles acquired after 30 Sep 2025</td></tr>\n    </tbody></table>\n\n    <h3>Wisconsin</h3>\n    <table><thead><tr><th>Item</th><th>Amount</th><th>Source</th></tr></thead><tbody>\n    <tr><td><strong>IRC conformity date</strong></td><td><strong>31 December 2022</strong> \u2014 OBBBA does not apply</td><td>WTB 232, Jan 2026</td></tr>\n    <tr><td>Capital gain taxable portion, most assets</td><td>70% (30% exclusion)</td><td>sec. 71.05(6)(b)9, Wis. Stats.</td></tr>\n    <tr><td>Capital gain taxable portion, farm assets</td><td>40% (60% exclusion)</td><td>sec. 71.05(6)(b)9m, Wis. Stats.</td></tr>\n    <tr><td>Tuition and fees subtraction</td><td>$7,649 per student</td><td>WTB 232 \u2014 note Drake KB still shows the 2024 figure of $7,333</td></tr>\n    <tr><td>College savings subtraction</td><td>$5,130 per beneficiary; $2,560 if MFS</td><td>WTB 232</td></tr>\n    <tr><td>Adoption expense subtraction</td><td>$15,000 per child, up from $5,000</td><td>WTB 232</td></tr>\n    <tr><td>Retirement income subtraction</td><td>New for 2025, age 67+ at year end \u2014 Schedule SB line 16</td><td>WTB 232, Schedule SB</td></tr>\n    <tr><td>Married couple credit</td><td>3% of the smaller income, capped at $16,000 of income \u2014 $480 maximum</td><td>Form 1, Schedule 2</td></tr>\n    <tr><td>Late filing fee</td><td>$50 if filed after 15 October 2026</td><td>WTB 232</td></tr>\n    <tr><td>Wisconsin standard deduction, maximum before phaseout</td><td>$13,560 single \u00b7 $17,520 head of household \u00b7 $25,110 MFJ \u00b7 $11,930 MFS. Sliding scale: the amount shrinks as Wisconsin income rises and reaches zero at the top of the table, so it must be read off the Form 1 table rather than assumed.</td><td>Form 1 instructions</td></tr>\n    <tr><td>Itemized deduction credit rate</td><td>5% of qualifying federal itemized deductions to the extent they exceed the Wisconsin standard deduction</td><td>Form 1 instructions, Schedule 1 on page 4 of Form 1</td></tr>\n    <tr><td>Tax rates</td><td>3.50% \u00b7 4.40% \u00b7 5.30% \u00b7 7.65%</td><td>Form 1 instructions</td></tr>\n    <tr><td>Brackets, single and head of household</td><td>3.50% to $14,679 \u00b7 4.40% $14,680\u2013$50,479 \u00b7 5.30% $50,480\u2013$323,289 \u00b7 7.65% above $323,289</td><td>2025 Wis. Act 15, Form 1 instructions</td></tr>\n    <tr><td>Second bracket expansion, 2025 Act 15</td><td>Top of the 4.40% bracket rose to $50,480 single and HOH (from $29,370), $67,300 MFJ (from $39,150), and $33,650 MFS (from $19,580). <span class=\"blank\">The MFJ and MFS 5.30%/7.65% boundaries still need reading off the Form 1 table.</span></td><td>2025 Wis. Act 15, Form 1 instructions</td></tr>\n    </tbody></table>\n    <p style=\"font-size:13.5px;color:var(--mute);margin:9px 0 0\">The second-bracket expansion is the largest Wisconsin change for 2025 and it is a rate cut for essentially every middle-income return in the office. It is also the reason a client's Wisconsin refund may be larger than last year for no reason they can see.</p>\n  </div>\n\n  <div class=\"block\" id=\"verify\">\n    <h2>Where to verify a figure</h2>\n    <p>Every amount in the sheet above is checkable in under a minute, and you should check rather than trust \u2014 including trusting this document. Where this sheet and a primary source disagree, the source wins and this sheet is wrong. Fix it here, once, so the next person is not caught by it.</p>\n\n    <h3>The one thing to understand about federal amounts</h3>\n    <p>Almost every inflation-adjusted federal figure for a year is published in a single revenue procedure, released the autumn <em>before</em> that tax year. <strong>Rev. Proc. 2024-40 carries the 2025 amounts. Rev. Proc. 2025-32 carries the 2026 amounts.</strong> Standard deduction, bracket thresholds, the qualifying relative gross income limit, the student loan interest phaseout, the EITC tables, the adoption credit, the foreign earned income exclusion \u2014 one document, all of it. Retirement and health accounts are the exception and come out separately.</p>\n\n    <h3>Federal</h3>\n    <table><thead><tr><th>Checking</th><th>Go to</th></tr></thead><tbody>\n    <tr><td>Standard deduction, brackets, most inflation-adjusted amounts, EITC tables</td><td><a href=\"https://www.irs.gov/pub/irs-drop/rp-24-40.pdf\" target=\"_blank\" rel=\"noopener\">Rev. Proc. 2024-40</a> for 2025 \u00b7 <a href=\"https://www.irs.gov/pub/irs-drop/rp-25-32.pdf\" target=\"_blank\" rel=\"noopener\">Rev. Proc. 2025-32</a> for 2026</td></tr>\n    <tr><td>What actually goes on a line, and the tax table</td><td><a href=\"https://www.irs.gov/instructions/i1040gi\" target=\"_blank\" rel=\"noopener\">Instructions for Form 1040</a></td></tr>\n    <tr><td>Any form or its instructions, current or prior year</td><td><a href=\"https://www.irs.gov/forms-instructions\" target=\"_blank\" rel=\"noopener\">irs.gov/forms-instructions</a></td></tr>\n    <tr><td>Topic explanations \u2014 Pub 17, 501, 502, 526, 550, 590-A/B, 596, 915, 969, 970</td><td><a href=\"https://www.irs.gov/publications\" target=\"_blank\" rel=\"noopener\">irs.gov/publications</a></td></tr>\n    <tr><td>Schedule 1-A, the four OBBBA deductions</td><td><a href=\"https://www.irs.gov/pub/irs-pdf/f1040s1a.pdf\" target=\"_blank\" rel=\"noopener\">Schedule 1-A</a> \u00b7 <a href=\"https://www.irs.gov/newsroom/schedule-1-a-additional-deductions-what-to-know-about-the-new-form\" target=\"_blank\" rel=\"noopener\">IRS overview of the new form</a></td></tr>\n    <tr><td>Car loan interest deduction, the contested MFS question</td><td><a href=\"https://www.federalregister.gov/documents/2026/01/02/2025-24154/car-loan-interest-deduction\" target=\"_blank\" rel=\"noopener\">Final regulations, 2 January 2026</a></td></tr>\n    <tr><td>IRA, 401(k) and other retirement limits and phaseouts</td><td><a href=\"https://www.irs.gov/retirement-plans/cola-increases-for-dollar-limitations-on-benefits-and-contributions\" target=\"_blank\" rel=\"noopener\">COLA increases for dollar limitations</a></td></tr>\n    <tr><td>HSA limits and HDHP qualification</td><td>Published in their own revenue procedure each spring; <a href=\"https://www.irs.gov/publications/p969\" target=\"_blank\" rel=\"noopener\">Pub 969</a> carries them</td></tr>\n    <tr><td>Standard mileage rates</td><td><a href=\"https://www.irs.gov/tax-professionals/standard-mileage-rates\" target=\"_blank\" rel=\"noopener\">Standard mileage rates</a></td></tr>\n    <tr><td>EITC amounts, limits and the investment income cliff</td><td><a href=\"https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit-eitc\" target=\"_blank\" rel=\"noopener\">EITC hub</a> \u00b7 <a href=\"https://www.irs.gov/publications/p596\" target=\"_blank\" rel=\"noopener\">Pub 596</a></td></tr>\n    <tr><td>E-file outages, schema changes, form availability</td><td><a href=\"https://www.irs.gov/e-file-providers/quick-alerts\" target=\"_blank\" rel=\"noopener\">QuickAlerts</a></td></tr>\n    </tbody></table>\n\n    <h3>Wisconsin</h3>\n    <table><thead><tr><th>Checking</th><th>Go to</th></tr></thead><tbody>\n    <tr><td>Standard deduction table, brackets, itemized deduction credit</td><td><a href=\"https://www.revenue.wi.gov/TaxForms2025/2025-Form1-Inst.pdf\" target=\"_blank\" rel=\"noopener\">2025 Form 1 instructions</a></td></tr>\n    <tr><td>What changed this year, and the conformity date</td><td><a href=\"https://www.revenue.wi.gov/WisconsinTaxBulletin/232-01-30-WTB.pdf\" target=\"_blank\" rel=\"noopener\">Wisconsin Tax Bulletin 232</a></td></tr>\n    <tr><td>Subtractions \u2014 Social Security, retirement, tuition, medical insurance</td><td><a href=\"https://www.revenue.wi.gov/TaxForms2025/2025-ScheduleSB-Inst.pdf\" target=\"_blank\" rel=\"noopener\">2025 Schedule SB instructions</a></td></tr>\n    <tr><td>Federal-to-Wisconsin reconciliation</td><td><a href=\"https://www.revenue.wi.gov/TaxForms2025/2025-ScheduleIf.pdf\" target=\"_blank\" rel=\"noopener\">2025 Schedule I</a> \u2014 instructions are online only, never printed</td></tr>\n    <tr><td>All Wisconsin individual forms and guidance</td><td><a href=\"https://www.revenue.wi.gov/Pages/Individuals/income.aspx\" target=\"_blank\" rel=\"noopener\">DOR individual income tax</a></td></tr>\n    </tbody></table>\n\n    <h3>Drake</h3>\n    <p>Any knowledge base article is reachable as <code class=\"scr\">kb.drakesoftware.com/kb/Drake-Tax/&lt;number&gt;.htm</code>, so an article number is a complete reference. Start at the <a href=\"https://kb.drakesoftware.com/kb/Drake-Tax/20051.htm\" target=\"_blank\" rel=\"noopener\">Federal 1040 screen list, KB 20051</a> or the <a href=\"https://kb.drakesoftware.com/kb/Drake-Tax/20050.htm\" target=\"_blank\" rel=\"noopener\">Wisconsin form availability list, KB 20050</a>. Article numbers are stable year to year; the content inside them is revised, so read against your installed program.</p>\n    <p><strong>For anything about a screen's layout, F1 inside that screen beats every link on this page</strong>, because it answers for the program year actually installed. No document can do that, including this one.</p>\n\n    <div class=\"flag\"><strong>Sanity check before you rely on a number.</strong> Confirm the source is for the right tax year \u2014 a 2026 figure on a 2025 return is the most common way this goes wrong, and the two sit next to each other in search results. Then confirm the figure is the one you think it is: caps, floors and phaseout <em>start</em> points are different things, and several items have separate amounts by filing status.</div>\n  </div>\n";
 
+/* ---- data: practice returns ----
+   Fictitious. Every SSN is in the 400-00 range, which is not issued, and every
+   address and employer is invented. Key these into Drake practice returns only.
+   Each scenario names the stage it belongs to, plants specific errors, and ends
+   with a check sheet. AGI, the deduction and taxable income are computed here
+   from the Figures & Lines Sheet and can be checked immediately. Everything
+   downstream is captured from Drake on the first clean run and becomes the key
+   for every run after — that way the key is the software's own arithmetic, not
+   a number someone typed from memory. */
+var SCEN=[
+{id:"s1",code:"PR-1",stage:"After Lesson 12 · Gate 1 warm-up",title:"Single, one W-2, standard deduction",
+note:"The floor. One employer, one bank, nothing elective. If this return does not come out clean the problem is data entry discipline, not tax. Do it twice — once on paper, once in Drake — and reconcile line by line before moving on.",
+tp:{n:"Marcus D. Webb",dob:"14 March 1991",ssn:"400-00-1101",occ:"Diesel technician"},
+addr:"1428 Sunnyslope Drive, Waukesha, WI 53188",status:"Single",
+deps:[],
+docs:[
+ {f:"W-2",who:"Kettle Moraine Fleet Services, Inc. · EIN 39-4000111",rows:[
+  ["1","Wages, tips, other compensation","52,400.00"],["2","Federal income tax withheld","4,905.00"],
+  ["3","Social Security wages","54,500.00"],["4","Social Security tax withheld","3,379.00"],
+  ["5","Medicare wages","54,500.00"],["6","Medicare tax withheld","790.25"],
+  ["12a","Code D — 401(k) elective deferral","2,100.00"],
+  ["13","Retirement plan","Checked"],
+  ["16","State wages (WI)","52,400.00"],["17","State income tax withheld","2,510.00"]]},
+ {f:"1099-INT",who:"Waukesha State Bank",rows:[["1","Interest income","140.00"]]}],
+facts:["No dependents, not a dependent of anyone else.","No health coverage through the Marketplace; covered all year by the employer plan.","No digital asset activity.","Wants direct deposit — routing 075000022, account 8841200365."],
+traps:["Box 3 and Box 5 exceed Box 1 by exactly the 401(k) deferral. A preparer who 'fixes' this has misunderstood the form.","Box 13 retirement is checked, which matters in PR-4, not here. Enter it anyway.","The 1099-INT is small enough to be skipped by someone in a hurry. It still belongs on the return."],
+check:[["Total income","52,540","computed"],["Adjusted gross income","52,540","computed"],
+ ["Standard deduction","15,750","computed"],["Taxable income","36,790","computed"],
+ ["Tax","","capture"],["Total payments","4,905","computed"],["Refund or balance due","","capture"]]},
+
+{id:"s2",code:"PR-2",stage:"Gate 1 · the graded return",title:"MFJ, two W-2s, interest and dividends, one qualifying child",
+note:"This is the Gate 1 specification exactly: two W-2s, interest income, standard deduction, one qualifying child. Unassisted, under 45 minutes, zero critical errors. Do not coach during this one.",
+tp:{n:"Anthony R. Delgado",dob:"2 August 1988",ssn:"400-00-1201",occ:"Route supervisor"},
+sp:{n:"Renata M. Delgado",dob:"19 November 1990",ssn:"400-00-1202",occ:"Dental hygienist"},
+addr:"3307 North Brookfield Road, Brookfield, WI 53045",status:"Married filing jointly",
+deps:[["Sofia L. Delgado","Daughter","6 June 2017","400-00-1203","12","Lived with both parents all year"]],
+docs:[
+ {f:"W-2 (taxpayer)",who:"Great Lakes Distribution LLC · EIN 39-4000222",rows:[
+  ["1","Wages","61,900.00"],["2","Federal withheld","5,240.00"],["3","SS wages","61,900.00"],
+  ["4","SS tax","3,837.80"],["5","Medicare wages","61,900.00"],["6","Medicare tax","897.55"],
+  ["16","State wages","61,900.00"],["17","State withheld","2,970.00"]]},
+ {f:"W-2 (spouse)",who:"Elmbrook Dental Associates · EIN 39-4000223",rows:[
+  ["1","Wages","48,300.00"],["2","Federal withheld","3,110.00"],["3","SS wages","50,100.00"],
+  ["4","SS tax","3,106.20"],["5","Medicare wages","50,100.00"],["6","Medicare tax","726.45"],
+  ["12a","Code E — 403(b) deferral","1,800.00"],["13","Retirement plan","Checked"],
+  ["16","State wages","48,300.00"],["17","State withheld","2,180.00"]]},
+ {f:"1099-INT",who:"Landmark Credit Union",rows:[["1","Interest income","312.00"],["8","Tax-exempt interest","0.00"]]},
+ {f:"1099-DIV",who:"Vanguard Brokerage",rows:[
+  ["1a","Total ordinary dividends","1,240.00"],["1b","Qualified dividends","1,105.00"],
+  ["2a","Total capital gain distributions","0.00"],["5","Section 199A dividends","64.00"]]}],
+facts:["Both spouses covered by employer health plans all year.","Sofia has an SSN valid for employment.","No childcare expenses — Renata's mother watches Sofia after school without charge.","Neither spouse has an IP PIN."],
+traps:["Box 1b is lower than Box 1a. Entering only 1a prices the qualified dividends at ordinary rates — the single most expensive keystroke in Lesson 8.","Box 5 §199A dividends produce a QBI deduction on a return with no business. Most students miss it entirely.","Assigning both W-2s to the taxpayer breaks nothing visible on a joint return until you look at the Social Security wage base.","No childcare paid, so no Form 2441 — but the student must reach that conclusion by asking, not by omission."],
+check:[["Total income","111,752","computed"],["Adjusted gross income","111,752","computed"],
+ ["Qualified dividends (taxed at capital gain rates)","1,105","computed"],
+ ["Standard deduction","31,500","computed"],["QBI deduction","13","capture"],
+ ["Taxable income","","capture"],["Child tax credit","","capture"],
+ ["Total payments","8,350","computed"],["Refund or balance due","","capture"]]},
+
+{id:"s3",code:"PR-3",stage:"After Lessons 4, 5 and 6",title:"Head of household, EITC and CTC, with the due diligence file",
+note:"The status and dependency return. Every number here is secondary to two questions: does she qualify as head of household, and who is entitled to claim the children. Form 8867 is mandatory and the §6695(g) penalty is per credit, per return. Build the due diligence file as you go, not at the end.",
+tp:{n:"Danielle P. Okafor",dob:"27 January 1993",ssn:"400-00-1301",occ:"Certified nursing assistant"},
+addr:"812 West Grand Avenue, Apt 2C, Waukesha, WI 53186",status:"Determine it — do not assume",
+deps:[["Jaylen T. Okafor","Son","4 April 2015","400-00-1302","12","Lived with Danielle all year"],
+ ["Amara K. Okafor","Daughter","30 September 2021","400-00-1303","7","Lived with Danielle Jan–Jul, with her father Aug–Dec"]],
+docs:[
+ {f:"W-2",who:"Ridgewood Care Center · EIN 39-4000333",rows:[
+  ["1","Wages","29,850.00"],["2","Federal withheld","912.00"],["3","SS wages","29,850.00"],
+  ["4","SS tax","1,850.70"],["5","Medicare wages","29,850.00"],["6","Medicare tax","432.83"],
+  ["16","State wages","29,850.00"],["17","State withheld","840.00"]]},
+ {f:"1099-INT",who:"Educators Credit Union",rows:[["1","Interest income","41.00"]]}],
+facts:["Danielle is unmarried and has never married.","She rents the apartment in her own name and pays the rent, utilities and food out of her wages. Her mother gave her $3,000 during the year toward expenses.","Total cost of keeping up the home for the year was $19,400.","Amara's father provided no support and did not sign anything.","Danielle paid Little Sprouts Learning Center $2,400 for Amara's care while she worked. EIN 39-4000334.","She has never had a credit disallowed."],
+traps:["The $3,000 gift is the whole exercise. Total household cost was $19,400; Danielle paid $16,400 of it. More than half — she qualifies. Change the gift to $10,000 and she does not. Run it both ways.","Amara lived with Danielle 7 months — more than half the year, so she is a qualifying child of Danielle. Students routinely count 6 and disqualify her.","No Form 8332 exists and none is needed, because Danielle is the custodial parent for both children.","Dependent care credit applies to Amara only. Jaylen is 10 and does not qualify.","With this income and two qualifying children, EITC is in play and Form 8867 plus DD1 are mandatory."],
+check:[["Total income","29,891","computed"],["Adjusted gross income","29,891","computed"],
+ ["Filing status","Head of household","determine"],["Standard deduction","23,625","computed"],
+ ["Taxable income","6,266","computed"],["Child tax credit and ODC","","capture"],
+ ["Earned income credit","","capture"],["Dependent care credit","","capture"],
+ ["Refund","","capture"],["Form 8867 complete","Yes — required","required"]]},
+
+{id:"s4",code:"PR-4",stage:"Return Lab 2 · Ring A",title:"MFJ, adjustments and the itemize decision under the new SALT cap",
+note:"The Ring A return. It exists to force one decision — itemize or take the standard deduction — under the raised TY2025 SALT cap, which is the change most likely to flip a client who has taken the standard deduction since 2018. Run the comparison before entering anything on screen A.",
+tp:{n:"Gregory S. Hartmann",dob:"11 May 1974",ssn:"400-00-1401",occ:"Manufacturing engineer"},
+sp:{n:"Diane E. Hartmann",dob:"3 February 1976",ssn:"400-00-1402",occ:"Middle school teacher"},
+addr:"22190 Yorkshire Court, Brookfield, WI 53045",status:"Married filing jointly",
+deps:[["Ethan G. Hartmann","Son","8 December 2008","400-00-1403","12","Full-time high school student"]],
+docs:[
+ {f:"W-2 (taxpayer)",who:"Precision Tool & Die Corp · EIN 39-4000444",rows:[
+  ["1","Wages","128,600.00"],["2","Federal withheld","16,940.00"],["3","SS wages","134,900.00"],
+  ["4","SS tax","8,363.80"],["5","Medicare wages","134,900.00"],["6","Medicare tax","1,956.05"],
+  ["12a","Code D — 401(k)","6,300.00"],["12b","Code W — employer HSA contributions","3,200.00"],
+  ["13","Retirement plan","Checked"],["16","State wages","128,600.00"],["17","State withheld","6,980.00"]]},
+ {f:"W-2 (spouse)",who:"Elmbrook School District · EIN 39-4000445",rows:[
+  ["1","Wages","57,300.00"],["2","Federal withheld","4,220.00"],["3","SS wages","57,300.00"],
+  ["4","SS tax","3,552.60"],["5","Medicare wages","57,300.00"],["6","Medicare tax","830.85"],
+  ["13","Retirement plan","Checked"],["16","State wages","57,300.00"],["17","State withheld","2,910.00"]]},
+ {f:"1098",who:"Summit Credit Union · mortgage on the residence",rows:[
+  ["1","Mortgage interest received","11,480.00"],["2","Outstanding principal 1 Jan","284,000.00"],
+  ["5","Mortgage insurance premiums","0.00"],["10","Real estate taxes paid","6,890.00"]]},
+ {f:"1098-E",who:"Nelnet · Diane's student loans",rows:[["1","Student loan interest","1,340.00"]]},
+ {f:"1099-INT",who:"Summit Credit Union",rows:[["1","Interest income","96.00"]]}],
+facts:["Gregory contributed $1,100 of his own money to the HSA in addition to the employer's contribution. Family HDHP coverage all year.","Diane spent $410 of her own money on classroom supplies and worked more than 900 hours.","Diane contributed $6,000 to a traditional IRA in February 2026 for tax year 2025.","State income tax withheld totalled $9,890 between the two W-2s.","Cash charitable contributions of $4,200 to their parish, with acknowledgment letters for every gift over $250.","No noncash contributions."],
+traps:["The Box 12 code W amount of $3,200 belongs on Form 8889 line 9, not line 2. Only Gregory's $1,100 goes on line 2. Entering $4,300 as a contribution manufactures an excess contribution penalty.","Both spouses have Box 13 checked and their MAGI is well above the covered phaseout, so Diane's $6,000 IRA contribution is NOT deductible. It becomes basis on Form 8606 — and a student who skips the 8606 has cost her the basis permanently.","Itemized total is roughly $9,890 state tax + $6,890 property tax capped at $40,000, plus $11,480 interest plus $4,200 charity. Run it against the $31,500 standard deduction and let the software decide, but predict the answer first.","Student loan interest phases out between $170,000 and $200,000 MAGI on a joint return. Their MAGI is inside that range, so the deduction is reduced, not lost — read Wks SLID.","Ethan turns 17 during 2025. Check the child tax credit age rule carefully."],
+check:[["Total income","185,996","computed"],["Educator expenses adjustment","300","computed"],
+ ["HSA deduction","1,100","computed"],["IRA deduction","0 — nondeductible, Form 8606","determine"],
+ ["Student loan interest deduction","","capture"],["Adjusted gross income","","capture"],
+ ["Itemized deductions total","","capture"],["Standard deduction","31,500","computed"],
+ ["Greater of the two","","determine"],["Taxable income","","capture"],
+ ["Child tax credit or ODC for Ethan","","determine"],["Total payments","21,160","computed"],
+ ["Refund or balance due","","capture"]]},
+
+{id:"s5",code:"PR-5",stage:"After Lesson 13A · Schedule 1-A",title:"The TY2025 return — tips, overtime, car loan interest and the senior deduction",
+note:"Nothing on this return existed before tax year 2025, and none of it flows from another screen. Every figure is a direct entry on screen 1A, which means the preparer has to identify the amount from source documents and the interview. For 2025 employers were not required to break out qualified tips or overtime on the W-2, so the number is often in box 14, on a separate statement, or nowhere at all. This is an interview problem before it is a data entry problem.",
+tp:{n:"Raymond A. Vasquez",dob:"9 October 1958",ssn:"400-00-1501",occ:"Bartender, part time"},
+sp:{n:"Lorraine J. Vasquez",dob:"22 June 1962",ssn:"400-00-1502",occ:"Warehouse associate"},
+addr:"5540 South Kinnickinnic Avenue, Milwaukee, WI 53207",status:"Married filing jointly",
+deps:[],
+docs:[
+ {f:"W-2 (taxpayer)",who:"Riverwest Tavern Group LLC · EIN 39-4000555",rows:[
+  ["1","Wages, tips, other compensation","31,850.00"],["2","Federal withheld","1,640.00"],
+  ["3","Social Security wages","31,850.00"],["4","Social Security tax","1,974.70"],
+  ["5","Medicare wages","31,850.00"],["6","Medicare tax","461.83"],
+  ["7","Social Security tips","18,200.00"],["8","Allocated tips","0.00"],
+  ["14","Other — QUALIFIED TIPS","18,200.00"],
+  ["16","State wages","31,850.00"],["17","State withheld","1,180.00"]]},
+ {f:"W-2 (spouse)",who:"Menomonee Valley Logistics Inc · EIN 39-4000556",rows:[
+  ["1","Wages","54,700.00"],["2","Federal withheld","4,010.00"],
+  ["3","Social Security wages","54,700.00"],["4","Social Security tax","3,391.40"],
+  ["5","Medicare wages","54,700.00"],["6","Medicare tax","793.15"],
+  ["14","Other — FLSA OT PREMIUM","3,900.00"],
+  ["16","State wages","54,700.00"],["17","State withheld","2,340.00"]]},
+ {f:"Lender statement",who:"Educators Credit Union · auto loan",rows:[
+  ["—","Interest paid on vehicle loan, 2025","1,910.00"],
+  ["—","Loan origination date","14 March 2025"],
+  ["—","Vehicle","2025 Chevrolet Equinox, new, purchased by taxpayer"],
+  ["—","VIN","3GNAXUEG7SL204418"],
+  ["—","Final assembly","Kansas City, Kansas, United States"]]}],
+facts:["Raymond turned 67 during 2025. Lorraine is 63.","Both have SSNs valid for employment. They are filing jointly.","Raymond's employer reported qualified tips in box 14 as a courtesy; the amount agrees with box 7.","Lorraine's overtime premium of $3,900 is the FLSA half-time excess only. Her total overtime pay for the year was $11,700.","The Equinox is used for commuting and personal driving. No business use.","Neither has a pension or Social Security benefit yet.","They take the standard deduction."],
+traps:["The overtime deduction is the premium portion only — the extra half in time-and-a-half. Lorraine's total overtime pay was $11,700 but only $3,900 qualifies. A student who deducts $11,700 has made the single most common error on this schedule.","Only Raymond is 65 or older, so the senior deduction is $6,000, not $12,000. The Schedule 1-A test is stated as a date: born before 2 January 1961.","The tips deduction does not reduce Social Security or Medicare tax. Boxes 4 and 6 stand. It is a deduction against taxable income only.","All four deductions come out after AGI, so none of them loosens a single AGI-based phaseout. Ask the student to explain why that is the opposite of Lesson 13.","Tips, overtime and the senior deduction all require a joint return here. Car loan interest is the one with no joint-filing condition — confirm against the final regulations before advising anything.","No VIN, no car loan deduction. The VIN is a required entry on Schedule 1-A."],
+check:[["Total income","86,550","computed"],["Adjusted gross income","86,550","computed"],
+ ["Standard deduction","31,500","computed"],
+ ["Schedule 1-A — qualified tips","18,200","determine"],
+ ["Schedule 1-A — qualified overtime","3,900","determine"],
+ ["Schedule 1-A — car loan interest","1,910","determine"],
+ ["Schedule 1-A — senior deduction","6,000","determine"],
+ ["Schedule 1-A total to Form 1040 line 13b","30,010","computed"],
+ ["Taxable income","25,040","computed"],
+ ["Tax","","capture"],["Total payments","5,650","computed"],["Refund or balance due","","capture"],
+ ["Wisconsin treatment of the Schedule 1-A deductions","None — conformity is 31 Dec 2022","determine"]]},
+
+{id:"s6",code:"PR-6",stage:"Pairs with Lessons 27, W1, W2 and W4",title:"Wisconsin retiree — Social Security, capital gains and the conformity gap",
+note:"The retiree return, and the one that shows why a Wisconsin refund often looks better than the client expects. Everything here turns on two facts: tax-exempt interest walks back into the Social Security calculation, and Wisconsin then subtracts the taxable benefit back out entirely. Prepare the federal return first and do not touch Wisconsin until Form 1040 line 6b is final.",
+tp:{n:"Harold F. Brenner",dob:"3 February 1954",ssn:"400-00-1601",occ:"Retired tool and die maker"},
+sp:{n:"Judith A. Brenner",dob:"17 July 1956",ssn:"400-00-1602",occ:"Retired school secretary"},
+addr:"1755 Pilgrim Parkway, Brookfield, WI 53005",status:"Married filing jointly",
+deps:[],
+docs:[
+ {f:"SSA-1099 (taxpayer)",who:"Social Security Administration",rows:[
+  ["3","Benefits paid in 2025","34,800.00"],["5","Net benefits","34,800.00"],
+  ["—","Medicare Part B premiums withheld","2,340.00"],["6","Federal withheld","0.00"]]},
+ {f:"SSA-1099 (spouse)",who:"Social Security Administration",rows:[
+  ["3","Benefits paid in 2025","19,200.00"],["5","Net benefits","19,200.00"],
+  ["—","Medicare Part B premiums withheld","2,340.00"],["6","Federal withheld","0.00"]]},
+ {f:"1099-R",who:"Wisconsin Retirement System · EIN 39-4000666",rows:[
+  ["1","Gross distribution","28,400.00"],["2a","Taxable amount","28,400.00"],
+  ["4","Federal withheld","2,840.00"],["7","Distribution code","7 — normal"],
+  ["—","IRA/SEP/SIMPLE box","Not checked"],["14","State withheld","980.00"]]},
+ {f:"1099-DIV",who:"Charles Schwab",rows:[
+  ["1a","Total ordinary dividends","2,180.00"],["1b","Qualified dividends","1,940.00"],
+  ["11","Exempt-interest dividends","3,600.00"]]},
+ {f:"1099-B",who:"Charles Schwab · long-term, basis reported",rows:[
+  ["—","Proceeds, sale of 400 sh. industrial stock","41,000.00"],
+  ["—","Cost basis","17,500.00"],["—","Acquired","March 2011"],["—","Sold","8 September 2025"]]}],
+facts:["Harold is 71, Judith is 69. Both have been retired since 2022.","The $3,600 of exempt-interest dividends is municipal bond income they moved into specifically to reduce their tax.","Medicare premiums of $4,680 combined were withheld from their benefits.","Out-of-pocket medical and dental expenses of $3,110 on top of the Medicare premiums.","Property tax on the Brookfield home was $5,940. No mortgage — it is paid off.","Cash charitable contributions of $2,600, all acknowledged.","Harold took a $9,000 qualified charitable distribution directly from his IRA to the parish. It does not appear on any 1099-R differently and the client did not mention it until asked."],
+traps:["The QCD is the whole exercise on the federal side. It is excluded from income entirely and never appears as a deduction, so it beats a charitable deduction — it lowers AGI, which lowers the taxable Social Security. The 1099-R gives no indication whatsoever. If nobody asks, nobody finds it.","The municipal dividends are inside provisional income. The clients believe they are invisible. Show them the difference by removing the $3,600 and recomputing.","Medicare premiums are a Schedule A medical expense and they are on the SSA-1099, not on any medical bill. Nearly everyone misses them.","Enter the gross benefit, not the net cheque. The Medicare premiums were withheld from it.","Wisconsin subtracts the federally taxable Social Security in full on Schedule SB line 4, taking the figure straight from federal line 6b. Get line 6b wrong and the Wisconsin return is wrong in the same amount.","Wisconsin taxes only 70% of the long-term capital gain on this stock. The federal gain is $23,500; Wisconsin taxes $16,450.","Wisconsin has no itemized deduction. The federal Schedule A amounts feed the Wisconsin itemized deduction credit at 5% of the excess over the Wisconsin standard deduction — and it is worth computing even if they take the federal standard deduction."],
+check:[["Long-term capital gain","23,500","computed"],
+ ["Provisional income — show your work","","determine"],
+ ["Taxable Social Security, Form 1040 line 6b","","capture"],
+ ["Adjusted gross income","","capture"],
+ ["Medical expenses before the 7.5% floor","7,790","computed"],
+ ["Itemize or standard","","determine"],["Taxable income","","capture"],
+ ["Federal refund or balance due","","capture"],
+ ["Wisconsin Schedule SB line 4 subtraction","= federal line 6b","determine"],
+ ["Wisconsin taxable capital gain","16,450","computed"],
+ ["Wisconsin itemized deduction credit","","capture"],
+ ["Wisconsin refund or balance due","","capture"]]}
+];
+
+function scenHTML(x){
+  var h='<section class="lesson" id="'+x.id+'">';
+  h+='<div class="lhead"><span class="lnum">'+x.code+'</span><h2>'+x.title+'</h2>'
+    +'<label class="chk"><input type="checkbox" data-id="'+x.id+'"'+(DONE[x.id]?' checked':'')+'> done</label></div>';
+  h+='<p class="attach">'+x.stage+'</p>';
+  h+='<div class="row"><span class="tag">Before you start</span><div class="read">'+x.note+'</div></div>';
+  var who='<div class="row"><span class="tag">Taxpayer</span><table><tbody>';
+  who+='<tr><td style="width:26%"><strong>Name</strong></td><td>'+x.tp.n+'</td></tr>';
+  who+='<tr><td><strong>Date of birth</strong></td><td>'+x.tp.dob+'</td></tr>';
+  who+='<tr><td><strong>SSN</strong></td><td><code class="scr">'+x.tp.ssn+'</code></td></tr>';
+  who+='<tr><td><strong>Occupation</strong></td><td>'+x.tp.occ+'</td></tr>';
+  if(x.sp){who+='<tr><td><strong>Spouse</strong></td><td>'+x.sp.n+' · born '+x.sp.dob+' · <code class="scr">'+x.sp.ssn+'</code> · '+x.sp.occ+'</td></tr>';}
+  who+='<tr><td><strong>Address</strong></td><td>'+x.addr+'</td></tr>';
+  who+='<tr><td><strong>Filing status</strong></td><td>'+x.status+'</td></tr>';
+  h+=who+'</tbody></table></div>';
+  if(x.deps&&x.deps.length){
+    h+='<div class="row"><span class="tag">Dependents</span><table><thead><tr><th>Name</th><th>Relationship</th><th>Date of birth</th><th>SSN</th><th>Months in home</th><th>Notes</th></tr></thead><tbody>';
+    x.deps.forEach(function(d){h+='<tr><td>'+d[0]+'</td><td>'+d[1]+'</td><td>'+d[2]+'</td><td><code class="scr">'+d[3]+'</code></td><td>'+d[4]+'</td><td>'+d[5]+'</td></tr>';});
+    h+='</tbody></table></div>';}
+  x.docs.forEach(function(d){
+    h+='<div class="row"><span class="tag">'+LK(d.f)+' · '+d.who+'</span><table><thead><tr><th>Box</th><th>Item</th><th>Amount</th></tr></thead><tbody>';
+    d.rows.forEach(function(r){h+='<tr><td><code class="scr">'+r[0]+'</code></td><td>'+r[1]+'</td><td>'+r[2]+'</td></tr>';});
+    h+='</tbody></table></div>';});
+  if(x.facts.length){h+='<div class="row"><span class="tag">Interview facts</span><div class="look"><ul>';
+    x.facts.forEach(function(f){h+='<li>'+LK(f)+'</li>';});h+='</ul></div></div>';}
+  if(x.traps.length){h+='<div class="row"><span class="tag">Planted — for whoever is grading</span><div class="look" style="border-left:3px solid var(--mark)"><ul>';
+    x.traps.forEach(function(t){h+='<li>'+LK(t)+'</li>';});h+='</ul></div></div>';}
+  if(x.check.length){
+    h+='<div class="row"><span class="tag">Check sheet</span><table><thead><tr><th>Line</th><th>Value</th><th>Source</th></tr></thead><tbody>';
+    x.check.forEach(function(c){
+      var v=c[1]?c[1]:'<span class="blank">from Drake</span>';
+      var tagmap={computed:'Arithmetic — check now',capture:'Capture on first clean run',determine:'The student decides',required:'Compliance'};
+      h+='<tr><td>'+c[0]+'</td><td>'+v+'</td><td style="color:var(--mute);font-size:12.5px">'+(tagmap[c[2]]||c[2])+'</td></tr>';});
+    h+='</tbody></table></div>';}
+  return h+'</section>';
+}
 /* Citation linker. Publications and IRS forms in the reference fields become
    links to the authority itself, so a citation is a destination rather than a
    string you have to go and search for. Publications go to the PDF, which is
@@ -541,7 +765,7 @@ function dtbl(rows){
 
 var DONE={};
 try{DONE=JSON.parse(localStorage.getItem('ea-track-progress')||'{}');}catch(e){DONE={};}
-var TOTAL=L1.filter(function(x){return x.n;}).length+L2.filter(function(x){return x.n;}).length;
+var TOTAL=L1.filter(function(x){return x.n;}).length+L2.filter(function(x){return x.n;}).length+SCEN.length;
 
 function lessonHTML(x){
   var wi=!!x.wi, L=function(s){return wi?s:LK(s);};
@@ -587,18 +811,26 @@ var nav1={},nav2={};
 render(L1,document.getElementById('body1'),nav1);
 render(L2,document.getElementById('body2'),nav2);
 document.getElementById('fm2').innerHTML=FM2;
+var nav3={html:''},b3='<div class="block"><h2>Practice returns</h2>'
+ +'<p>Six fact patterns to key into Drake practice returns, staged to the gates. Each names what it is testing, plants specific errors, and ends with a check sheet.</p>'
+ +'<p><strong>Every name, address, employer and SSN is invented.</strong> The SSNs sit in the 400-00 range, which is not issued. Use Drake practice returns only \u2014 never live client data.</p>'
+ +'<p><strong>How the check sheet works.</strong> Rows marked <em>arithmetic</em> can be verified the moment the income is entered. Rows marked <em>capture</em> are filled in from Drake on the first clean run and become the key for every run after, so the key is the software\u2019s own arithmetic rather than a number typed from memory. Rows marked <em>the student decides</em> have no single right entry \u2014 they are the judgment the scenario exists to test.</p></div>';
+SCEN.forEach(function(x){
+  nav3.html+='<a class="item'+(DONE[x.id]?' done':'')+'" href="#'+x.id+'" data-nav="'+x.id+'"><span class="n">'+x.code+'</span><span class="t">'+x.title+'</span></a>';
+  b3+=scenHTML(x);});
+document.getElementById('body3').innerHTML=b3;
 
 var active=1;
 function paint(){
-  document.getElementById('nav').innerHTML=(active===1?nav1:nav2).html;
-  document.getElementById('pane1').className='pane'+(active===1?' on':'');
-  document.getElementById('pane2').className='pane'+(active===2?' on':'');
-  document.getElementById('tab1').setAttribute('aria-selected',active===1);
-  document.getElementById('tab2').setAttribute('aria-selected',active===2);
+  document.getElementById('nav').innerHTML=(active===1?nav1:active===2?nav2:nav3).html;
+  for(var i=1;i<=3;i++){
+    document.getElementById('pane'+i).className='pane'+(active===i?' on':'');
+    document.getElementById('tab'+i).setAttribute('aria-selected',active===i);}
   applyFilter();
 }
 document.getElementById('tab1').onclick=function(){active=1;paint();window.scrollTo(0,0);};
 document.getElementById('tab2').onclick=function(){active=2;paint();window.scrollTo(0,0);};
+document.getElementById('tab3').onclick=function(){active=3;paint();window.scrollTo(0,0);};
 
 function progress(){
   var n=0;for(var k in DONE)if(DONE[k])n++;
@@ -606,6 +838,7 @@ function progress(){
   document.getElementById('count').textContent=n+' of '+TOTAL+' complete';
   document.getElementById('c1').textContent=L1.filter(function(x){return x.n;}).length;
   document.getElementById('c2').textContent=L2.filter(function(x){return x.n;}).length;
+  document.getElementById('c3').textContent=SCEN.length;
 }
 document.addEventListener('change',function(e){
   var cb=e.target;if(!cb.matches('input[type=checkbox][data-id]'))return;
@@ -618,7 +851,7 @@ document.addEventListener('change',function(e){
 
 function applyFilter(){
   var v=document.getElementById('q').value.trim().toLowerCase();
-  var pane=document.getElementById(active===1?'pane1':'pane2');
+  var pane=document.getElementById('pane'+active);
   var secs=pane.querySelectorAll('section.lesson'),shown=0;
   secs.forEach(function(s){
     var hit=!v||s.textContent.toLowerCase().indexOf(v)>-1;
@@ -637,6 +870,7 @@ document.getElementById('q').addEventListener('input',applyFilter);
 if(location.hash){
   var id=location.hash.slice(1);
   if(L2.some(function(x){return x.id===id;})||['figures','verify','scope'].indexOf(id)>-1)active=2;
+  if(SCEN.some(function(x){return x.id===id;}))active=3;
 }
 paint();progress();
 if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t)t.scrollIntoView();}
