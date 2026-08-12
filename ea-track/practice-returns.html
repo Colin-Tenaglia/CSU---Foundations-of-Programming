@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EA Track — Drake Practice Returns</title>
+<style>
+:root{--paper:#EDEEE8;--form:#E3E6DC;--ink:#14150F;--rule:#B4B9A8;--mute:#5C6152;--mark:#8C2A11;--tab:#2E4739;--wi:#1B3A5C;--white:#FAFAF7;--mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;--sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55}
+a{color:var(--mark);text-decoration:none;border-bottom:1px solid rgba(140,42,17,.35)}
+a:hover{border-bottom-color:var(--mark)}
+a:focus-visible,input:focus-visible,button:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+.shell{display:grid;grid-template-columns:290px 1fr;min-height:100vh}
+nav.rail{background:var(--form);border-right:1px solid var(--rule);position:sticky;top:0;height:100vh;overflow-y:auto;padding:0 0 40px}
+main{padding:0 0 80px;min-width:0}
+.masthead{border-bottom:2px solid var(--ink);padding:26px 34px 0;background:var(--white)}
+.masthead .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:0 0 10px}
+.masthead h1{margin:0;font-size:26px;line-height:1.12;font-weight:700;letter-spacing:-.015em}
+.masthead .sub{margin:9px 0 0;color:var(--mute);font-size:13.5px;max-width:66ch}
+.tabs{display:flex;gap:0;margin-top:20px}
+.tabs button{appearance:none;background:transparent;border:0;border-bottom:3px solid transparent;padding:11px 0;margin-right:30px;font-family:var(--sans);font-size:14.5px;font-weight:700;color:var(--mute);cursor:pointer;letter-spacing:-.005em}
+.tabs button .c{font-family:var(--mono);font-size:10.5px;font-weight:400;color:var(--mute);margin-left:7px}
+.tabs button:hover{color:var(--ink)}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--mark)}
+.rail-head{padding:20px 20px 12px;border-bottom:1px solid var(--rule)}
+.rail-head .mark{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.rail-head .title{font-weight:700;font-size:15px;margin-top:4px}
+.progress-wrap{padding:14px 20px;border-bottom:1px solid var(--rule)}
+.bar{height:6px;background:rgba(20,21,15,.12);position:relative;overflow:hidden}
+.bar span{position:absolute;inset:0 auto 0 0;background:var(--tab);width:0;transition:width .3s ease}
+.progress-wrap .count{font-family:var(--mono);font-size:11px;color:var(--mute);margin-top:7px;display:block}
+.filter{padding:12px 20px;border-bottom:1px solid var(--rule)}
+.filter input{width:100%;padding:7px 9px;border:1px solid var(--rule);background:var(--white);font-family:var(--mono);font-size:12px;color:var(--ink)}
+.phase{padding:16px 20px 4px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.rail a.item{display:flex;gap:9px;padding:6px 20px;font-size:13.5px;border-bottom:none;color:var(--ink);align-items:baseline}
+.rail a.item:hover{background:rgba(46,71,57,.09)}
+.rail a.item .n{font-family:var(--mono);font-size:11px;color:var(--mute);min-width:30px}
+.rail a.item.done .t{color:var(--mute);text-decoration:line-through}
+.rail a.item.gatelink .n{color:var(--mark)}
+.pane{display:none}
+.pane.on{display:block}
+.lesson{border-bottom:1px solid var(--rule);padding:28px 34px 32px;background:var(--paper)}
+.lesson.wi{border-left:5px solid var(--wi)}
+.lhead{display:flex;align-items:flex-start;gap:13px}
+.lnum{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--white);background:var(--ink);padding:4px 7px;white-space:nowrap;margin-top:3px;flex:none}
+.lesson.wi .lnum{background:var(--wi)}
+.lesson h2{margin:0;font-size:20px;font-weight:700;letter-spacing:-.01em;flex:1}
+.chk{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;color:var(--mute);text-transform:uppercase;letter-spacing:.08em;cursor:pointer;flex:none;margin-top:3px}
+.chk input{accent-color:var(--tab);width:15px;height:15px;cursor:pointer}
+.attach{margin:3px 0 0;font-size:12.5px;color:var(--mute);font-family:var(--mono)}
+.row{margin:14px 0 0}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--mute);display:block;margin-bottom:4px}
+.read{background:var(--white);border-left:3px solid var(--tab);padding:10px 13px;font-size:14px}
+.lesson.wi .read{border-left-color:var(--wi)}
+.obj{font-weight:600}
+.look{background:var(--white);border:1px solid var(--rule);padding:12px 14px}
+.look ul{margin:0;padding-left:18px}
+.look li{margin:5px 0;font-size:14px}
+table{width:100%;border-collapse:collapse;margin-top:5px;font-size:13.5px;background:var(--white)}
+th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);border-bottom:1px solid var(--ink);padding:6px 9px;font-weight:400}
+td{border-bottom:1px solid var(--rule);padding:6px 9px;vertical-align:top}
+tr:last-child td{border-bottom:none}
+code.scr{font-family:var(--mono);font-size:12.5px;background:var(--form);padding:1px 5px;border:1px solid var(--rule);white-space:nowrap}
+.kb{margin-top:14px;padding:10px 13px;background:rgba(46,71,57,.07);border:1px dashed var(--rule);font-size:13.5px}
+.kb ul{margin:5px 0 0;padding-left:17px}
+.kb li{margin:5px 0}
+.kb li .u{display:block;font-family:var(--mono);font-size:11px;color:var(--mute);word-break:break-all;border:none}
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.note{padding:11px 13px;font-size:14px}
+.gold{background:var(--white);border-left:3px solid #A8842B}
+.trap{background:var(--white);border-left:3px solid var(--mark)}
+.hw{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.hw>div{background:var(--white);padding:11px 13px;font-size:14px;border:1px solid var(--rule)}
+.gatebar{background:var(--tab);color:var(--white);padding:18px 34px;border-bottom:1px solid var(--rule)}
+.gatebar.hard{background:var(--mark)}
+.gatebar .tag{color:rgba(250,250,247,.65)}
+.gatebar h3{margin:0 0 5px;font-size:16px}
+.gatebar p{margin:0;font-size:14px;max-width:74ch;color:rgba(250,250,247,.92)}
+.sec-divider{padding:24px 34px 16px;background:var(--form);border-bottom:1px solid var(--rule);border-top:1px solid var(--rule)}
+.sec-divider.wi{background:var(--wi);color:var(--white)}
+.sec-divider.wi .tag{color:rgba(250,250,247,.65)}
+.sec-divider.wi p{color:rgba(250,250,247,.9)}
+.sec-divider h2{margin:0;font-size:19px}
+.sec-divider p{margin:6px 0 0;font-size:14px;color:var(--mute);max-width:76ch}
+.block{padding:26px 34px;background:var(--white);border-bottom:1px solid var(--rule)}
+.block h2{margin:0 0 4px;font-size:20px}
+.block h3{margin:22px 0 6px;font-size:13px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;font-weight:400;color:var(--mute)}
+.block p{margin:0 0 11px;font-size:14px;max-width:78ch}
+.block ul{margin:0 0 11px;padding-left:18px;font-size:14px;max-width:76ch}
+.block li{margin:3px 0}
+.flag{background:rgba(140,42,17,.08);border-left:3px solid var(--mark);padding:11px 13px;margin:0 0 11px;font-size:14px}
+.blank{background:#FFF6D8;padding:1px 6px;font-family:var(--mono);font-size:12px;border:1px solid #D8C88A}
+.empty{padding:40px 34px;color:var(--mute);font-size:14px}
+footer{padding:26px 34px;color:var(--mute);font-size:13px}
+footer .fine{font-size:11.5px;line-height:1.5;opacity:.85;margin-top:14px;padding-top:12px;border-top:1px solid var(--rule);max-width:88ch}
+@media(max-width:900px){.shell{grid-template-columns:1fr}nav.rail{position:static;height:auto;border-right:none;border-bottom:1px solid var(--rule)}.notes,.hw{grid-template-columns:1fr}.masthead,.lesson,.gatebar,.sec-divider,.block,footer{padding-left:20px;padding-right:20px}.tabs button{margin-right:20px;font-size:13.5px}}
+@media print{nav.rail,.chk,.tabs,.filter{display:none}.shell{display:block}.lesson,.gatebar{break-inside:avoid}.pane{display:block!important}}
+.shell{display:block}
+main{padding:0}
+.lesson{background:var(--paper)}
+.wrap{max-width:none}
+</style></head><body>
+<main>
+  <div class="masthead">
+    <p class="eyebrow">Tenaglia &amp; Associates, SC · Tax year 2025</p>
+    <h1>Drake Practice Returns</h1>
+    <p class="sub">Six fact patterns to key into Drake, staged to the gates. Each names what it is testing, plants specific errors, and ends with a check sheet.</p>
+  </div>
+  <div class="block">
+    <p><strong>Every name, address, employer and SSN is invented.</strong> The SSNs sit in the 400-00 range, which is never issued. Use Drake practice returns only &mdash; never live client data.</p>
+    <p><strong>How the check sheet works.</strong> Rows marked <em>arithmetic</em> can be verified the moment the income is entered. Rows marked <em>capture</em> are filled in from Drake on the first clean run and become the key for every run after, so the key is the software&rsquo;s own arithmetic rather than a number typed from memory. Rows marked <em>the student decides</em> have no single right entry &mdash; they are the judgment the scenario exists to test.</p>
+    <p><strong>Work them in order.</strong> PR-1 is the floor and exists to prove data entry discipline. PR-2 is the Gate 1 specification exactly &mdash; unassisted, under 45 minutes, zero critical errors.</p>
+  </div>
+  <div id="body"></div>
+  <footer>
+    Companion to the EA Track workbook. Screen codes verified against <a href="https://kb.drakesoftware.com/kb/Drake-Tax/20051.htm" target="_blank" rel="noopener">Drake KB 20051</a>; confirm against your installed year.
+    <p class="fine">Not tax advice and not authority. Fact patterns are fictitious and built for training. The Code, regulations, form instructions and IRS publications govern &mdash; and for Wisconsin, the Wisconsin Statutes and Department of Revenue instructions. Content reflects tax year 2025 and goes stale. &copy; 2026 Tenaglia &amp; Associates, SC.</p>
+  </footer>
+</main>
+<script>
+var DONE={};
+var IRS='https://www.irs.gov/';
+function A(u,t){return '<a href="'+u+'" target="_blank" rel="noopener">'+t+'</a>';}
+function LK(s){
+  if(!s)return s;
+  s=s.replace(/\bPub(?:lication)?\.?\s+(\d{2,4}(?:-[AB])?)\b/g,function(m,n){
+    return A(IRS+'pub/irs-pdf/p'+n.toLowerCase().replace('-','')+'.pdf',m);});
+  s=s.replace(/\b(?:Form\s+)?(W-2G|W-2|1099-[A-Z]{1,4}|1098-[A-Z]|1098|1095-[ABC]|13614-C)\b/g,function(m,f){
+    return A(IRS+'forms-pubs/about-form-'+f.toLowerCase(),m);});
+  s=s.replace(/\bForm\s+(\d{3,5}(?:-[A-Z]{1,3})?)\b/g,function(m,f){
+    return A(IRS+'forms-pubs/about-form-'+f.toLowerCase(),m);});
+  s=s.replace(/\bCircular 230\b/g,function(m){return A(IRS+'pub/irs-pdf/pcir230.pdf',m);});
+  return s;
+}
+/* ---- data: practice returns ----
+   Fictitious. Every SSN is in the 400-00 range, which is not issued, and every
+   address and employer is invented. Key these into Drake practice returns only.
+   Each scenario names the stage it belongs to, plants specific errors, and ends
+   with a check sheet. AGI, the deduction and taxable income are computed here
+   from the Figures & Lines Sheet and can be checked immediately. Everything
+   downstream is captured from Drake on the first clean run and becomes the key
+   for every run after — that way the key is the software's own arithmetic, not
+   a number someone typed from memory. */
+var SCEN=[
+{id:"s1",code:"PR-1",stage:"After Lesson 12 · Gate 1 warm-up",title:"Single, one W-2, standard deduction",
+note:"The floor. One employer, one bank, nothing elective. If this return does not come out clean the problem is data entry discipline, not tax. Do it twice — once on paper, once in Drake — and reconcile line by line before moving on.",
+tp:{n:"Marcus D. Webb",dob:"14 March 1991",ssn:"400-00-1101",occ:"Diesel technician"},
+addr:"1428 Sunnyslope Drive, Waukesha, WI 53188",status:"Single",
+deps:[],
+docs:[
+ {f:"W-2",who:"Kettle Moraine Fleet Services, Inc. · EIN 39-4000111",rows:[
+  ["1","Wages, tips, other compensation","52,400.00"],["2","Federal income tax withheld","4,905.00"],
+  ["3","Social Security wages","54,500.00"],["4","Social Security tax withheld","3,379.00"],
+  ["5","Medicare wages","54,500.00"],["6","Medicare tax withheld","790.25"],
+  ["12a","Code D — 401(k) elective deferral","2,100.00"],
+  ["13","Retirement plan","Checked"],
+  ["16","State wages (WI)","52,400.00"],["17","State income tax withheld","2,510.00"]]},
+ {f:"1099-INT",who:"Waukesha State Bank",rows:[["1","Interest income","140.00"]]}],
+facts:["No dependents, not a dependent of anyone else.","No health coverage through the Marketplace; covered all year by the employer plan.","No digital asset activity.","Wants direct deposit — routing 075000022, account 8841200365."],
+traps:["Box 3 and Box 5 exceed Box 1 by exactly the 401(k) deferral. A preparer who 'fixes' this has misunderstood the form.","Box 13 retirement is checked, which matters in PR-4, not here. Enter it anyway.","The 1099-INT is small enough to be skipped by someone in a hurry. It still belongs on the return."],
+check:[["Total income","52,540","computed"],["Adjusted gross income","52,540","computed"],
+ ["Standard deduction","15,750","computed"],["Taxable income","36,790","computed"],
+ ["Tax","","capture"],["Total payments","4,905","computed"],["Refund or balance due","","capture"]]},
+
+{id:"s2",code:"PR-2",stage:"Gate 1 · the graded return",title:"MFJ, two W-2s, interest and dividends, one qualifying child",
+note:"This is the Gate 1 specification exactly: two W-2s, interest income, standard deduction, one qualifying child. Unassisted, under 45 minutes, zero critical errors. Do not coach during this one.",
+tp:{n:"Anthony R. Delgado",dob:"2 August 1988",ssn:"400-00-1201",occ:"Route supervisor"},
+sp:{n:"Renata M. Delgado",dob:"19 November 1990",ssn:"400-00-1202",occ:"Dental hygienist"},
+addr:"3307 North Brookfield Road, Brookfield, WI 53045",status:"Married filing jointly",
+deps:[["Sofia L. Delgado","Daughter","6 June 2017","400-00-1203","12","Lived with both parents all year"]],
+docs:[
+ {f:"W-2 (taxpayer)",who:"Great Lakes Distribution LLC · EIN 39-4000222",rows:[
+  ["1","Wages","61,900.00"],["2","Federal withheld","5,240.00"],["3","SS wages","61,900.00"],
+  ["4","SS tax","3,837.80"],["5","Medicare wages","61,900.00"],["6","Medicare tax","897.55"],
+  ["16","State wages","61,900.00"],["17","State withheld","2,970.00"]]},
+ {f:"W-2 (spouse)",who:"Elmbrook Dental Associates · EIN 39-4000223",rows:[
+  ["1","Wages","48,300.00"],["2","Federal withheld","3,110.00"],["3","SS wages","50,100.00"],
+  ["4","SS tax","3,106.20"],["5","Medicare wages","50,100.00"],["6","Medicare tax","726.45"],
+  ["12a","Code E — 403(b) deferral","1,800.00"],["13","Retirement plan","Checked"],
+  ["16","State wages","48,300.00"],["17","State withheld","2,180.00"]]},
+ {f:"1099-INT",who:"Landmark Credit Union",rows:[["1","Interest income","312.00"],["8","Tax-exempt interest","0.00"]]},
+ {f:"1099-DIV",who:"Vanguard Brokerage",rows:[
+  ["1a","Total ordinary dividends","1,240.00"],["1b","Qualified dividends","1,105.00"],
+  ["2a","Total capital gain distributions","0.00"],["5","Section 199A dividends","64.00"]]}],
+facts:["Both spouses covered by employer health plans all year.","Sofia has an SSN valid for employment.","No childcare expenses — Renata's mother watches Sofia after school without charge.","Neither spouse has an IP PIN."],
+traps:["Box 1b is lower than Box 1a. Entering only 1a prices the qualified dividends at ordinary rates — the single most expensive keystroke in Lesson 8.","Box 5 §199A dividends produce a QBI deduction on a return with no business. Most students miss it entirely.","Assigning both W-2s to the taxpayer breaks nothing visible on a joint return until you look at the Social Security wage base.","No childcare paid, so no Form 2441 — but the student must reach that conclusion by asking, not by omission."],
+check:[["Total income","111,752","computed"],["Adjusted gross income","111,752","computed"],
+ ["Qualified dividends (taxed at capital gain rates)","1,105","computed"],
+ ["Standard deduction","31,500","computed"],["QBI deduction","13","capture"],
+ ["Taxable income","","capture"],["Child tax credit","","capture"],
+ ["Total payments","8,350","computed"],["Refund or balance due","","capture"]]},
+
+{id:"s3",code:"PR-3",stage:"After Lessons 4, 5 and 6",title:"Head of household, EITC and CTC, with the due diligence file",
+note:"The status and dependency return. Every number here is secondary to two questions: does she qualify as head of household, and who is entitled to claim the children. Form 8867 is mandatory and the §6695(g) penalty is per credit, per return. Build the due diligence file as you go, not at the end.",
+tp:{n:"Danielle P. Okafor",dob:"27 January 1993",ssn:"400-00-1301",occ:"Certified nursing assistant"},
+addr:"812 West Grand Avenue, Apt 2C, Waukesha, WI 53186",status:"Determine it — do not assume",
+deps:[["Jaylen T. Okafor","Son","4 April 2015","400-00-1302","12","Lived with Danielle all year"],
+ ["Amara K. Okafor","Daughter","30 September 2021","400-00-1303","7","Lived with Danielle Jan–Jul, with her father Aug–Dec"]],
+docs:[
+ {f:"W-2",who:"Ridgewood Care Center · EIN 39-4000333",rows:[
+  ["1","Wages","29,850.00"],["2","Federal withheld","912.00"],["3","SS wages","29,850.00"],
+  ["4","SS tax","1,850.70"],["5","Medicare wages","29,850.00"],["6","Medicare tax","432.83"],
+  ["16","State wages","29,850.00"],["17","State withheld","840.00"]]},
+ {f:"1099-INT",who:"Educators Credit Union",rows:[["1","Interest income","41.00"]]}],
+facts:["Danielle is unmarried and has never married.","She rents the apartment in her own name and pays the rent, utilities and food out of her wages. Her mother gave her $3,000 during the year toward expenses.","Total cost of keeping up the home for the year was $19,400.","Amara's father provided no support and did not sign anything.","Danielle paid Little Sprouts Learning Center $2,400 for Amara's care while she worked. EIN 39-4000334.","She has never had a credit disallowed."],
+traps:["The $3,000 gift is the whole exercise. Total household cost was $19,400; Danielle paid $16,400 of it. More than half — she qualifies. Change the gift to $10,000 and she does not. Run it both ways.","Amara lived with Danielle 7 months — more than half the year, so she is a qualifying child of Danielle. Students routinely count 6 and disqualify her.","No Form 8332 exists and none is needed, because Danielle is the custodial parent for both children.","Dependent care credit applies to Amara only. Jaylen is 10 and does not qualify.","With this income and two qualifying children, EITC is in play and Form 8867 plus DD1 are mandatory."],
+check:[["Total income","29,891","computed"],["Adjusted gross income","29,891","computed"],
+ ["Filing status","Head of household","determine"],["Standard deduction","23,625","computed"],
+ ["Taxable income","6,266","computed"],["Child tax credit and ODC","","capture"],
+ ["Earned income credit","","capture"],["Dependent care credit","","capture"],
+ ["Refund","","capture"],["Form 8867 complete","Yes — required","required"]]},
+
+{id:"s4",code:"PR-4",stage:"Return Lab 2 · Ring A",title:"MFJ, adjustments and the itemize decision under the new SALT cap",
+note:"The Ring A return. It exists to force one decision — itemize or take the standard deduction — under the raised TY2025 SALT cap, which is the change most likely to flip a client who has taken the standard deduction since 2018. Run the comparison before entering anything on screen A.",
+tp:{n:"Gregory S. Hartmann",dob:"11 May 1974",ssn:"400-00-1401",occ:"Manufacturing engineer"},
+sp:{n:"Diane E. Hartmann",dob:"3 February 1976",ssn:"400-00-1402",occ:"Middle school teacher"},
+addr:"22190 Yorkshire Court, Brookfield, WI 53045",status:"Married filing jointly",
+deps:[["Ethan G. Hartmann","Son","8 December 2008","400-00-1403","12","Full-time high school student"]],
+docs:[
+ {f:"W-2 (taxpayer)",who:"Precision Tool & Die Corp · EIN 39-4000444",rows:[
+  ["1","Wages","128,600.00"],["2","Federal withheld","16,940.00"],["3","SS wages","134,900.00"],
+  ["4","SS tax","8,363.80"],["5","Medicare wages","134,900.00"],["6","Medicare tax","1,956.05"],
+  ["12a","Code D — 401(k)","6,300.00"],["12b","Code W — employer HSA contributions","3,200.00"],
+  ["13","Retirement plan","Checked"],["16","State wages","128,600.00"],["17","State withheld","6,980.00"]]},
+ {f:"W-2 (spouse)",who:"Elmbrook School District · EIN 39-4000445",rows:[
+  ["1","Wages","57,300.00"],["2","Federal withheld","4,220.00"],["3","SS wages","57,300.00"],
+  ["4","SS tax","3,552.60"],["5","Medicare wages","57,300.00"],["6","Medicare tax","830.85"],
+  ["13","Retirement plan","Checked"],["16","State wages","57,300.00"],["17","State withheld","2,910.00"]]},
+ {f:"1098",who:"Summit Credit Union · mortgage on the residence",rows:[
+  ["1","Mortgage interest received","11,480.00"],["2","Outstanding principal 1 Jan","284,000.00"],
+  ["5","Mortgage insurance premiums","0.00"],["10","Real estate taxes paid","6,890.00"]]},
+ {f:"1098-E",who:"Nelnet · Diane's student loans",rows:[["1","Student loan interest","1,340.00"]]},
+ {f:"1099-INT",who:"Summit Credit Union",rows:[["1","Interest income","96.00"]]}],
+facts:["Gregory contributed $1,100 of his own money to the HSA in addition to the employer's contribution. Family HDHP coverage all year.","Diane spent $410 of her own money on classroom supplies and worked more than 900 hours.","Diane contributed $6,000 to a traditional IRA in February 2026 for tax year 2025.","State income tax withheld totalled $9,890 between the two W-2s.","Cash charitable contributions of $4,200 to their parish, with acknowledgment letters for every gift over $250.","No noncash contributions."],
+traps:["The Box 12 code W amount of $3,200 belongs on Form 8889 line 9, not line 2. Only Gregory's $1,100 goes on line 2. Entering $4,300 as a contribution manufactures an excess contribution penalty.","Both spouses have Box 13 checked and their MAGI is well above the covered phaseout, so Diane's $6,000 IRA contribution is NOT deductible. It becomes basis on Form 8606 — and a student who skips the 8606 has cost her the basis permanently.","Itemized total is roughly $9,890 state tax + $6,890 property tax capped at $40,000, plus $11,480 interest plus $4,200 charity. Run it against the $31,500 standard deduction and let the software decide, but predict the answer first.","Student loan interest phases out between $170,000 and $200,000 MAGI on a joint return. Their MAGI is inside that range, so the deduction is reduced, not lost — read Wks SLID.","Ethan turns 17 during 2025. Check the child tax credit age rule carefully."],
+check:[["Total income","185,996","computed"],["Educator expenses adjustment","300","computed"],
+ ["HSA deduction","1,100","computed"],["IRA deduction","0 — nondeductible, Form 8606","determine"],
+ ["Student loan interest deduction","","capture"],["Adjusted gross income","","capture"],
+ ["Itemized deductions total","","capture"],["Standard deduction","31,500","computed"],
+ ["Greater of the two","","determine"],["Taxable income","","capture"],
+ ["Child tax credit or ODC for Ethan","","determine"],["Total payments","21,160","computed"],
+ ["Refund or balance due","","capture"]]},
+
+{id:"s5",code:"PR-5",stage:"After Lesson 13A · Schedule 1-A",title:"The TY2025 return — tips, overtime, car loan interest and the senior deduction",
+note:"Nothing on this return existed before tax year 2025, and none of it flows from another screen. Every figure is a direct entry on screen 1A, which means the preparer has to identify the amount from source documents and the interview. For 2025 employers were not required to break out qualified tips or overtime on the W-2, so the number is often in box 14, on a separate statement, or nowhere at all. This is an interview problem before it is a data entry problem.",
+tp:{n:"Raymond A. Vasquez",dob:"9 October 1958",ssn:"400-00-1501",occ:"Bartender, part time"},
+sp:{n:"Lorraine J. Vasquez",dob:"22 June 1962",ssn:"400-00-1502",occ:"Warehouse associate"},
+addr:"5540 South Kinnickinnic Avenue, Milwaukee, WI 53207",status:"Married filing jointly",
+deps:[],
+docs:[
+ {f:"W-2 (taxpayer)",who:"Riverwest Tavern Group LLC · EIN 39-4000555",rows:[
+  ["1","Wages, tips, other compensation","31,850.00"],["2","Federal withheld","1,640.00"],
+  ["3","Social Security wages","31,850.00"],["4","Social Security tax","1,974.70"],
+  ["5","Medicare wages","31,850.00"],["6","Medicare tax","461.83"],
+  ["7","Social Security tips","18,200.00"],["8","Allocated tips","0.00"],
+  ["14","Other — QUALIFIED TIPS","18,200.00"],
+  ["16","State wages","31,850.00"],["17","State withheld","1,180.00"]]},
+ {f:"W-2 (spouse)",who:"Menomonee Valley Logistics Inc · EIN 39-4000556",rows:[
+  ["1","Wages","54,700.00"],["2","Federal withheld","4,010.00"],
+  ["3","Social Security wages","54,700.00"],["4","Social Security tax","3,391.40"],
+  ["5","Medicare wages","54,700.00"],["6","Medicare tax","793.15"],
+  ["14","Other — FLSA OT PREMIUM","3,900.00"],
+  ["16","State wages","54,700.00"],["17","State withheld","2,340.00"]]},
+ {f:"Lender statement",who:"Educators Credit Union · auto loan",rows:[
+  ["—","Interest paid on vehicle loan, 2025","1,910.00"],
+  ["—","Loan origination date","14 March 2025"],
+  ["—","Vehicle","2025 Chevrolet Equinox, new, purchased by taxpayer"],
+  ["—","VIN","3GNAXUEG7SL204418"],
+  ["—","Final assembly","Kansas City, Kansas, United States"]]}],
+facts:["Raymond turned 67 during 2025. Lorraine is 63.","Both have SSNs valid for employment. They are filing jointly.","Raymond's employer reported qualified tips in box 14 as a courtesy; the amount agrees with box 7.","Lorraine's overtime premium of $3,900 is the FLSA half-time excess only. Her total overtime pay for the year was $11,700.","The Equinox is used for commuting and personal driving. No business use.","Neither has a pension or Social Security benefit yet.","They take the standard deduction."],
+traps:["The overtime deduction is the premium portion only — the extra half in time-and-a-half. Lorraine's total overtime pay was $11,700 but only $3,900 qualifies. A student who deducts $11,700 has made the single most common error on this schedule.","Only Raymond is 65 or older, so the senior deduction is $6,000, not $12,000. The Schedule 1-A test is stated as a date: born before 2 January 1961.","The tips deduction does not reduce Social Security or Medicare tax. Boxes 4 and 6 stand. It is a deduction against taxable income only.","All four deductions come out after AGI, so none of them loosens a single AGI-based phaseout. Ask the student to explain why that is the opposite of Lesson 13.","Tips, overtime and the senior deduction all require a joint return here. Car loan interest is the one with no joint-filing condition — confirm against the final regulations before advising anything.","No VIN, no car loan deduction. The VIN is a required entry on Schedule 1-A."],
+check:[["Total income","86,550","computed"],["Adjusted gross income","86,550","computed"],
+ ["Standard deduction","31,500","computed"],
+ ["Schedule 1-A — qualified tips","18,200","determine"],
+ ["Schedule 1-A — qualified overtime","3,900","determine"],
+ ["Schedule 1-A — car loan interest","1,910","determine"],
+ ["Schedule 1-A — senior deduction","6,000","determine"],
+ ["Schedule 1-A total to Form 1040 line 13b","30,010","computed"],
+ ["Taxable income","25,040","computed"],
+ ["Tax","","capture"],["Total payments","5,650","computed"],["Refund or balance due","","capture"],
+ ["Wisconsin treatment of the Schedule 1-A deductions","None — conformity is 31 Dec 2022","determine"]]},
+
+{id:"s6",code:"PR-6",stage:"Pairs with Lessons 27, W1, W2 and W4",title:"Wisconsin retiree — Social Security, capital gains and the conformity gap",
+note:"The retiree return, and the one that shows why a Wisconsin refund often looks better than the client expects. Everything here turns on two facts: tax-exempt interest walks back into the Social Security calculation, and Wisconsin then subtracts the taxable benefit back out entirely. Prepare the federal return first and do not touch Wisconsin until Form 1040 line 6b is final.",
+tp:{n:"Harold F. Brenner",dob:"3 February 1954",ssn:"400-00-1601",occ:"Retired tool and die maker"},
+sp:{n:"Judith A. Brenner",dob:"17 July 1956",ssn:"400-00-1602",occ:"Retired school secretary"},
+addr:"1755 Pilgrim Parkway, Brookfield, WI 53005",status:"Married filing jointly",
+deps:[],
+docs:[
+ {f:"SSA-1099 (taxpayer)",who:"Social Security Administration",rows:[
+  ["3","Benefits paid in 2025","34,800.00"],["5","Net benefits","34,800.00"],
+  ["—","Medicare Part B premiums withheld","2,340.00"],["6","Federal withheld","0.00"]]},
+ {f:"SSA-1099 (spouse)",who:"Social Security Administration",rows:[
+  ["3","Benefits paid in 2025","19,200.00"],["5","Net benefits","19,200.00"],
+  ["—","Medicare Part B premiums withheld","2,340.00"],["6","Federal withheld","0.00"]]},
+ {f:"1099-R",who:"Wisconsin Retirement System · EIN 39-4000666",rows:[
+  ["1","Gross distribution","28,400.00"],["2a","Taxable amount","28,400.00"],
+  ["4","Federal withheld","2,840.00"],["7","Distribution code","7 — normal"],
+  ["—","IRA/SEP/SIMPLE box","Not checked"],["14","State withheld","980.00"]]},
+ {f:"1099-DIV",who:"Charles Schwab",rows:[
+  ["1a","Total ordinary dividends","2,180.00"],["1b","Qualified dividends","1,940.00"],
+  ["11","Exempt-interest dividends","3,600.00"]]},
+ {f:"1099-B",who:"Charles Schwab · long-term, basis reported",rows:[
+  ["—","Proceeds, sale of 400 sh. industrial stock","41,000.00"],
+  ["—","Cost basis","17,500.00"],["—","Acquired","March 2011"],["—","Sold","8 September 2025"]]}],
+facts:["Harold is 71, Judith is 69. Both have been retired since 2022.","The $3,600 of exempt-interest dividends is municipal bond income they moved into specifically to reduce their tax.","Medicare premiums of $4,680 combined were withheld from their benefits.","Out-of-pocket medical and dental expenses of $3,110 on top of the Medicare premiums.","Property tax on the Brookfield home was $5,940. No mortgage — it is paid off.","Cash charitable contributions of $2,600, all acknowledged.","Harold took a $9,000 qualified charitable distribution directly from his IRA to the parish. It does not appear on any 1099-R differently and the client did not mention it until asked."],
+traps:["The QCD is the whole exercise on the federal side. It is excluded from income entirely and never appears as a deduction, so it beats a charitable deduction — it lowers AGI, which lowers the taxable Social Security. The 1099-R gives no indication whatsoever. If nobody asks, nobody finds it.","The municipal dividends are inside provisional income. The clients believe they are invisible. Show them the difference by removing the $3,600 and recomputing.","Medicare premiums are a Schedule A medical expense and they are on the SSA-1099, not on any medical bill. Nearly everyone misses them.","Enter the gross benefit, not the net cheque. The Medicare premiums were withheld from it.","Wisconsin subtracts the federally taxable Social Security in full on Schedule SB line 4, taking the figure straight from federal line 6b. Get line 6b wrong and the Wisconsin return is wrong in the same amount.","Wisconsin taxes only 70% of the long-term capital gain on this stock. The federal gain is $23,500; Wisconsin taxes $16,450.","Wisconsin has no itemized deduction. The federal Schedule A amounts feed the Wisconsin itemized deduction credit at 5% of the excess over the Wisconsin standard deduction — and it is worth computing even if they take the federal standard deduction."],
+check:[["Long-term capital gain","23,500","computed"],
+ ["Provisional income — show your work","","determine"],
+ ["Taxable Social Security, Form 1040 line 6b","","capture"],
+ ["Adjusted gross income","","capture"],
+ ["Medical expenses before the 7.5% floor","7,790","computed"],
+ ["Itemize or standard","","determine"],["Taxable income","","capture"],
+ ["Federal refund or balance due","","capture"],
+ ["Wisconsin Schedule SB line 4 subtraction","= federal line 6b","determine"],
+ ["Wisconsin taxable capital gain","16,450","computed"],
+ ["Wisconsin itemized deduction credit","","capture"],
+ ["Wisconsin refund or balance due","","capture"]]}
+];
+function scenHTML(x){
+  var h='<section class="lesson" id="'+x.id+'">';
+  h+='<div class="lhead"><span class="lnum">'+x.code+'</span><h2>'+x.title+'</h2>'
+    +'<label class="chk"><input type="checkbox" data-id="'+x.id+'"'+(DONE[x.id]?' checked':'')+'> done</label></div>';
+  h+='<p class="attach">'+x.stage+'</p>';
+  h+='<div class="row"><span class="tag">Before you start</span><div class="read">'+x.note+'</div></div>';
+  var who='<div class="row"><span class="tag">Taxpayer</span><table><tbody>';
+  who+='<tr><td style="width:26%"><strong>Name</strong></td><td>'+x.tp.n+'</td></tr>';
+  who+='<tr><td><strong>Date of birth</strong></td><td>'+x.tp.dob+'</td></tr>';
+  who+='<tr><td><strong>SSN</strong></td><td><code class="scr">'+x.tp.ssn+'</code></td></tr>';
+  who+='<tr><td><strong>Occupation</strong></td><td>'+x.tp.occ+'</td></tr>';
+  if(x.sp){who+='<tr><td><strong>Spouse</strong></td><td>'+x.sp.n+' · born '+x.sp.dob+' · <code class="scr">'+x.sp.ssn+'</code> · '+x.sp.occ+'</td></tr>';}
+  who+='<tr><td><strong>Address</strong></td><td>'+x.addr+'</td></tr>';
+  who+='<tr><td><strong>Filing status</strong></td><td>'+x.status+'</td></tr>';
+  h+=who+'</tbody></table></div>';
+  if(x.deps&&x.deps.length){
+    h+='<div class="row"><span class="tag">Dependents</span><table><thead><tr><th>Name</th><th>Relationship</th><th>Date of birth</th><th>SSN</th><th>Months in home</th><th>Notes</th></tr></thead><tbody>';
+    x.deps.forEach(function(d){h+='<tr><td>'+d[0]+'</td><td>'+d[1]+'</td><td>'+d[2]+'</td><td><code class="scr">'+d[3]+'</code></td><td>'+d[4]+'</td><td>'+d[5]+'</td></tr>';});
+    h+='</tbody></table></div>';}
+  x.docs.forEach(function(d){
+    h+='<div class="row"><span class="tag">'+LK(d.f)+' · '+d.who+'</span><table><thead><tr><th>Box</th><th>Item</th><th>Amount</th></tr></thead><tbody>';
+    d.rows.forEach(function(r){h+='<tr><td><code class="scr">'+r[0]+'</code></td><td>'+r[1]+'</td><td>'+r[2]+'</td></tr>';});
+    h+='</tbody></table></div>';});
+  if(x.facts.length){h+='<div class="row"><span class="tag">Interview facts</span><div class="look"><ul>';
+    x.facts.forEach(function(f){h+='<li>'+LK(f)+'</li>';});h+='</ul></div></div>';}
+  if(x.traps.length){h+='<div class="row"><span class="tag">Planted — for whoever is grading</span><div class="look" style="border-left:3px solid var(--mark)"><ul>';
+    x.traps.forEach(function(t){h+='<li>'+LK(t)+'</li>';});h+='</ul></div></div>';}
+  if(x.check.length){
+    h+='<div class="row"><span class="tag">Check sheet</span><table><thead><tr><th>Line</th><th>Value</th><th>Source</th></tr></thead><tbody>';
+    x.check.forEach(function(c){
+      var v=c[1]?c[1]:'<span class="blank">from Drake</span>';
+      var tagmap={computed:'Arithmetic — check now',capture:'Capture on first clean run',determine:'The student decides',required:'Compliance'};
+      h+='<tr><td>'+c[0]+'</td><td>'+v+'</td><td style="color:var(--mute);font-size:12.5px">'+(tagmap[c[2]]||c[2])+'</td></tr>';});
+    h+='</tbody></table></div>';}
+  return h+'</section>';
+}
+
+var b='';SCEN.forEach(function(x){b+=scenHTML(x);});
+document.getElementById('body').innerHTML=b;
+</script></body></html>
