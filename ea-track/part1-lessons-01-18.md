@@ -451,15 +451,17 @@ Screen help: F1 · https://kb.drakesoftware.com/kb/Drake-Tax/20051.htm
 
 ---
 
-## Lesson 12 — Payments, Refund, and Quality Review
+## Lesson 12 — Payments, Refund, and Finishing the Return
 
 **Read:** Pub 4491, *Finishing the Return* · Pub 4012, Tab K
 
-**Objective:** Complete the payments block and hand off a return that is finished and reviewed.
+**Objective:** Complete the payments block, choose the refund or payment method, and finish the return through signature and transmission.
 
-**Plain English.** Withholding, estimated payments and refundable credits all sit in the payments block. Subtract total tax from total payments and the sign of the answer is the refund or the balance due. Then the return has to be complete and correct enough to hand to the preparer who signs it.
+**Plain English.** Withholding, estimated payments and refundable credits all sit in the payments block. Subtract total tax from total payments and the sign of the answer is the refund or the balance due. Then the return has to actually be signable and transmittable, which is its own checklist.
 
-**On the return.** You do not transmit. You do not complete the PIN screen and you do not make EF selections — the signing preparer does that. What you do is run View, read every EF message, and either clear it or flag it. Those messages are how Drake reports that something is wrong, and handing over a return with unread messages is the fastest way to lose a reviewer's trust. Direct deposit details, payment setup and estimated vouchers still get entered, because the signing preparer needs them present and correct.
+**On the return.** Quality review happens here, before transmission, not after. Run View and read **every** EF message — that is how Drake reports something is wrong, and an unread message is the single most common reason a return gets rejected or has to be amended. Enter the direct deposit details and confirm the routing and account numbers against the source document rather than against the client's memory. Set up the electronic funds withdrawal or the vouchers for a balance due. Complete the PIN screen and Form 8879, make the EF selections, then transmit and confirm the acknowledgement actually comes back — a transmitted return is not a filed return until it is accepted.
+
+**Whose job is which.** Inside a firm, the preparer who signs the return owns the e-file authorization, the PIN screen, the EF selections and the transmission, and carries the Circular 230 and §6695 exposure that goes with signing. Someone learning the work should expect to prepare and review up to that line and hand off. Someone preparing their own return does the whole sequence. The lesson teaches all of it either way, because you cannot review a step competently that you have never been shown.
 
 **Drake.**
 
@@ -480,11 +482,11 @@ Screen help: F1 · https://kb.drakesoftware.com/kb/Drake-Tax/20051.htm
 
 **Golden Note.** « Total payments minus total tax is the last arithmetic on the return, and everything before it exists to make those two numbers right. »
 
-**Trap Note.** « Handing off a return without running View and reading the EF messages, which is where Drake tells you what is wrong. »
+**Trap Note.** « Transmitting, or handing off, without running View and reading the EF messages, which is where Drake tells you what is wrong. »
 
 **Homework.** Finish a return end to end including direct deposit and 8879.
 
-**Quiz.** Name three things that sit in the payments block. What must you check before handing a return to the signing preparer?
+**Quiz.** Name three things that sit in the payments block. What must be true before a return can be transmitted, and when is a transmitted return actually filed?
 
 ---
 

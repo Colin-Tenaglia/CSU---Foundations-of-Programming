@@ -4,6 +4,10 @@
 
 A working guide to preparing a complete individual income tax return, in preparation order, with the governing IRS publication, the Drake Tax data entry path, the affected form lines, and the failure modes for each section.
 
+**Who this is for.** Anyone preparing a Form 1040 — someone learning the work, someone experienced checking a detail mid-return, or someone preparing their own return. Read straight through, it teaches. Used by section, it answers one question fast. It is not tax advice for a particular situation and it is not authority; where it disagrees with a primary source, the source wins.
+
+**Whose job is which.** Where a return is prepared for compensation inside a firm, the preparer who signs it owns the e-file authorization, the PIN screen, the EF selections and the transmission, and carries the Circular 230 and §6695 exposure that goes with signing. Someone learning inside a firm should expect to hand off at that line. Someone preparing their own return does the whole sequence. Either way the finishing steps in Part 16 are covered rather than skipped, because you cannot review a step competently that you have never been shown.
+
 Reference order in every section: **Publication → return line → Drake screen → field-level detail.**
 
 ---
@@ -2537,9 +2541,30 @@ Screens marked **†** are still unconfirmed against a Drake source — verify t
 
 **Verify every figure in this table against the IRS instructions or Rev. Proc. before it goes in front of a client.** This is the only place in the guide where amounts live, so this is the only table that has to be updated when they change.
 
-The 2025 inflation-adjusted amounts come from **Rev. Proc. 2024-40**; the 2026 amounts, when you need them, are in **Rev. Proc. 2025-32**.
-
 Rows marked ✓ have been checked against a published source. Unmarked rows are still to be confirmed.
+
+### How to verify any figure here
+
+Almost every inflation-adjusted federal amount for a year is published in **one revenue procedure**, released the autumn before that tax year. Standard deduction, bracket thresholds, the qualifying relative gross income limit, the student loan interest phaseout, the EITC tables, the adoption credit, the foreign earned income exclusion — one document, all of it. Retirement and health accounts are the exception and are published separately.
+
+| Checking | Source |
+|---|---|
+| Standard deduction, brackets, most inflation-adjusted amounts, EITC tables | **Rev. Proc. 2024-40** (2025) · **Rev. Proc. 2025-32** (2026) — `irs.gov/pub/irs-drop/rp-24-40.pdf`, `rp-25-32.pdf` |
+| What actually belongs on a line, and the tax table | Instructions for Form 1040 — https://www.irs.gov/instructions/i1040gi |
+| Any form or its instructions, current or prior year | https://www.irs.gov/forms-instructions |
+| Topic explanations — Pub 17, 501, 502, 526, 550, 590-A/B, 596, 915, 969, 970 | https://www.irs.gov/publications |
+| Schedule 1-A and the four OBBBA deductions | https://www.irs.gov/pub/irs-pdf/f1040s1a.pdf · https://www.irs.gov/newsroom/schedule-1-a-additional-deductions-what-to-know-about-the-new-form |
+| Car loan interest deduction, including the contested MFS question | Final regulations, 2 January 2026 — https://www.federalregister.gov/documents/2026/01/02/2025-24154/car-loan-interest-deduction |
+| IRA, 401(k) and other retirement limits and phaseouts | https://www.irs.gov/retirement-plans/cola-increases-for-dollar-limitations-on-benefits-and-contributions |
+| HSA limits and HDHP qualification | Own revenue procedure each spring; Pub 969 carries them |
+| Standard mileage rates | https://www.irs.gov/tax-professionals/standard-mileage-rates |
+| EITC amounts and the investment income cliff | https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit-eitc · Pub 596 |
+| E-file outages, schema changes, form availability | https://www.irs.gov/e-file-providers/quick-alerts |
+| Drake screen behavior | F1 in the screen — it answers for the installed year, which no link can. Otherwise KB 20051 and Appendix H. |
+
+**Before relying on a number, check two things.** That the source is for the **right tax year** — a 2026 figure on a 2025 return is the most common way this goes wrong, and the two sit beside each other in search results. And that the figure is the one you think it is — caps, floors, and phaseout *start* points are different quantities, and several items have separate amounts by filing status.
+
+Where this table and a primary source disagree, **the source wins and this table is wrong**. Fix it here once so the next person is not caught by it.
 
 **Standard deduction** ✓
 
