@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EA Track Part 1 — Lessons 1 through 18</title>
+<style>
+:root{--paper:#EDEEE8;--form:#E3E6DC;--ink:#14150F;--rule:#B4B9A8;--mute:#5C6152;--mark:#8C2A11;--tab:#2E4739;--wi:#1B3A5C;--white:#FAFAF7;--mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;--sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55}
+a{color:var(--mark);text-decoration:none;border-bottom:1px solid rgba(140,42,17,.35)}
+a:hover{border-bottom-color:var(--mark)}
+a:focus-visible,input:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+.shell{display:grid;grid-template-columns:290px 1fr;min-height:100vh}
+nav.rail{background:var(--form);border-right:1px solid var(--rule);position:sticky;top:0;height:100vh;overflow-y:auto;padding:0 0 40px}
+main{padding:0 0 80px;min-width:0}
+.masthead{border-bottom:2px solid var(--ink);padding:26px 34px 20px;background:var(--white)}
+.masthead .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:0 0 10px}
+.masthead h1{margin:0;font-size:26px;line-height:1.12;font-weight:700;letter-spacing:-.015em}
+.masthead .sub{margin:9px 0 0;color:var(--mute);font-size:13.5px;max-width:64ch}
+.rail-head{padding:20px 20px 12px;border-bottom:1px solid var(--rule)}
+.rail-head .mark{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.rail-head .title{font-weight:700;font-size:15px;margin-top:4px}
+.partlink{display:block;padding:11px 20px;background:var(--tab);color:var(--white);font-size:12.5px;border-bottom:none;font-family:var(--mono)}
+.partlink:hover{background:#24382d;border-bottom:none}
+.progress-wrap{padding:14px 20px;border-bottom:1px solid var(--rule)}
+.bar{height:6px;background:rgba(20,21,15,.12);position:relative;overflow:hidden}
+.bar span{position:absolute;inset:0 auto 0 0;background:var(--tab);width:0;transition:width .3s ease}
+.progress-wrap .count{font-family:var(--mono);font-size:11px;color:var(--mute);margin-top:7px;display:block}
+.ctrls{padding:12px 20px;border-bottom:1px solid var(--rule);display:flex;gap:8px}
+.ctrls button{flex:1;padding:6px 4px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;background:var(--white);border:1px solid var(--rule);color:var(--ink);cursor:pointer}
+.ctrls button:hover{background:var(--tab);color:var(--white);border-color:var(--tab)}
+.filter{padding:12px 20px;border-bottom:1px solid var(--rule)}
+.filter input{width:100%;padding:7px 9px;border:1px solid var(--rule);background:var(--white);font-family:var(--mono);font-size:12px;color:var(--ink)}
+.phase{padding:16px 20px 4px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.rail a.item{display:flex;gap:9px;padding:6px 20px;font-size:13.5px;border-bottom:none;color:var(--ink);align-items:baseline}
+.rail a.item:hover{background:rgba(46,71,57,.09)}
+.rail a.item .n{font-family:var(--mono);font-size:11px;color:var(--mute);min-width:26px}
+.rail a.item.done .t{color:var(--mute);text-decoration:line-through}
+.rail .gate{margin:8px 20px;padding:6px 9px;background:var(--tab);color:var(--white);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.rail .gate.hard{background:var(--mark)}
+details.lesson{border-bottom:1px solid var(--rule)}
+details.lesson.hide{display:none}
+details.lesson>summary{list-style:none;cursor:pointer;padding:16px 34px;display:flex;align-items:center;gap:13px;background:var(--paper)}
+details.lesson>summary::-webkit-details-marker{display:none}
+details.lesson>summary:hover{background:#E6E7E0}
+details.lesson[open]>summary{background:var(--white);border-bottom:1px solid var(--rule)}
+.caret{font-family:var(--mono);font-size:12px;color:var(--mute);width:12px;flex:none;transition:transform .15s}
+details.lesson[open] .caret{transform:rotate(90deg)}
+.lnum{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--white);background:var(--ink);padding:4px 7px;white-space:nowrap;flex:none}
+.ltitle{font-size:17px;font-weight:700;letter-spacing:-.01em;flex:1}
+.chk{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;color:var(--mute);text-transform:uppercase;letter-spacing:.08em;cursor:pointer;flex:none}
+.chk input{accent-color:var(--tab);width:15px;height:15px;cursor:pointer}
+.lbody{padding:20px 34px 30px}
+.row{margin:14px 0 0}
+.row:first-child{margin-top:0}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--mute);display:block;margin-bottom:4px}
+.read{background:var(--white);border-left:3px solid var(--tab);padding:10px 13px;font-size:14px}
+.obj{font-weight:600}
+.look{background:var(--white);border:1px solid var(--rule);padding:12px 14px}
+.look ul{margin:0;padding-left:18px}
+.look li{margin:5px 0;font-size:14px}
+table{width:100%;border-collapse:collapse;margin-top:5px;font-size:13.5px;background:var(--white)}
+th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);border-bottom:1px solid var(--ink);padding:6px 9px;font-weight:400}
+td{border-bottom:1px solid var(--rule);padding:6px 9px;vertical-align:top}
+tr:last-child td{border-bottom:none}
+code.scr{font-family:var(--mono);font-size:12.5px;background:var(--form);padding:1px 5px;border:1px solid var(--rule);white-space:nowrap}
+details.sub{margin-top:14px;border:1px dashed var(--rule);background:rgba(46,71,57,.05)}
+details.sub>summary{cursor:pointer;padding:8px 13px;font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--mute);list-style:none}
+details.sub>summary::-webkit-details-marker{display:none}
+details.sub>summary:before{content:"\25B8 "}
+details.sub[open]>summary:before{content:"\25BE "}
+details.sub .inner{padding:0 13px 12px}
+details.sub ul{margin:0;padding-left:17px}
+details.sub li{margin:5px 0;font-size:13.5px}
+details.sub li .u{display:block;font-family:var(--mono);font-size:11px;color:var(--mute);word-break:break-all;border:none}
+.gold{background:var(--white);border-left:3px solid #A8842B;padding:11px 13px;font-size:14px;margin-top:16px}
+.hw{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.hw>div{background:var(--white);padding:11px 13px;font-size:14px;border:1px solid var(--rule)}
+.gatebar{background:var(--tab);color:var(--white);padding:18px 34px}
+.gatebar.hard{background:var(--mark)}
+.gatebar .tag{color:rgba(250,250,247,.65)}
+.gatebar h3{margin:0 0 5px;font-size:16px}
+.gatebar p{margin:0;font-size:14px;max-width:72ch;color:rgba(250,250,247,.92)}
+.sec-divider{padding:24px 34px 16px;background:var(--form);border-bottom:1px solid var(--rule);border-top:1px solid var(--rule)}
+.sec-divider h2{margin:0;font-size:19px}
+.sec-divider p{margin:6px 0 0;font-size:14px;color:var(--mute);max-width:74ch}
+.frontmatter{padding:24px 34px;background:var(--white);border-bottom:1px solid var(--rule)}
+.frontmatter h3{margin:20px 0 6px;font-size:13px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;font-weight:400;color:var(--mute)}
+.frontmatter h3:first-child{margin-top:0}
+.frontmatter p{margin:0 0 11px;font-size:14px;max-width:78ch}
+.frontmatter ul{margin:0 0 11px;padding-left:18px;font-size:14px;max-width:76ch}
+.frontmatter li{margin:3px 0}
+.disc{background:#14150F;color:#EDEEE8;padding:22px 34px;border-bottom:1px solid var(--rule)}
+.disc p{margin:0;font-size:14px;max-width:82ch;color:rgba(237,238,232,.88)}
+.disc strong{color:var(--white)}
+.disc .tag{color:rgba(237,238,232,.55)}
+.disc a{color:#E8A88F;border-bottom-color:rgba(232,168,143,.4)}
+.flag{background:rgba(140,42,17,.08);border-left:3px solid var(--mark);padding:11px 13px;margin:0 0 11px;font-size:14px}
+footer{padding:26px 34px;color:var(--mute);font-size:13px}
+@media(max-width:900px){.shell{grid-template-columns:1fr}nav.rail{position:static;height:auto;border-right:none;border-bottom:1px solid var(--rule)}.hw{grid-template-columns:1fr}.masthead,.lbody,.gatebar,.sec-divider,.frontmatter,.disc,footer{padding-left:20px;padding-right:20px}details.lesson>summary{padding-left:20px;padding-right:20px}}
+@media print{nav.rail,.chk{display:none}.shell{display:block}details{break-inside:avoid}details>.lbody,details .inner{display:block!important}.caret{display:none}}
+</style>
+</head>
+<body>
+<div class="shell">
+<nav class="rail">
+  <div class="rail-head"><div class="mark">Tenaglia &amp; Associates</div><div class="title">EA Track · Part 1</div></div>
+  <a class="partlink" href="https://ea-track-part2-tenaglc-6552s-projects.vercel.app">Part 2 — OBBBA, Energy, SS, Wisconsin →</a>
+  <div class="progress-wrap"><div class="bar"><span id="barfill"></span></div><span class="count" id="count">0 of 19 complete</span></div>
+  <div class="ctrls"><button id="expand">Expand all</button><button id="collapse">Collapse all</button></div>
+  <div class="filter"><input id="q" type="search" placeholder="Filter lessons or screens…" aria-label="Filter"></div>
+  <div id="nav"></div>
+</nav>
+<main>
+  <div class="masthead">
+    <p class="eyebrow">Individual taxation · Form 1040 · Phase 0 through Ring A</p>
+    <h1>Preparer Training — Lessons 1 through 18</h1>
+    <p class="sub">Publication first, then the Drake screen, then where it lands on the return. One lesson per sitting. Do not skip a gate.</p>
+  </div>
+  <div class="disc">
+    <span class="tag">Disclosure</span>
+    <p><strong>A working reference that also runs as a training sequence. Not tax advice, not authority.</strong> Written for anyone preparing a Form 1040 — someone learning the work, someone experienced checking a detail, or someone preparing their own return. The summaries and golden notes here are teaching simplifications. Real rules carry exceptions, limitations and interactions a one-sentence takeaway cannot hold. When preparing an actual return the Code, regulations, form instructions and IRS publications govern — and where they disagree with this document, this document is wrong. Content reflects tax year 2025. <a href="https://ea-track-part2-tenaglc-6552s-projects.vercel.app#disclosure">Full disclosure →</a></p>
+  </div>
+  <div class="frontmatter">
+    <h3>Before you start</h3>
+    <p><strong>Publications are cited by lesson name and tab letter, not page number.</strong> Pub 4491 renumbers every year; the lesson titles do not. Confirm the Pub 4012 tab letters against your printed copy the first time you use one.</p>
+    <p><strong>Drake screen codes</strong> come from the Drake KB Federal 1040 Screen List, updated 24 March 2026. Type a code into the selector box at the bottom of any data entry screen. Press <strong>F1</strong> on an open screen for that screen's own help.</p>
+    <p><strong>Every dollar figure lives in the <a href="https://ea-track-part2-tenaglc-6552s-projects.vercel.app#figures">Figures &amp; Lines Sheet</a></strong>, not in these lessons. <a href="https://ea-track-part2-tenaglc-6552s-projects.vercel.app#verify">Where to verify a figure</a> shows how to check any of them at source.</p>
+    <p><strong>Whose job is which.</strong> These lessons cover the return from intake through filing. Inside a firm, the preparer who signs owns the e-file authorization, the PIN screen, the EF selections and the transmission, and carries the Circular 230 and §6695 exposure that goes with signing — so if you are learning inside a firm, expect to hand off at that line, with a complete reviewed return and every EF message accounted for. If you are preparing your own return there is no handoff and the whole sequence is yours. Lesson 12 teaches all of it either way, because you cannot review a step competently that you have never been shown.</p>
+    <div class="flag"><strong>New for tax year 2025:</strong> Schedule 1-A on screen <code class="scr">1A</code> — tips, overtime, car loan interest, senior deduction. Full treatment in <a href="https://ea-track-part2-tenaglc-6552s-projects.vercel.app#a13">Part 2, Lesson 13A</a>.</div>
+    <h3>Turn these on before Lesson 1</h3>
+    <ul>
+      <li>Setup &gt; Options &gt; Data Entry — <strong>W-2 wage and withholding verification</strong>. Forces re-entry of boxes 1, 2, 16 and 17; mismatches throw EF messages 5477, 5478, 5501, 5503.</li>
+      <li>Setup &gt; Options &gt; Data Entry — <strong>Data Entry toolbar</strong> and <strong>grid entry</strong> on DIV, INT, 4562, dependents.</li>
+      <li>Setup &gt; Options — <strong>Always show tax computation worksheet</strong> and <strong>Always show reason for no EIC</strong>.</li>
+    </ul>
+    <p><strong>Use the practice returns that ship with the software.</strong> Do not use live client data for training.</p>
+  </div>
+  <div id="body"></div>
+  <footer>Screen codes verified against <a href="https://kb.drakesoftware.com/kb/Drake-Tax/20051.htm" target="_blank" rel="noopener">Drake KB 20051</a>, updated 24 March 2026. Confirm against your installed year. Progress stored in this browser only. <a href="https://ea-track-part2-tenaglc-6552s-projects.vercel.app">Continue to Part 2 →</a></footer>
+</main>
+</div>
+<script>
+var L=[
+{div:"Phase 0 — Preparer Foundations",divnote:"Run a diagnostic first. Prior work covered income topics; Lessons 3, 5 and 6 were never covered at all."},
+
+{n:"1",id:"l1",t:"The 1040 Skeleton",read:"Pub 4491, <em>Filing Basics</em> · Pub 4012, Tab A",obj:"Describe the seven blocks of a 1040 and name what enters each.",
+sum:"A return of any complexity is the same seven moves in a fixed order: total income, subtract adjustments to reach AGI, subtract a deduction to reach taxable income, compute tax, subtract credits, add other taxes, subtract what was already paid. Every form and schedule exists to feed one of those seven. Learning the order first is what lets you place an unfamiliar document without knowing the underlying rule — you can reason from where a number has to end up. AGI is the hinge: it is both a subtotal and an input, because a long list of credits, deductions and phaseouts key off it.",
+look:["A document you cannot place — ask which of the seven blocks it has to feed, then work backwards.","Anything that reduces income before AGI versus after — the two are not interchangeable.","Withholding — it is a payment, not a deduction, and lives in a different block from the wages it came from.","Refundable credits — they behave like payments and sit with them, not with the credits.","AGI moving for any reason — expect downstream phaseouts to move with it."],
+scr:[["1","Name, address, general information","General tab"],["2","Dependent information","General tab"],["3","Additional income, Schedule 1 Part I","General tab"],["4","Adjustments, Schedule 1 Part II","General tab"],["1A","Additional deductions, Schedule 1-A","General tab"],["5","Additional taxes and credits, Schedules 2 and 3","General tab"]],
+scrnote:"Screens 1 through 5 are the spine. Everything else attaches to them.",
+line:"Total income → AGI → taxable income → tax → credits → other taxes → payments → refund or balance due.",
+kb:[["KB 20051 — Federal 1040 Screen List","https://kb.drakesoftware.com/kb/Drake-Tax/20051.htm"]],
+gold:"A tax return is seven moves in a fixed order, and every form exists to feed one of them.",
+hw:"Mark up a blank 1040 by block. For five forms of your choice, name which block each feeds.",quiz:"Name the seven blocks in order. Which block does a W-2 feed? Which does withholding feed, and why is it not the same one?"},
+
+{n:"2",id:"l2",t:"Document Triage",read:"Pub 4491, <em>Income</em> overview · Pub 4012, Tab D",obj:"Identify the core information documents on sight and state what each reports.",
+sum:"Sorting comes before computing. Given a stack of documents you should be able to name each one, say what it reports, name the screen it belongs on, and — harder and more valuable — notice what is missing. Absence is the diagnostic skill here: a 1098 with no Schedule A, a W-2 with box 12 code W and no Form 8889, a brokerage statement with no 1099-B when there were clearly sales. Clients bring what they received, not what the return needs, and the gap between those two is where the interview earns its keep.",
+look:["A brokerage composite — it is several forms in one envelope. Read every section, not the summary page.","1099-MISC versus 1099-NEC — near-identical layout, different screens, different tax.","1099-K alongside a Schedule C — risk of double-counting the same receipts.","A document from a prior tax year mixed into the stack.","A 1095-A — the return cannot be finished without it, and clients routinely discard it.","Corrected forms — check whether the original was already entered.","K-1s — often arrive after the rest of the file. Note the gap now rather than in April."],
+scr:[["W2","Form W-2","General tab"],["INT","1099-INT","Selector"],["DIV","1099-DIV","Selector"],["NEC","1099-NEC","Selector"],["99M","1099-MISC","Selector"],["99G","1099-G","Selector"],["1099","1099-R","General tab"],["99B","1099-B","Selector"],["99K","1099-K","Selector"],["SSA","SSA-1099","General tab"],["1098","Mortgage interest","Selector"],["95A","1095-A","Health Care tab"],["W2G","Gambling winnings","Selector"],["K1P / K1S","Partnership and S corp K-1","Selector"],["DOCS†","1098 and 1099 source document guide","Selector"]],
+scrnote:"1095-A is screen 95A on the Health Care tab, one screen per 1095-A — confirmed against the Drake KB. 1099-B transactions go to 8949, or to D2 for the summary route when basis was reported and there are no adjustments. Codes marked † are not yet confirmed against a Drake source; verify in your installed year.",
+kb:[["KB 11742 — Guide to 1098 and 1099 Informational Returns","https://kb.drakesoftware.com/kb/Drake-Tax/11742.htm"],["KB 10520 — 1099-K Data Entry","https://kb.drakesoftware.com/kb/Drake-Tax/10520.htm"],["KB 10623 — Forms W-2 and 1099 in View and Sets","https://kb.drakesoftware.com/kb/Drake-Tax/10623.htm"]],
+gold:"Every information document has exactly one home screen in Drake, and knowing the pairing turns data entry into transcription.",
+hw:"Given twenty mixed documents, sort into piles, name the Drake screen for each, and list what is missing.",quiz:"Which screen takes a 1099-R? What is the difference between what a 1099-NEC and a 1099-MISC report?"},
+
+{n:"3",id:"l3",t:"Intake and the Client Interview",read:"Pub 4491, <em>Screening and Interviewing</em> · Form 13614-C",obj:"Run an intake interview on Form 13614-C and identify unresolved items before preparation starts.",
+sum:"The return is capped by the quality of the interview. Form 13614-C is the IRS intake instrument, it is free, and it is better structured than anything a firm writes on its own. Its real function is not collecting facts the client already knows to volunteer — it is surfacing the ones they do not. Every box a client marks unsure is an unanswered question that will otherwise surface as an error, and the discipline is to resolve all of them before opening the software. Consent is part of intake, not an afterthought: §7216 governs use and disclosure of return information and it binds trainees exactly as it binds anyone else.",
+look:["Any box marked unsure — resolve it before entry, not after.","Marital or household changes during the year — status, dependents and credits all turn on this.","A new state, or time in two states — scope changes immediately.","Self-employment mentioned casually — Schedule C, SE tax and QBI all follow.","Foreign accounts — Schedule B Part III and possibly FBAR.","Dependent living elsewhere part of the year — count the months now.","Prior-year return not in hand — ask for it. Carryovers and basis live there.","Any disclosure outside the firm — get the §7216 consent first."],
+scr:[["IDS†","Required identification","Selector"],["USE","Consent to use tax return information","Selector"],["CONS","Consent to disclose to other firms","Selector"],["DISC","Consent to disclose on behalf of the taxpayer","Selector"],["MISC","Identity Protection PIN fields","Selector"],["NOTE","Notes that can block a return from being marked complete","Selector"]],
+scrnote:"Using or disclosing client information without a valid consent is a §7216 problem, not a preference. The taxpayer can e-sign USE and DISC and the signed consent prints with the return — the preparer may not sign or date them on the taxpayer's behalf. Blank forms are also at Tools &gt; Blank Forms, searching 7216. Use NOTE for unresolved intake items so the return cannot ship with an open question.",
+kb:[["KB 10866 — Consent Forms for Use and Disclosure (§7216)","https://kb.drakesoftware.com/kb/Drake-Tax/10866.htm"],["KB 13355 — Drake E-Sign","https://kb.drakesoftware.com/kb/Drake-Tax/13355.htm"]],
+gold:"The interview happens before the software opens, and unresolved intake questions are the largest single source of wrong returns.",
+hw:"Complete a 13614-C from a scripted client. List every follow-up question the form generated.",quiz:"What does §7216 govern? Name two intake answers that change which forms you will need."},
+
+{n:"4",id:"l4",t:"Filing Status",read:"Pub 4491, <em>Filing Status</em> · Pub 4012, Tab B",obj:"Determine filing status, including the head of household test and what married filing separately costs.",
+sum:"Status is a determination you make, not a demographic you copy. It is the highest-leverage decision on the return because it sets the standard deduction, the bracket boundaries, and eligibility for EITC, education credits, the student loan interest deduction and three of the four Schedule 1-A deductions. Head of household is where errors concentrate, because it requires two independent things people conflate: a qualifying person, and paying more than half the cost of keeping up the home. A custodial parent living in someone else's house fails the second while obviously passing the first. Married filing separately is rarely a considered choice — it is usually a symptom of something the client has not explained.",
+look:["Married on 31 December is married for the whole year, whenever the wedding was.","Separated but not divorced — test the considered-unmarried rules before reaching for head of household.","Client living in a parent's or partner's home — the cost-of-keeping-up test is the one that fails.","A qualifying person who is not a dependent can still support head of household in specific cases. Check Tab B.","Widow or widower with a dependent child — qualifying surviving spouse may apply for two years after the year of death.","MFS with no explanation — ask. Student loans, liability and immigration status all drive it.","Head of household claimed — Form 8867 and the DD1 head of household section become mandatory."],
+scr:[["1","Filing status field","General tab"],["DD1","Head of household due diligence section","General tab"]],
+line:"Filing status box, top of Form 1040. Drives the standard deduction and bracket selection.",
+kb:[["KB 14867 — Not a Dependent: HOH Qualifier","https://kb.drakesoftware.com/kb/Drake-Tax/14867.htm"],["KB 14140 — Filing Requirements","https://kb.drakesoftware.com/kb/Drake-Tax/14140.htm"]],
+gold:"Filing status is chosen first because nearly every number after it depends on which one you picked.",
+hw:"Five fact patterns. Determine status and cite the Tab B decision tree step that decided it.",quiz:"What two conditions must both be met for head of household? Name three things MFS disqualifies."},
+
+{n:"5",id:"l5",t:"Dependents",read:"Pub 4491, <em>Dependents</em> · Pub 4012, Tab C",obj:"Apply the qualifying child and qualifying relative tests and resolve tiebreakers.",
+sum:"Two separate tests with different elements, and a person failing one may still pass the other. Qualifying child runs on relationship, age, residency, support and joint return. Qualifying relative runs on relationship or household membership, gross income and support. When two people can claim the same child the tiebreaker rules decide it — not the taxpayers, and not whoever files first. This lesson governs the back half of the return: CTC, ODC, EITC, dependent care, education credits and head of household all read from screen 2, so an error here contaminates everything downstream.",
+look:["Months in the home — this is what decides most contested claims, and it is the field people guess at.","A 19- to 23-year-old — student status decides whether the age test passes.","Dependent with an ITIN rather than an SSN — changes which credits are available.","Divorced or separated parents — Form 8332 and question 12 on screen 2.","Support provided by several people — Form 2120 multiple support declaration.","A dependent with their own income — gross income test for qualifying relative.","Child who could be claimed by two households — run the tiebreaker rather than asking the client to choose.","Credits disallowed in a prior year — Form 8862 or the return rejects."],
+scr:[["2","Dependent information, includes a Due Diligence tab","General tab"],["8332","Release of claim by custodial parent","Selector"],["2120","Multiple support declaration","Selector"],["8862","Claiming credits after prior disallowance","Selector"]],
+scrnote:"Screen 2 supports grid entry. EF message 4924 fires when a dependent appears to qualify for CTC or ODC but question 10 on the Due Diligence tab is unanswered.",
+kb:[["KB 10558 — Form 8332","https://kb.drakesoftware.com/kb/Drake-Tax/10558.htm"],["KB 14268 — Refundable Credits Due Diligence Facts","https://kb.drakesoftware.com/kb/Drake-Tax/14268.htm"],["KB 10419 — Dependent Not Showing","https://kb.drakesoftware.com/kb/Drake-Tax/10419.htm"],["KB 10886 — EIC FAQs, tiebreaker rules","https://kb.drakesoftware.com/kb/Drake-Tax/10886.htm"]],
+gold:"Qualifying child and qualifying relative are different tests, and a person who fails one may still pass the other.",
+hw:"Six dependent scenarios including one tiebreaker and one multiple support case.",quiz:"List the five qualifying child tests. Who wins under the tiebreaker when a child lived with each parent equally?"},
+
+{n:"6",id:"l6",t:"The Preparer's Role and Due Diligence",read:"Pub 4491, <em>Quality Review</em> · Pub 4687 · Circular 230 §10.22 and §10.34 · Form 8867 instructions",obj:"State your due diligence obligations and complete Form 8867.",
+sum:"A PTIN is required to prepare for compensation, and Circular 230 sets the standard of conduct. Form 8867 is required whenever the return claims EITC, CTC, ACTC, ODC, AOTC or head of household, and the §6695(g) penalty applies per credit per return — four credits on one return is four exposures. The obligation is not satisfied by getting the answer right; it requires asking the questions, documenting the answers, and keeping the file. In Drake this is spread across four places, which is the single most confusing thing about the software for a new preparer, and the reason returns sit unfiled with unexplained EF messages.",
+look:["Per-dependent questions 10 and 12 — screen 2, Due Diligence tab. Not on 8867.","Question 13, AOTC substantiation — on the 8863 screen, below the institution address.","EF message 4924 — question 10 unanswered. 4912 — question 12 unanswered.","Note 282 — clear it on the first DD1 income tab, income reasonableness question.","Multiple Schedule C businesses — use the additional income tabs on DD1, not just the first.","Income that looks too low to support the household — that is the question the form is actually asking.","Documentation named but not in the file — the penalty attaches to the recordkeeping, separately.","Blank due diligence questions needed — Tools › Blank Forms, search Due Diligence."],
+scr:[["2 › Due Diligence","Per-dependent questions 10 and 12","General tab"],["8867","Paid preparer's due diligence checklist","General tab"],["8863","Question 13, AOTC substantiation","Selector"],["DD1","Legacy EIC detail, head of household and income tabs","General tab"],["DD2","Notes","General tab"]],
+kb:[["KB 14291 — 1040: Due Diligence FAQs","https://kb.drakesoftware.com/kb/Drake-Tax/14291.htm"],["KB 14268 — Refundable Credits Due Diligence Facts","https://kb.drakesoftware.com/kb/Drake-Tax/14268.htm"],["KB 11788 — Refundable vs. Nonrefundable","https://kb.drakesoftware.com/kb/Drake-Tax/11788.htm"],["KB 17428 — Screen EIC","https://kb.drakesoftware.com/kb/Drake-Tax/17428.htm"],["IRS Pub 4687 — Paid Preparer Due Diligence","https://www.irs.gov/pub/irs-pdf/p4687.pdf"]],
+gold:"Due diligence is a per-credit obligation with a per-credit penalty, and the documentation requirement is separate from getting the answer right.",
+hw:"Complete an 8867 for a return claiming EITC and CTC. Identify what documentation the file needs.",quiz:"Which four items trigger 8867? Where are the per-dependent questions actually answered?"},
+
+{n:"6S",id:"l6s",t:"Software Orientation",read:"Drake KB 10221 · KB 13109 · KB 14287",obj:"Navigate Drake data entry without knowing any tax yet.",
+sum:"No tax content. This exists because someone fighting the interface has no attention left for the return. Screens 1 through 5 are the spine and live on the General tab alongside W2, 1099, SSA, A, 2106 and 2441; everything else is reached by typing its code into the selector at the bottom of any screen. A highlighted tab means that tab already has a completed screen, which is the fastest read on what a return contains. The field conventions matter more than they look: red shading means a detail worksheet is hiding behind the field, and override fields silently replace the program's calculation rather than correcting the input that produced it.",
+look:["Red-shaded field — a detail worksheet exists. CTRL+W or double-click to open it.","Override or adjustment field — positive increases, negative decreases. It hides the real problem.","F box — excludes an item from the federal return; 0 suppresses entirely. Used for state-only data.","ST dropdown — assigns an entry to a state and can generate a state return by itself.","Multiple instances of a screen — Page Up and Page Down move between them.","Prior-year return exists — PY Fields and PY Data show what was entered last year in the same fields.","Highlighted tab you did not expect — something is already entered there. Look before assuming.","A field refusing a code — CTRL+F moves past it, but the code will not carry to the return."],
+scr:[["Page Up / Page Down","Between instances of one screen","—"],["CTRL+V","Calculate and view","—"],["CTRL+E","Back to data entry","—"],["CTRL+W","Open detail worksheet","—"],["CTRL+F","Skip a field refusing a code","—"],["PY Fields / PY Data","LookBack — prior-year values","—"]],
+scrnote:"LookBack is the most useful button in the program for someone learning: it shows what a competent preparer entered on the same screen last year.",
+kb:[["KB 10221 — Creating a New Return","https://kb.drakesoftware.com/kb/Drake-Tax/10221.htm"],["KB 13109 — Data Entry Basics","https://kb.drakesoftware.com/kb/Drake-Tax/13109.htm"],["KB 14287 — Data Entry Toolbar","https://kb.drakesoftware.com/kb/Drake-Tax/14287.htm"],["Drake Tax Manual, TY2025","https://www.drakesoftware.com/sharedassets/manuals/draketaxusersmanual.pdf"]],
+gold:"Screens 1 through 5 are the spine, everything else is typed into the selector box, and a highlighted tab tells you what the return already contains.",
+hw:"Open a practice return. Visit every screen named in Lessons 1 through 12 without using a mouse. Find one red-shaded field and open its worksheet.",quiz:"How do you reach a screen not on the General tab? What does entering 0 in the F box do?"},
+
+{gate:"Gate 0",hard:false,txt:"Sort twenty mixed documents cold and name what is missing. Correct status and dependents on three fact patterns, unprompted. Complete a 13614-C and name every follow-up question it raises. Navigate Drake without hunting."},
+
+{div:"Phase 1 — One Complete Return",divnote:"The point of this phase is a finished return, not coverage. Do not let it expand."},
+
+{n:"7",id:"l7",t:"W-2 Wages",read:"Pub 4491, <em>Income – Wages, Interest, Etc.</em> · Pub 4012, Tab D",obj:"Read every box of a W-2 and identify which boxes affect the return.",
+sum:"Box 1 is not gross pay. It is gross wages reduced by pre-tax deferrals and increased by taxable fringe benefits, which is why Box 1, Box 3 and Box 5 rarely agree. A 401(k) deferral reduces Box 1 but not Boxes 3 and 5. A §125 cafeteria plan reduces all three. Box 3 stops at the Social Security wage base; Box 5 does not. Reading the relationship between those three numbers tells you what the employee elected during the year before the client says a word — and the boxes people skip are the ones that quietly control forms in later lessons.",
+look:["Box 1 below Boxes 3 and 5 — retirement deferral. Confirm against Box 12 code D and the Box 13 checkbox.","Box 3 below Box 5 — wages exceeded the Social Security wage base.","Two or more employers — check for excess Social Security withheld, a refundable credit the client will not ask for.","Box 12 code W with no Form 8889 in the file — the return is incomplete.","Box 13 statutory employee — income goes to Schedule C, not line 1.","Box 14 is employer-discretionary — it is where qualified overtime may appear for 2025.","State wages that do not tie to federal — expect a state adjustment.","No W-2 issued at all — screen 4852, or FEC for a foreign employer."],
+scr:[["W2","One screen per W-2","General tab"],["W2 › Additional Entries","Overflow for extra Box 12 codes","—"],["4852","Substitute W-2 when one is missing","Selector"],["8919","Uncollected SS and Medicare, misclassification","Selector"],["FEC","Foreign employer compensation","Selector"]],
+line:"Box 1 → wages. Box 2 → federal withholding, payments block. Box 12 code W → Form 8889. Box 13 retirement box → controls the IRA deduction in Lesson 15.",
+kb:[["KB 17819 — 1040: Line 1","https://kb.drakesoftware.com/kb/Drake-Tax/17819.htm"],["KB 10932 — Wage and Withholding Verification Fields","https://kb.drakesoftware.com/kb/Drake-Tax/10932.htm"],["KB 11094 — Form 4852, Substitute W-2","https://kb.drakesoftware.com/kb/Drake-Tax/11094.htm"],["KB 10770 — Statutory Employees","https://kb.drakesoftware.com/kb/Drake-Tax/10770.htm"]],
+gold:"Box 1 and Box 2 land in different blocks of the return, and the Box 12 and 13 entries quietly control forms you have not opened yet.",
+hw:"Enter three W-2s including one with Box 12 codes D, W and DD. Explain what each does and does not do.",quiz:"What does Box 12 code W represent and which form does it trigger? Why does the Box 13 retirement checkbox matter?"},
+
+{n:"8",id:"l8",t:"Interest and Dividends",read:"Pub 4491, <em>Income – Wages, Interest, Etc.</em> · Pub 4012, Tab D",obj:"Enter interest and dividend income and state when Schedule B is required.",
+sum:"Interest is taxable by default, with municipal interest the main exception and education savings bonds a narrower one. Dividends split into ordinary and qualified, and the split matters more than the total because qualified dividends are taxed on the capital gains worksheet rather than the tax table. Tax-exempt interest still gets reported even though it is not taxed, and Lesson 27 is why: it walks back into the Social Security calculation and can make otherwise untaxed benefits taxable. The Schedule B foreign account questions in Part III are the entry point to FBAR and are among the most consistently skipped items on the return.",
+look:["Brokerage composite — read every section; interest, dividends and proceeds arrive together.","Qualified dividends not split out — overstates tax by pushing them through the ordinary table.","Tax-exempt interest — report it, and check the Social Security effect before calling it free.","Exempt interest not carrying to the state — see KB 11523.","Schedule B Part III — answer the foreign account questions rather than skipping past them.","Interest over the threshold — Schedule B becomes required; below it, it can be forced from PRNT.","A child's interest and dividends — Form 8814 election, or the child files.","Savings bonds cashed for education — Form 8815 exclusion may apply."],
+scr:[["INT","1099-INT, grid entry available","Selector"],["DIV","1099-DIV, grid entry available","Selector"],["B","Schedule B, including Part III foreign account questions","Selector"],["8815","Savings bond interest exclusion","Selector"],["8814","Parent's election for child's interest and dividends","Selector"],["PRNT","Force Schedule B to print","Miscellaneous tab"]],
+scrnote:"1099-INT and 1099-DIV are not reproduced in View/Print mode; W-2, 1099-R and 1099-G are.",
+line:"Taxable and tax-exempt interest on separate lines. Ordinary and qualified dividends on separate lines. Qualified dividends feed the capital gains worksheet in Lesson 10.",
+kb:[["KB 10871 — Schedule B: Form Not Generating","https://kb.drakesoftware.com/kb/Drake-Tax/10871.htm"],["KB 14746 — Tax-Exempt and Taxable Interest","https://kb.drakesoftware.com/kb/Drake-Tax/14746.htm"],["KB 13928 — Tax ID Number on INT and DIV Screens","https://kb.drakesoftware.com/kb/Drake-Tax/13928.htm"],["KB 11523 — Exempt Interest Dividend Not Carrying to State","https://kb.drakesoftware.com/kb/Drake-Tax/11523.htm"],["KB 12116 — Form 8814","https://kb.drakesoftware.com/kb/Drake-Tax/12116.htm"]],
+gold:"Tax-exempt interest still gets reported, because it affects the Social Security calculation and other phaseouts even though it is not taxed.",
+hw:"Enter a brokerage composite with interest, ordinary and qualified dividends, and tax-exempt interest.",quiz:"When is Schedule B required? Why does tax-exempt interest still appear on the return?"},
+
+{n:"9",id:"l9",t:"Standard Deduction",read:"Pub 4491, <em>Standard Deduction and Tax Computation</em> · Pub 4012, Tab F",obj:"Determine the standard deduction, including additional amounts, and state when itemizing is worth considering.",
+sum:"Everyone gets a deduction; the only question is which one. The standard amount follows filing status, with additional amounts for age 65 and over and for blindness, and Drake computes all of it from data already on screen 1 — which makes an incorrect date of birth a deduction error rather than a clerical one. Itemizing is worth the effort only when the total clears that number, and Drake will not even produce Schedule A unless it does or you force it. Since 2018 most returns take the standard deduction, which is why the Schedule A lessons come later than a beginner expects.",
+look:["Date of birth wrong or missing — the additional standard deduction silently disappears.","Blindness — a separate additional amount nobody thinks to ask about.","Client aged 65 or over — a third OBBBA amount applies on screen 1A. See Part 2, Lesson 9+.","Schedule A open by habit — check the comparison before spending time in it.","Someone claimed as a dependent on another return — their standard deduction is limited.","Married filing separately where one spouse itemizes — the other must itemize too.","Schedule A not printing — that is the software telling you the standard deduction won."],
+scr:[["1","Date of birth and blindness indicators","General tab"],["A","Schedule A — only when itemizing is genuinely in play","General tab"],["1A","Senior deduction, Schedule 1-A","General tab"]],
+line:"Standard or itemized deduction subtracted from AGI gives taxable income.",
+kb:[["KB 15807 — Standard Deduction Amounts","https://kb.drakesoftware.com/kb/Drake-Tax/15807.htm"],["KB 16988 — Force Itemized or Standard Deduction","https://kb.drakesoftware.com/kb/Drake-Tax/16988.htm"],["KB 16444 — Form 1040-SR","https://kb.drakesoftware.com/kb/Drake-Tax/16444.htm"]],
+gold:"The standard deduction is calculated from information already on screen 1, so entering the birthdate correctly is a deduction issue, not a demographics issue.",
+hw:"Four taxpayers of varying status and age. State the deduction and what on screen 1 produced it.",quiz:"What two conditions produce an additional standard deduction? Where are they entered?"},
+
+{n:"10",id:"l10",t:"Tax Computation",read:"Pub 4491, <em>Standard Deduction and Tax Computation</em> · tax table and computation worksheet",obj:"Compute tax from taxable income and distinguish marginal from effective rate.",
+sum:"Brackets are marginal: only the income sitting inside a bracket is taxed at that bracket's rate, so the effective rate is always below the marginal one. Clients believe otherwise almost universally, and being able to explain it plainly is a client-facing skill rather than a technical one. Underneath, the return does not always use the tax table — qualified dividends and long-term capital gains are computed on a separate worksheet at their own rates, and several other computations can displace the table entirely. When the tax does not match what you expect from the table, the answer is that a different computation is running, and knowing which one is the whole skill.",
+look:["Tax that does not match the tax table — a worksheet is running instead. Find which.","Qualified dividends or long-term gain present — the capital gains worksheet is in play.","A dependent with unearned income — Form 8615 kiddie tax.","Client says a raise pushed them into a higher bracket — correct the premise before answering.","Lump-sum distribution — Form 4972 may apply.","Tax computation worksheet not visible — turn it on in Setup › Options during training."],
+scr:[["—","No direct entry screen","—"],["8615","Kiddie tax, dependent with unearned income","Selector"],["4972","Tax on lump-sum distributions","Selector"]],
+scrnote:"Turn on Setup › Options › Always show tax computation worksheet so the computation is visible rather than a black box.",
+line:"Taxable income produces tax. Watch for the capital gains worksheet replacing the tax table.",
+kb:[["KB 10298 — No Tax or Tax Different than Tax Table","https://kb.drakesoftware.com/kb/Drake-Tax/10298.htm"],["KB 10806 — 8615: Kiddie Tax","https://kb.drakesoftware.com/kb/Drake-Tax/10806.htm"],["KB 11799 — Modified Adjusted Gross Income Calculation","https://kb.drakesoftware.com/kb/Drake-Tax/11799.htm"]],
+gold:"A bracket applies only to the income inside it, and the effective rate is always lower than the marginal rate.",
+hw:"Compute tax by hand for three taxpayers, then verify in Drake. Explain any difference.",quiz:"For a given MFJ taxable income, what is the marginal rate and what is the effective rate? Why can they differ so much?"},
+
+{n:"11",id:"l11",t:"Child Tax Credit and Schedule 8812",read:"Pub 4491, <em>Child Tax Credit</em> · Pub 4012, Tabs G and H",obj:"Apply CTC, ODC and the additional child tax credit, and distinguish refundable from nonrefundable.",
+sum:"The credit splits into a nonrefundable piece limited by tax liability and a refundable piece computed from earned income, and Schedule 8812 exists to work out how much of each a family gets. That structure explains most client confusion: two households with the same children can see very different refunds because one had tax to offset and the other did not. The SSN requirement separates CTC from the other dependent credit and it is tested per dependent, not per return — one child with an SSN and one with an ITIN produces both credits on the same return.",
+look:["Dependent with an ITIN rather than an SSN — ODC, not CTC. Check each one individually.","SSN issued after the return due date — fails the CTC requirement even though the number exists now.","Child turning 17 during the year — out for CTC, still eligible for ODC.","Low or zero tax liability — the nonrefundable portion is wasted; the refundable calculation does the work.","Little or no earned income — the additional child tax credit shrinks or disappears.","Fewer than seven months in the home — check KB 14573 before claiming.","Divorced or separated parents — Form 8332 and question 12 on screen 2.","Credit claimed after a prior disallowance — Form 8862 or the return rejects."],
+scr:[["2","Dependents, drives eligibility","General tab"],["8812","Schedule 8812","Selector"],["2 › Due Diligence","Questions 10 and 12","General tab"],["8867","General due diligence questions","General tab"],["8862","After prior disallowance","Selector"]],
+scrnote:"CTC is limited to the tax liability on the return — see Wks CRED_LMT in View/Print. Wks 8812 supports the related calculations.",
+line:"Nonrefundable CTC and ODC to the credits block. Additional child tax credit to the payments block, because refundable credits behave like payments.",
+kb:[["KB 18340 — 8812: CTC, ACTC and ODC","https://kb.drakesoftware.com/kb/Drake-Tax/18340.htm"],["KB 11788 — Refundable vs. Nonrefundable","https://kb.drakesoftware.com/kb/Drake-Tax/11788.htm"],["KB 14573 — CTC: Fewer Than 7 Months in Home","https://kb.drakesoftware.com/kb/Drake-Tax/14573.htm"],["KB 14279 — EIC/ACTC Refund Delays: PATH Act","https://kb.drakesoftware.com/kb/Drake-Tax/14279.htm"]],
+gold:"Refundable credits sit in the payments block and nonrefundable credits sit in the credits block, and that placement is the entire difference between them.",
+hw:"Three families. Compute CTC, ODC and ACTC and state which block each lands in.",quiz:"What SSN condition does CTC require? Which part of the child tax credit is refundable?"},
+
+{n:"12",id:"l12",t:"Payments, Refund, and Finishing the Return",read:"Pub 4491, <em>Finishing the Return</em> · Pub 4012, Tab K",obj:"Complete the payments block, choose the refund or payment method, and finish the return through signature and transmission.",
+sum:"Withholding, estimated payments and refundable credits all sit in the payments block; total payments minus total tax is the last arithmetic on the return and its sign is the refund or the balance due. Then the return has to actually be signable and transmittable, which is its own checklist. The work that matters most here is review: running View and accounting for every EF message and note before anyone touches the transmit button. Those messages are Drake telling you something is wrong, and an unread one is the most common reason a return gets rejected or has to be amended. Inside a firm the PIN screen, EF selections and transmission belong to the preparer who signs; preparing your own return, they are yours. The steps are the same either way and are taught here in full.",
+look:["EF messages after View — read every one. Clear it or flag it; never ignore it.","Return notes as well as messages — notes do not block but frequently indicate a real problem.","Direct deposit — verify routing and account against the source document, not from memory. A wrong number on a transmitted return generally cannot be fixed by amending; the refund goes where the return said.","Balance due — PMT for withdrawal, or 9465 if the client cannot pay.","Estimated payments made during the year — enter them or the client overpays twice.","Overpayment the client wants applied forward — see KB 10493.","Prior-year comparison looking wrong — investigate before finishing.","The acknowledgement — transmitted is not filed. Watch for the accept, and read the reject code if one comes back.","Anything you are unsure about — flag it in writing rather than leaving it to be found later."],
+scr:[["DD","Direct deposit information","Selector"],["8888","Refund allocation across accounts","Selector"],["PMT","Electronic funds withdrawal for balance due","Selector"],["ES","Estimated payments and next-year vouchers","Selector"],["9465","Installment agreement request","Selector"],["PIN","Form 8879 signature authorization","Selector"],["EF","Federal and state EF selections","Selector"]],
+scrnote:"CTRL+V calculates and views. CTRL+E returns to data entry. In enhanced view the EF tab shows only the documents related to e-file, which is the fastest check on what will actually transmit. Where a firm prepares the return for compensation, the PIN and EF screens belong to the signing preparer.",
+line:"Total payments minus total tax. Positive is a refund, negative is a balance due.",
+kb:[["KB 11656 — 8888: Direct Deposit","https://kb.drakesoftware.com/kb/Drake-Tax/11656.htm"],["KB 11097 — 9465: Installment Agreement Request","https://kb.drakesoftware.com/kb/Drake-Tax/11097.htm"],["KB 10493 — Apply Overpayment to Next Year","https://kb.drakesoftware.com/kb/Drake-Tax/10493.htm"],["KB 13036 — Penalties for Filing and Paying Late","https://kb.drakesoftware.com/kb/Drake-Tax/13036.htm"]],
+gold:"Total payments minus total tax is the last arithmetic on the return, and everything before it exists to make those two numbers right.",
+hw:"Finish a return end to end including direct deposit, then run View and account for every EF message and note.",quiz:"Name three things in the payments block. What must be true before a return can be transmitted, and when is a transmitted return actually filed?"},
+
+{gate:"Return Lab 1",hard:false,txt:"Prepare the same return twice: once by hand on paper forms, once in Drake. Compare line by line and explain every difference."},
+{gate:"Gate 1",hard:true,txt:"Two W-2s, interest income, standard deduction, one qualifying child. Unassisted. Under 45 minutes. Zero critical errors. Do not advance past this gate — without a completed return there is nothing to attach Ring A to."},
+
+{div:"Ring A — Adjustments and Deductions",divnote:"The Schedule 1 work resumes here, in its proper place."},
+
+{n:"13",id:"l13",t:"What an Adjustment Is",read:"Pub 4491, <em>Adjustments to Income</em> · Pub 4012, Tab E",obj:"Explain why an above-the-line adjustment is worth more than an itemized deduction.",
+sum:"Adjustments come out before AGI; itemized deductions come out after. That ordering is worth real money, because AGI is the input to a long list of phaseouts — credits, the medical floor, taxable Social Security, IRA deductibility. A dollar of adjustment reduces tax directly and then loosens every one of those thresholds, while a dollar of itemized deduction does the first thing only. Adjustments also help every client; itemized deductions help only the ones who clear the standard deduction. New for 2025, Schedule 1-A sits on screen 1A and inverts this rule — those deductions reduce taxable income without touching AGI.",
+look:["A client near a phaseout edge — an adjustment may be worth several times its face value.","Medical expenses in the same year — lowering AGI lowers the floor and can unlock the deduction.","Schedule 1-A entries — they do not reduce AGI. Do not treat them as adjustments.","Income flowing in from 99G, 4797, E, K1P, K1S or K1F — it reaches Schedule 1 without passing through screen 3.","Alimony — pre- and post-2019 agreements are treated differently.","A client who takes the standard deduction — adjustments still help them; deductions do not."],
+scr:[["4","Adjustments, Schedule 1 Part II","General tab"],["1A","Additional deductions, Schedule 1-A — new for 2025","General tab"],["3","Additional income, Schedule 1 Part I","General tab"]],
+line:"Total income minus Schedule 1 Part II adjustments equals AGI, which then governs nearly every phaseout on the return.",
+kb:[["KB 18889 — New Tax Bill (2025)","https://kb.drakesoftware.com/kb/Drake-Tax/18889.htm"],["KB 11799 — Modified Adjusted Gross Income Calculation","https://kb.drakesoftware.com/kb/Drake-Tax/11799.htm"],["KB 11049 — Alimony Paid or Received","https://kb.drakesoftware.com/kb/Drake-Tax/11049.htm"]],
+gold:"Adjustments reduce AGI itself, so they reduce tax twice: directly, and by loosening every phaseout that AGI controls.",
+hw:"For one taxpayer, model a $2,000 adjustment against a $2,000 itemized deduction and quantify the difference.",quiz:"Why is an adjustment generally worth more than a deduction of equal size? Which screen holds Schedule 1-A?"},
+
+{n:"14",id:"l14",t:"Educator, HSA, and Self-Employed Health Insurance",read:"Pub 4491, <em>Adjustments to Income</em> · Pub 4012, Tab E · Pub 969",obj:"Apply the educator expense, HSA and self-employed health insurance adjustments.",
+sum:"Three unrelated adjustments grouped because they sit together on the form. Educator expenses are capped and require an hours test most clients cannot recite. The HSA deduction requires high-deductible coverage and interacts with anything already reported in W-2 box 12 code W — those employer contributions carry to Form 8889 automatically, so entering them again double-counts. Self-employed health insurance is capped by the net profit of the business generating it, which means a Schedule C loss year produces no deduction no matter what the client paid in premiums.",
+look:["W-2 box 12 code W — already flows to Form 8889. Do not enter it a second time.","Joint return with two HSAs — two Forms 8889, one per spouse. Only one per taxpayer transmits.","Family coverage split between spouses — Drake will not decide the allocation. You do.","Schedule C at a loss — no self-employed health insurance deduction that year.","Medicare premiums not flowing — see KB 10133.","Long-term care premiums — separate treatment, age-limited, LTC screen.","Educator claiming supplies without meeting the hours test — ask before entering.","An HSA distribution as well as a contribution — that is the other half of Form 8889, Lesson 35."],
+scr:[["4","Educator expenses","General tab"],["8889","HSA contributions and deduction","Selector"],["HSA","HSA supporting entries","Selector"],["SEHI","Form 7206, self-employed health insurance","Selector"],["LTC","Long-term care premiums","Selector"],["8853","Archer MSA","Selector"]],
+line:"Each flows to its own Schedule 1 Part II line, then into total adjustments.",
+kb:[["KB 11196 — Educator Expenses","https://kb.drakesoftware.com/kb/Drake-Tax/11196.htm"],["KB 11734 — 8889: Frequently Asked Questions","https://kb.drakesoftware.com/kb/Drake-Tax/11734.htm"],["KB 13724 — 1099-SA: Data Entry","https://kb.drakesoftware.com/kb/Drake-Tax/13724.htm"],["KB 13806 — Long-Term Health Care Premiums","https://kb.drakesoftware.com/kb/Drake-Tax/13806.htm"],["KB 10133 — Medicare Premiums Not Flowing","https://kb.drakesoftware.com/kb/Drake-Tax/10133.htm"]],
+gold:"The HSA deduction and the W-2 box 12 code W amount are two different things, and entering both as contributions double counts.",
+hw:"A teacher with classroom expenses, an HSA with both employer and personal contributions, and a Schedule C filer with premiums.",quiz:"What limits the self-employed health insurance deduction? Where does the employer HSA contribution appear before it reaches Form 8889?"},
+
+{n:"15",id:"l15",t:"IRA Deduction",read:"Pub 4491, <em>Adjustments to Income</em> · Pub 4012, Tab E · Pub 590-A",obj:"Determine whether a traditional IRA contribution is deductible, including coverage and phaseout rules.",
+sum:"Anyone with earned income can contribute; whether the contribution is deductible is a separate question with two inputs. First, whether the taxpayer or the spouse is covered by a workplace retirement plan — which is what the W-2 box 13 checkbox from Lesson 7 was for. Second, MAGI against a phaseout range that differs depending on which spouse is covered. A nondeductible contribution is not a dead end: it creates basis, and that basis has to be reported on Form 8606 in the year it arises or it is effectively lost, leaving the client taxed twice on the same money years later when they take distributions.",
+look:["W-2 box 13 retirement checkbox — this is the input that decides deductibility.","Only one spouse covered by a plan — the uncovered spouse has a much higher phaseout range.","MAGI inside the phaseout — partial deduction, not all or nothing.","Nondeductible contribution — Form 8606 must be filed that year. This is the error that compounds.","Prior-year 8606 basis — carry it forward; it does not appear anywhere else.","Contribution made before the filing deadline for the prior year — confirm which year it was designated for.","Roth contribution — no deduction, but the saver's credit may still apply.","No 5498 screen exists — Form 5498 is not ordinarily used in data entry."],
+scr:[["4","IRA deduction entry","General tab"],["8606","Nondeductible contributions and basis","Selector"],["ROTH","Roth contributions and conversions","Selector"],["8880","Saver's credit","Selector"]],
+line:"Deductible IRA to Schedule 1 Part II. Nondeductible to Form 8606 Part I — no current deduction, basis carries forward.",
+kb:[["KB 10143 — IRA, ESA and SA Contribution Information","https://kb.drakesoftware.com/kb/Drake-Tax/10143.htm"],["KB 11799 — Modified Adjusted Gross Income Calculation","https://kb.drakesoftware.com/kb/Drake-Tax/11799.htm"]],
+gold:"The W-2 box 13 retirement checkbox decides whether an IRA contribution is deductible, which is why Lesson 7 said not to skip it.",
+hw:"Four taxpayers varying by coverage, filing status and MAGI. Determine the deductible amount and any 8606 requirement.",quiz:"What two facts determine deductibility? What happens if a nondeductible contribution is never reported on 8606?"},
+
+{n:"16",id:"l16",t:"Student Loan Interest",read:"Pub 4491, <em>Adjustments to Income</em> · Pub 4012, Tab E · Form 1098-E",obj:"Apply the student loan interest deduction and its limits.",
+sum:"Capped, phased out on MAGI, and unavailable to married filing separately. The loan must have been taken for qualified education expenses of the taxpayer, spouse or a dependent at the time the debt was incurred — the test runs to when the money was borrowed, not to who is a dependent now. The deduction belongs to whoever is legally obligated on the loan, which is frequently not the person writing the checks: a parent paying a former dependent's loan gets nothing if the loan is in the child's name alone, and the child cannot deduct it either if someone else can claim them.",
+look:["Parent paying a child's loan — who is legally obligated? That decides it.","Client claimed as a dependent on another return — disqualified regardless of payment.","Married filing separately — disallowed outright.","Amount entered but not flowing — check Wks SLID in View/Print for the calculation.","No Wks SLID produced at all — the client probably does not qualify.","Prior-year Drake return — the screen 4 line number differs by program year.","Loan discharged or forgiven — different treatment. See KB 15835.","Refinanced student debt — confirm the original purpose survived the refinance."],
+scr:[["4","Student loan interest field","General tab"]],
+scrnote:"There is no 1098-E screen. Line 21 in Drake21 and later, line 20 in Drake20 and Drake19, line 33 in Drake18 and prior.",
+line:"Schedule 1 Part II, subject to the cap and the MAGI phaseout.",
+kb:[["KB 10439 — 1098-E: Student Loan Interest Deduction","https://kb.drakesoftware.com/kb/Drake-Tax/10439.htm"],["KB 15835 — Student Loan Discharge or Forgiveness","https://kb.drakesoftware.com/kb/Drake-Tax/15835.htm"]],
+gold:"The deduction belongs to the person legally obligated on the loan, not necessarily the person who wrote the check.",
+hw:"Three scenarios including a parent paying a non-dependent child's loan.",quiz:"Who may claim the deduction when a parent pays a former dependent's loan? What filing status disqualifies it entirely?"},
+
+{n:"17",id:"l17",t:"Schedule A — Medical, Taxes, Interest",read:"Pub 4491, <em>Itemized Deductions</em> · Pub 4012, Tab F · Pub 936",obj:"Compute the medical floor, apply the SALT cap, and deduct qualified mortgage interest.",
+sum:"Three categories that behave nothing alike. Medical is gated by an AGI floor, which makes it usually worthless and occasionally enormous — the year of a hospitalization or long-term care is the year it matters. State and local taxes are capped in absolute dollars, so high-tax-state clients hit the ceiling and stop benefiting from additional property tax. Mortgage interest is limited by the size and the purpose of the debt rather than by AGI, and purpose is what gets missed: home equity interest is deductible only if the proceeds went into the home securing the loan. Because the medical floor keys off AGI, the adjustments in Ring A can quietly make medical expenses deductible.",
+look:["Large medical year — check whether an adjustment could lower AGI enough to clear more of the floor.","Long-term care premiums — medical, but age-limited, and entered on LTC rather than screen A.","High property tax county — likely capped before you open the screen.","No state income tax, or a big vehicle purchase — run STAX; sales tax may beat income tax.","Two 1098s for one home — refinance. Watch for double-counted points.","Home equity interest — ask what the proceeds bought before deducting a dollar.","Points — deductible now on a purchase, amortized on a refinance.","Entries on both DEDM and 1098 — return note 634 fires and the 1098 entries are ignored."],
+scr:[["A","Schedule A","General tab"],["1098","Mortgage interest statement","Selector"],["DEDM","Alternative mortgage entry — never mix with 1098","Selector"],["STAX","State and local sales tax worksheet","Selector"],["LTC","Long-term care premiums","Selector"],["4952","Investment interest expense","Selector"]],
+line:"Medical above the AGI floor. SALT to the cap. Mortgage interest subject to acquisition debt limits.",
+kb:[["KB 10641 — 1098: Mortgage Interest Deduction Limitation","https://kb.drakesoftware.com/kb/Drake-Tax/10641.htm"],["KB 13229 — 1098: Splitting Mortgage Interest","https://kb.drakesoftware.com/kb/Drake-Tax/13229.htm"],["KB 11513 — 1098: Mortgage Insurance Premiums","https://kb.drakesoftware.com/kb/Drake-Tax/11513.htm"],["KB 11628 — Form 4952","https://kb.drakesoftware.com/kb/Drake-Tax/11628.htm"],["KB 16988 — Force Itemized or Standard Deduction","https://kb.drakesoftware.com/kb/Drake-Tax/16988.htm"]],
+gold:"Run the standard deduction comparison before entering anything on screen A, or you will spend an hour producing a number the client cannot use.",
+hw:"A taxpayer with medical expenses, property tax, state income tax and mortgage interest. Decide whether to itemize.",quiz:"What is the medical floor and how is it calculated? What are the two SALT options and how do you choose?"},
+
+{n:"18",id:"l18",t:"Schedule A — Charitable and the Itemize Decision",read:"Pub 4491, <em>Itemized Deductions</em> · Pub 4012, Tab F · Pub 526",obj:"Apply charitable limits and substantiation rules, and make the itemize versus standard decision.",
+sum:"Cash contributions are limited by a percentage of AGI, with a lower ceiling for appreciated property, and excess carries forward. But limits are rarely what kills a charitable deduction — substantiation is. The requirements escalate in steps as the gift grows: a written acknowledgment above one threshold, Form 8283 for noncash above another, a qualified appraisal above a third. No receipt means no deduction regardless of whether the gift happened, and that is a conversation worth having with the client in January rather than April. Carryovers are the other quiet loss: they have to be entered year to year or they vanish.",
+look:["Cash gifts with no acknowledgment letter — no deduction above the threshold, however genuine.","Noncash donation — Form 8283 above the threshold, qualified appraisal above the higher one.","Donated appreciated stock — different AGI percentage limit than cash.","Prior-year carryover — enter it on the carryover screen or it is lost permanently.","Excess contributions this year — record the carryover out for next year.","Volunteer expenses — mileage and out-of-pocket may qualify; the value of time never does.","Gift to an individual or a foreign organization — not deductible.","Wisconsin return attached — these federal figures feed the itemized deduction credit even on a federal standard deduction. See Part 2, W3."],
+scr:[["A","Schedule A, contributions section","General tab"],["A › Contributions Carried over from prior years","Carryover in","—"],["A › carryover link › Carryover for Future","Carryover out","—"],["8283","Noncash contributions","Selector"]],
+line:"Contributions subject to AGI percentage limits, with the excess carried forward.",
+kb:[["KB 10082 — Charitable Contributions","https://kb.drakesoftware.com/kb/Drake-Tax/10082.htm"],["KB 12813 — Form 8283","https://kb.drakesoftware.com/kb/Drake-Tax/12813.htm"],["KB 16988 — Force Itemized or Standard Deduction","https://kb.drakesoftware.com/kb/Drake-Tax/16988.htm"]],
+gold:"Charitable deductions fail on substantiation far more often than on the limits, and the substantiation requirement rises in steps as the gift grows.",
+hw:"A taxpayer with cash gifts, a noncash donation above the 8283 threshold, and a prior-year carryover.",quiz:"At what point is a written acknowledgment required? What triggers Form 8283, and what triggers a qualified appraisal?"},
+
+{gate:"Return Lab 2",hard:false,txt:"Full return: two W-2s, interest and dividends, an IRA contribution, student loan interest, and itemized deductions compared against the standard deduction."},
+{gate:"Gate A",hard:true,txt:"Decide itemize versus standard without prompting. Complete Schedule 1 Part II and Schedule A with carryovers tracked. Then continue to Part 2 for OBBBA, energy credits, Social Security and Wisconsin."}
+];
+
+var body=document.getElementById('body'),nav=document.getElementById('nav');
+var navHTML='',bodyHTML='',ids=[];
+function tbl(rows,note){var h='<div class="row"><span class="tag">Drake</span><table><thead><tr><th>Screen</th><th>Purpose</th><th>Where</th></tr></thead><tbody>';rows.forEach(function(r){var c=(r[0]!=='—'&&/^[A-Z0-9]/.test(r[0]))?'<code class="scr">'+r[0]+'</code>':r[0];h+='<tr><td>'+c+'</td><td>'+r[1]+'</td><td>'+(r[2]||'')+'</td></tr>';});h+='</tbody></table>';if(note)h+='<p style="font-size:13.5px;margin:7px 0 0;color:var(--mute)">'+note+'</p>';return h+'</div>';}
+L.forEach(function(x){
+  if(x.div){navHTML+='<div class="phase">'+x.div+'</div>';bodyHTML+='<div class="sec-divider"><span class="tag">Section</span><h2>'+x.div+'</h2><p>'+x.divnote+'</p></div>';return;}
+  if(x.gate){navHTML+='<div class="gate'+(x.hard?' hard':'')+'">'+x.gate+'</div>';bodyHTML+='<div class="gatebar'+(x.hard?' hard':'')+'"><span class="tag">'+(x.hard?'Mastery gate':'Checkpoint')+'</span><h3>'+x.gate+'</h3><p>'+x.txt+'</p></div>';return;}
+  ids.push(x.id);
+  navHTML+='<a class="item" href="#'+x.id+'" data-for="'+x.id+'"><span class="n">'+x.n+'</span><span class="t">'+x.t+'</span></a>';
+  var srch=(x.t+' '+x.scr.map(function(r){return r[0]+' '+r[1];}).join(' ')).toLowerCase().replace(/"/g,'');
+  var h='<details class="lesson" id="'+x.id+'" data-search="'+srch+'">';
+  h+='<summary><span class="caret">▸</span><span class="lnum">'+x.n+'</span><span class="ltitle">'+x.t+'</span><label class="chk" onclick="event.stopPropagation()"><input type="checkbox" data-id="'+x.id+'"> Done</label></summary>';
+  h+='<div class="lbody">';
+  h+='<div class="row"><span class="tag">Read</span><div class="read">'+x.read+'</div></div>';
+  h+='<div class="row"><span class="tag">Objective</span><p class="obj" style="margin:0">'+x.obj+'</p></div>';
+  h+='<div class="row"><span class="tag">Summary</span><p style="margin:0">'+x.sum+'</p></div>';
+  h+='<div class="row"><span class="tag">What to look for</span><div class="look"><ul>';x.look.forEach(function(i){h+='<li>'+i+'</li>';});h+='</ul></div></div>';
+  h+=tbl(x.scr,x.scrnote);
+  if(x.line)h+='<div class="row"><span class="tag">Where it lands</span><p style="margin:0">'+x.line+'</p></div>';
+  if(x.kb){h+='<details class="sub"><summary>Reference</summary><div class="inner"><ul>';x.kb.forEach(function(k){h+='<li><a href="'+k[1]+'" target="_blank" rel="noopener">'+k[0]+'</a><span class="u">'+k[1]+'</span></li>';});h+='</ul></div></details>';}
+  h+='<div class="gold"><span class="tag">Golden note</span>'+x.gold+'</div>';
+  h+='<div class="hw"><div><span class="tag">Homework — open book</span>'+x.hw+'</div><div><span class="tag">Quiz</span>'+x.quiz+'</div></div>';
+  h+='</div></details>';
+  bodyHTML+=h;
+});
+nav.innerHTML=navHTML;body.innerHTML=bodyHTML;
+var KEY='ea-track-progress',done={};
+try{done=JSON.parse(localStorage.getItem(KEY)||'{}');}catch(e){done={};}
+function paint(){var c=0;ids.forEach(function(id){var on=!!done[id];if(on)c++;var b=document.querySelector('input[data-id="'+id+'"]');if(b)b.checked=on;var a=document.querySelector('a[data-for="'+id+'"]');if(a)a.classList.toggle('done',on);});document.getElementById('barfill').style.width=(c/ids.length*100)+'%';document.getElementById('count').textContent=c+' of '+ids.length+' complete';}
+document.addEventListener('change',function(e){if(e.target.matches('input[data-id]')){done[e.target.dataset.id]=e.target.checked;try{localStorage.setItem(KEY,JSON.stringify(done));}catch(err){}paint();}});
+paint();
+document.getElementById('expand').onclick=function(){document.querySelectorAll('details.lesson').forEach(function(d){d.open=true;});};
+document.getElementById('collapse').onclick=function(){document.querySelectorAll('details.lesson').forEach(function(d){d.open=false;});};
+document.getElementById('q').addEventListener('input',function(e){var v=e.target.value.trim().toLowerCase();document.querySelectorAll('details.lesson').forEach(function(s){var hit=!v||s.dataset.search.indexOf(v)!==-1;s.classList.toggle('hide',!hit);if(v&&hit)s.open=true;});});
+function openHash(){if(location.hash){var el=document.querySelector(location.hash);if(el&&el.tagName==='DETAILS'){el.open=true;el.scrollIntoView();}}}
+window.addEventListener('hashchange',openHash);openHash();
+</script>
+</body>
+</html>
