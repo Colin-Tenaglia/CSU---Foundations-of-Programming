@@ -1395,7 +1395,7 @@ Schedule 1-A is new for TY2025 and carries four OBBBA deductions. Its total land
 
 1. They are **below-the-line** deductions but are **not itemized deductions**. A taxpayer taking the standard deduction gets them too.
 2. Because they come out after AGI, they **do not loosen any AGI-based phaseout**. They reduce taxable income and nothing else.
-3. Each has its own MAGI phaseout, and each requires a **valid SSN**. For a married taxpayer, all four generally require **filing jointly** — MFS is disqualified outright.
+3. Each has its own MAGI phaseout, and each requires a **valid SSN**. Tips, overtime, and the senior deduction require a married taxpayer to **file jointly**. **Car loan interest is the exception** — the statute imposes no joint-filing condition, and the $10,000 cap then applies to each spouse's separate return. Secondary sources disagree on this point; the final regulations published 2 January 2026 govern, so confirm before advising a couple to file separately in order to use it.
 
 These deductions are also **temporary**, applying to tax years 2025 through 2028 unless extended.
 
@@ -1467,7 +1467,7 @@ KB: 18890 (Schedule 1-A) · 18874 (overtime) · 18926 (car loan interest) · 188
 
 - Deducting the full overtime amount rather than the FLSA premium portion.
 - Treating the senior deduction as a replacement for the age-65 additional standard deduction.
-- Claiming any of the four on an MFS return.
+- Claiming tips, overtime, or the senior deduction on an MFS return. Car loan interest is the one that survives MFS.
 - Omitting the VIN.
 - Assuming the tips deduction reduces Social Security and Medicare tax. It does not.
 - Assuming these deductions loosen an AGI-based phaseout elsewhere on the return. They do not.
@@ -1480,7 +1480,7 @@ KB: 18890 (Schedule 1-A) · 18874 (overtime) · 18926 (car loan interest) · 188
 4. Name four requirements of the car loan interest deduction.
 5. A 68-year-old single client takes the standard deduction. Which two age-based benefits apply, and are they alternatives or cumulative?
 6. Why does the tips deduction not reduce the client's Social Security tax?
-7. What filing status disqualifies all four Schedule 1-A deductions?
+7. Which filing status disqualifies three of the four Schedule 1-A deductions, and which one survives it?
 
 ---
 
