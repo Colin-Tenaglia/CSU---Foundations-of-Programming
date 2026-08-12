@@ -2537,25 +2537,32 @@ Screens marked **†** are still unconfirmed against a Drake source — verify t
 
 **Verify every figure in this table against the IRS instructions or Rev. Proc. before it goes in front of a client.** This is the only place in the guide where amounts live, so this is the only table that has to be updated when they change.
 
-**Standard deduction**
+The 2025 inflation-adjusted amounts come from **Rev. Proc. 2024-40**; the 2026 amounts, when you need them, are in **Rev. Proc. 2025-32**.
+
+Rows marked ✓ have been checked against a published source. Unmarked rows are still to be confirmed.
+
+**Standard deduction** ✓
 
 | Status | Amount |
 |---|---|
-| Single / MFS | $15,750 |
-| MFJ / Qualifying surviving spouse | $31,500 |
-| Head of household | $23,625 |
-| Additional, age 65 or blind — unmarried | $2,000 per condition |
-| Additional, age 65 or blind — married/QSS | $1,600 per condition, per person |
+| Single / MFS | $15,750 ✓ |
+| MFJ / Qualifying surviving spouse | $31,500 ✓ |
+| Head of household | $23,625 ✓ |
+| Additional, age 65 or blind — unmarried | $2,000 per condition ✓ |
+| Additional, age 65 or blind — married/QSS | $1,600 per condition, per person ✓ |
+| Combined, both 65 **and** blind | $4,000 unmarried / $3,200 per qualifying married individual ✓ |
 | Dependent of another | Greater of $1,350 or earned income + $450, capped at the regular amount |
 
-**Schedule 1-A (TY2025–TY2028)**
+**Schedule 1-A (TY2025–TY2028)** ✓
 
 | Deduction | Cap | MAGI phaseout begins |
 |---|---|---|
-| Qualified tips | $25,000 | $150,000 / $300,000 MFJ |
-| Qualified overtime (FLSA premium only) | $12,500 / $25,000 MFJ | $150,000 / $300,000 MFJ |
-| Car loan interest (new, US-assembled, VIN required) | $10,000 | $100,000 / $200,000 MFJ |
-| Senior deduction (per person 65+) | $6,000 | $75,000 / $150,000 MFJ |
+| Qualified tips | $25,000 ✓ | $150,000 / $300,000 MFJ ✓ |
+| Qualified overtime (FLSA premium only) | $12,500 / $25,000 MFJ ✓ | $150,000 / $300,000 MFJ ✓ |
+| Car loan interest (new, US-assembled, VIN required) | $10,000 ✓ | $100,000 / $200,000 MFJ ✓ |
+| Senior deduction (per person 65+) | $6,000 ✓ | $75,000 / $150,000 MFJ ✓ |
+
+**Senior deduction age test.** For TY2025 the test is stated as **born before January 2, 1961**, and a valid SSN is required. Use the date test rather than "turns 65 during the year" — they agree, but the date is what the form asks.
 
 **Itemized deductions**
 
@@ -2621,7 +2628,7 @@ Screens marked **†** are still unconfirmed against a Drake source — verify t
 | Standard mileage — charitable | 14¢ |
 | §179 expensing limit | $2,500,000, phasing out above $4,000,000 of property placed in service |
 | Bonus depreciation | 100% for qualifying property acquired after 1/19/2025 |
-| Qualifying relative gross income limit | Approximately $5,200 — confirm the current figure |
+| Qualifying relative gross income limit | $5,200 ✓ (up from $5,050 in 2024) |
 | Rental active participation allowance | $25,000, phasing out $100,000–$150,000 MAGI |
 | Estimated tax safe harbor | 90% current year, or 100% of prior year (110% if prior AGI over $150,000) |
 | Foreign earned income exclusion | $130,000 |
