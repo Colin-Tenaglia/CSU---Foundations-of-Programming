@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import csv
 import datetime as _dt
+import json
 import os
 import sys
 import tempfile
@@ -21,7 +22,10 @@ from qb2drake.mapping import ChartBuilder, MappingOptions, classify, journal_cod
 from qb2drake.models import Account, Batch, JournalLine, Transaction, money
 from qb2drake.readers.reports import classify_report, find_header, parse_report
 from qb2drake.validate import validate
+from qb2drake.writers.iif import iif_type, write_iif
 from qb2drake.writers.profile import Profile
+from qb2drake.writers.template import (guess_kind, profile_from_templates,
+                                        section_from_template)
 
 SAMPLES = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "samples")
 
@@ -423,6 +427,137 @@ class ProfileTests(unittest.TestCase):
             "transactions": {"columns": []},
         })
         self.assertEqual(profile.chart_of_accounts.columns[0].constant, "0001")
+
+
+class DrakeTemplateTests(unittest.TestCase):
+    """Drake ships blank templates; reading one beats guessing its columns."""
+
+    def write_template(self, tmp, name, header):
+        path = os.path.join(tmp, name)
+        with open(path, "w", newline="", encoding="utf-8") as handle:
+            csv.writer(handle).writerow(header)
+        return path
+
+    def test_kind_is_detected_from_the_headers(self):
+        self.assertEqual(
+            guess_kind(["Date", "Journal", "Account Number", "Debit", "Credit"]),
+            "transactions")
+        self.assertEqual(
+            guess_kind(["Level", "Account Number", "Account Type"]),
+            "chart_of_accounts")
+
+    def test_known_headers_are_wired_to_fields(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self.write_template(
+                tmp, "Blank_JournalEntries_Template.csv",
+                ["Account Number", "Date", "Journal", "Reference",
+                 "Description", "Debit", "Credit"])
+            kind, section, unmatched = section_from_template(path)
+            self.assertEqual(kind, "transactions")
+            self.assertEqual(unmatched, [])
+            self.assertEqual([c["field"] for c in section["columns"]],
+                             ["account_number", "date", "journal", "reference",
+                              "description", "debit", "credit"])
+
+    def test_unknown_column_keeps_its_position_and_is_reported(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self.write_template(
+                tmp, "Blank_JournalEntries_Template.csv",
+                ["Batch ID", "Account Number", "Date", "Debit", "Credit"])
+            _, section, unmatched = section_from_template(path)
+            self.assertEqual(unmatched, ["Batch ID"])
+            self.assertEqual(len(section["columns"]), 5)
+            self.assertEqual(section["columns"][0], {"header": "Batch ID", "constant": ""})
+
+    def test_placeholder_columns_do_not_fail_profile_validation(self):
+        profile = Profile.from_dict({
+            "chart_of_accounts": {"columns": [{"header": "Mystery", "constant": ""}]},
+            "transactions": {"columns": []},
+        })
+        self.assertEqual(profile.chart_of_accounts.columns[0].header, "Mystery")
+
+    def test_two_templates_of_the_same_kind_are_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            first = self.write_template(tmp, "a.csv", ["Date", "Debit", "Credit"])
+            second = self.write_template(tmp, "b.csv", ["Date", "Debit", "Credit"])
+            with self.assertRaises(ValueError):
+                profile_from_templates([first, second])
+
+    def test_generated_profile_reproduces_the_template_header_exactly(self):
+        header = ["Division", "Account Number", "Date", "Journal", "Reference",
+                  "Description", "Debit", "Credit", "Batch ID"]
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self.write_template(tmp, "Blank_JournalEntries_Template.csv", header)
+            profile_dict, _ = profile_from_templates([path])
+            out = os.path.join(tmp, "profile.json")
+            with open(out, "w", encoding="utf-8") as handle:
+                json.dump(profile_dict, handle)
+            result = convert([sample("journal.csv")], os.path.join(tmp, "out"),
+                             profile_path=out)
+            self.assertEqual(read_csv(result.transactions_path)[0], header)
+
+
+class IIFOutputTests(unittest.TestCase):
+    """The Import QuickBooks wizard takes an IIF file and nothing else."""
+
+    def chart(self, name="account_listing.csv"):
+        batch = read(sample(name))
+        return batch, ChartBuilder().build(batch)
+
+    def test_source_type_detail_is_preserved(self):
+        _, accounts = self.chart()
+        by_name = {a.source_name: a for a in accounts}
+        self.assertEqual(iif_type(by_name["Checking"]), "BANK")
+        self.assertEqual(iif_type(by_name["Accounts Receivable"]), "AR")
+        self.assertEqual(iif_type(by_name["Office Equipment"]), "FIXASSET")
+        self.assertEqual(iif_type(by_name["Interest Income"]), "EXINC")
+
+    def test_typeless_account_falls_back_to_its_classification(self):
+        account = Account(source_name="Mystery")
+        account.drake_type = "Income"
+        self.assertEqual(iif_type(account), "INC")
+
+    def test_written_iif_reads_back_as_the_same_chart(self):
+        _, accounts = self.chart()
+        with tempfile.TemporaryDirectory() as tmp:
+            path = os.path.join(tmp, "chart.IIF")
+            write_iif(accounts, path)
+            reloaded = read(path)
+            self.assertEqual({a.source_name for a in reloaded.accounts},
+                             {a.source_name for a in accounts})
+            self.assertEqual(
+                {a.source_name: a.number for a in reloaded.accounts},
+                {a.source_name: a.drake_number for a in accounts})
+
+    def test_every_account_carries_a_number(self):
+        """Drake's import needs numbered accounts; QuickBooks often has none."""
+        batch = read(sample("general_ledger.csv"))     # no numbers anywhere
+        accounts = ChartBuilder().build(batch)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = os.path.join(tmp, "chart.IIF")
+            write_iif(accounts, path)
+            for account in read(path).accounts:
+                self.assertTrue(account.number, account.source_name)
+
+    def test_opening_balances_are_zero_to_avoid_double_posting(self):
+        batch = read(sample("trial_balance.csv"))
+        accounts = ChartBuilder().build(batch)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = os.path.join(tmp, "chart.IIF")
+            write_iif(accounts, path)
+            self.assertTrue(all(a.opening_balance == Decimal("0.00")
+                                for a in read(path).accounts))
+
+    def test_tabs_in_a_name_cannot_break_the_delimiting(self):
+        account = Account(source_name="Bad\tName", description="a\tb")
+        account.drake_type = "Expense"
+        account.drake_number = "6000"
+        with tempfile.TemporaryDirectory() as tmp:
+            path = os.path.join(tmp, "chart.IIF")
+            write_iif([account], path)
+            with open(path, encoding="utf-8") as handle:
+                rows = [line.split("\t") for line in handle.read().splitlines()]
+            self.assertEqual(len(rows[1]), len(rows[0]))
 
 
 class EndToEndTests(unittest.TestCase):

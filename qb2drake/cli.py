@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import json
 import os
 import sys
 from typing import List
@@ -13,8 +14,9 @@ from .detect import UnsupportedInput, read_many
 from .mapping import DEFAULT_RANGES, ChartBuilder, MappingOptions, NORMAL_BALANCE
 from .models import sort_transactions
 from .validate import validate
-from .writers import write_chart_of_accounts, write_transactions
-from .writers.profile import dump_profile, load_profile
+from .writers import write_chart_of_accounts, write_iif, write_transactions
+from .writers.template import profile_from_templates
+from .writers.profile import Profile, dump_profile, load_profile
 
 MAP_HEADER = [
     "quickbooks_account",
@@ -83,6 +85,13 @@ def command_convert(args) -> int:
     report.stats["chart of accounts file"] = coa_path
     report.stats["transactions file"] = txn_path
 
+    iif_path = None
+    if args.iif:
+        # Drake's Import QuickBooks wizard rejects any other extension.
+        iif_path = os.path.join(args.out_dir, "drake_chart_of_accounts.IIF")
+        write_iif(accounts, iif_path)
+        report.stats["IIF file (Import QuickBooks)"] = iif_path
+
     text = report.render()
     if args.report:
         with open(args.report, "w", encoding="utf-8") as handle:
@@ -91,6 +100,13 @@ def command_convert(args) -> int:
         print(text)
         print(f"\nWrote {account_rows} account rows to {coa_path}")
         print(f"Wrote {line_rows} journal line rows to {txn_path}")
+        if iif_path:
+            print(f"Wrote {account_rows} accounts to {iif_path}")
+            print("\nTo load the chart: Drake Accounting > File > Import > Import "
+                  "QuickBooks,\nchoose that .IIF, and enter a Client Code -- up to 8 "
+                  "letters/digits/underscores\nthat you choose yourself. A code that "
+                  "does not exist yet creates the client.\nThen load the transactions: "
+                  "Tools > Spreadsheets > Import.")
 
     if not report.ok:
         if args.strict:
@@ -131,6 +147,27 @@ def command_init_map(args) -> int:
     print(f"Wrote {len(accounts)} accounts to {args.out}")
     print("Edit the drake_* columns as needed, then re-run convert with "
           f"--account-map {args.out}")
+    return 0
+
+
+def command_profile_from_template(args) -> int:
+    profile, unmatched = profile_from_templates(args.template)
+    Profile.from_dict(profile)          # fail here rather than mid-convert
+
+    with open(args.out, "w", encoding="utf-8") as handle:
+        json.dump(profile, handle, indent=2)
+        handle.write("\n")
+
+    print(f"Wrote {args.out} from {len(args.template)} template(s).")
+    for path, headers in unmatched.items():
+        print(f"\n  {os.path.basename(path)}: could not place "
+              f"{len(headers)} column(s):")
+        for header in headers:
+            print(f"    - {header!r}")
+        print("  They are kept in position and left blank. If one should carry "
+              "data,\n  edit its entry in the JSON and set a \"field\" (or a "
+              "\"constant\").")
+    print(f"\nThen: qb2drake convert <input> --profile {args.out} -o drake_import/")
     return 0
 
 
@@ -196,6 +233,9 @@ def build_parser() -> argparse.ArgumentParser:
     convert.add_argument("--no-sort", action="store_true",
                          help="keep the source file's row order instead of sorting "
                               "entries by date")
+    convert.add_argument("--iif", action="store_true",
+                         help="also write the chart of accounts as a .IIF file for "
+                              "Drake's File > Import > Import QuickBooks wizard")
     convert.add_argument("--report", help="also write the conversion report to this file")
     convert.add_argument("--strict", action="store_true",
                          help="exit non-zero when the report contains errors")
@@ -214,6 +254,19 @@ def build_parser() -> argparse.ArgumentParser:
     init_map.add_argument("-o", "--out", default="account_map.csv",
                           help="where to write the map (default: account_map.csv)")
     init_map.set_defaults(func=command_init_map)
+
+    from_template = subparsers.add_parser(
+        "profile-from-template",
+        help="build the output layout from Drake's own blank template files")
+    from_template.add_argument(
+        "template", nargs="+",
+        help="Drake blank template CSV(s), e.g. Blank_JournalEntries_Template.csv "
+             "and Blank_ChartOfAccounts_Template.csv (Drake Accounting > Tools > "
+             "Spreadsheets > Export)")
+    from_template.add_argument("-o", "--out", default="drake_profile.json",
+                               help="where to write the profile (default: "
+                                    "drake_profile.json)")
+    from_template.set_defaults(func=command_profile_from_template)
 
     dump = subparsers.add_parser(
         "dump-profile", help="write the default output layout as JSON for editing")

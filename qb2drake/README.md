@@ -44,32 +44,104 @@ qb2drake inspect journal.csv
 Output lands in `drake_import/`:
 
 ```
-drake_chart_of_accounts.csv
-drake_transactions.csv
+drake_chart_of_accounts.csv     # Tools > Spreadsheets > Import
+drake_transactions.csv          # Tools > Spreadsheets > Import
+drake_chart_of_accounts.IIF     # with --iif: File > Import > Import QuickBooks
 ```
 
-## ⚠️ Check the column layout against your copy of Drake
+## Getting the files into Drake Accounting
 
-Drake Accounting's import templates vary between program years, and the import
-wizard lets a firm re-order columns. **Compare the generated header row against
-the template your Drake Accounting expects before importing.** The layout is
-data, not code:
+Drake has **two separate import doors**, and this trips people up: the
+QuickBooks wizard does not import transactions.
+
+| | `File > Import > Import QuickBooks` | `Tools > Spreadsheets > Import` |
+|---|---|---|
+| Takes | one `.IIF` file | CSV matching Drake's blank template |
+| Imports | Employees, Customers, **Chart of Accounts**, Vendors | **Journal Entries**, Chart of Accounts, and more |
+| Needs | a **Client Code** | a client already selected |
+
+So the chart of accounts can go either way; **journal entries only go through
+the spreadsheet import**. There is no transactions checkbox on the QuickBooks
+wizard — if you were looking for one, that is why you could not find it.
+
+### The Client Code
+
+It is **not** in your QuickBooks data, and it is not something to look up. It
+is Drake Accounting's own identifier for the client, and **you choose it**:
+
+* up to **8 characters** — letters, digits, and underscores
+* type a code that **does not exist yet** and Drake **creates a new client**
+  with it
+* type an **existing** client's code and Drake imports only the pieces that
+  client does not already have
+
+So for a new client, invent something like `ACME01` and press Import. That is
+the whole story.
+
+One caveat from Drake's own instructions: each selection imports **once**. Once
+the Chart of Accounts has come in under a client code, that checkbox is greyed
+out for that client. Get the chart right before importing rather than expecting
+to re-import over the top.
+
+### Matching Drake's exact column layout
+
+Do not guess at it, and do not trust the defaults in this tool — Drake's
+templates differ between program years. Get the real template out of your own
+installation and build the layout from it:
+
+1. In Drake Accounting: **Tools > Spreadsheets > Export tab** → save the blank
+   templates (`Blank_JournalEntries_Template.csv`,
+   `Blank_ChartOfAccounts_Template.csv`).
+2. Build the profile from them:
 
 ```bash
-qb2drake dump-profile my_drake.json     # writes the default layout
-$EDITOR my_drake.json                   # re-order / rename / drop columns
-qb2drake convert export.iif --profile my_drake.json -o drake_import/
+qb2drake profile-from-template \
+    Blank_JournalEntries_Template.csv \
+    Blank_ChartOfAccounts_Template.csv \
+    -o drake_profile.json
+
+qb2drake convert export.iif --profile drake_profile.json -o drake_import/
 ```
 
-Each column is `{"header": "...", "field": "..."}`, or
-`{"header": "...", "constant": "..."}` for a fixed value such as a client code.
+The generated files then carry Drake's own header row, in Drake's own order.
+Columns the matcher cannot place are **kept in position and left blank**, and
+listed for you:
+
+```
+  Blank_JournalEntries_Template.csv: could not place 1 column(s):
+    - 'Batch ID'
+```
+
+Fill one in by editing its entry in the JSON — set a `"field"` to pull a value,
+or a `"constant"` for a fixed one. `dump-profile` still writes the built-in
+default layout if you have no template to hand.
 
 | Chart fields | Transaction fields |
 |---|---|
 | `level`, `number`, `description`, `type`, `normal_balance`, `division`, `parent_number`, `source_name`, `opening_balance` | `entry_no`, `date`, `journal`, `reference`, `account_number`, `account_name`, `description`, `memo`, `name`, `debit`, `credit`, `amount`, `division` |
 
-`date_format` and `zero_as_blank` (blank vs. `0.00` in the unused amount column)
-are also set in the profile.
+### Writing an .IIF for the QuickBooks wizard
+
+`--iif` writes the chart of accounts as `drake_chart_of_accounts.IIF`:
+
+```bash
+qb2drake convert qbo_report.csv --iif -o drake_import/
+```
+
+Worth doing in two situations:
+
+* **QuickBooks Online has no IIF export at all**, so an Online client cannot
+  use Drake's QuickBooks wizard. Converting an Online report into IIF opens
+  that door.
+* **QuickBooks files exported without account numbers.** Drake's instructions
+  tell you to switch on *Use Account Numbers* in QuickBooks first, because the
+  import needs numbered accounts — miss that and the chart arrives unusable.
+  Every account written here has a number, assigned if QuickBooks had none.
+
+Account type detail is preserved on the way through, so a Bank account stays
+`BANK` rather than flattening to a generic asset. Opening balances are written
+as zero deliberately: balances belong in the journal entry import, and carrying
+them on the accounts as well would post them twice.
 
 ## Supported inputs
 
@@ -194,6 +266,7 @@ types, created parent accounts, flattened levels.
 --group-by MODE         auto | trans-no | none — how report rows fold into entries
 --no-opening-entry      Trial Balance input: chart only, no opening entry
 --no-sort               keep source row order instead of sorting by date
+--iif                   also write the chart as .IIF for the QuickBooks wizard
 --report FILE           also write the report to a file
 --strict                exit non-zero when there are errors
 ```

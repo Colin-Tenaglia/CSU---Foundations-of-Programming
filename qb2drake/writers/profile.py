@@ -126,6 +126,12 @@ class Profile:
             for column in section.columns:
                 if column.constant:
                     continue
+                # A column with neither field nor constant is a deliberate
+                # placeholder: it holds a position in the layout and writes
+                # nothing. `profile-from-template` emits these for template
+                # columns it could not match.
+                if not column.field:
+                    continue
                 if column.field not in allowed:
                     problems.append(
                         f"{section.filename}: unknown field {column.field!r} "
