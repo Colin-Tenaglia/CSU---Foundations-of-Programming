@@ -18,15 +18,57 @@ It handles the awkward parts of the job:
 * Everything is checked for balance *before* it reaches Drake, which reports
   import failures without saying which row caused them.
 
+## The app
+
+```bash
+python qb2drake_gui.pyw        # from a checkout
+qb2drake gui                   # if installed
+```
+
+On Windows, `qb2drake_gui.pyw` is double-clickable and opens without a console
+window. The app follows the order the work happens in:
+
+1. **QuickBooks export files** — add one `.IIF`, or add both a General Ledger
+   and an Account Listing CSV.
+2. **Drake blank templates** — point at the blank templates from
+   *Tools > Spreadsheets > Export tab* so the output matches your program
+   year's columns exactly.
+3. **Save the converted files to** — an output folder.
+4. **Options** — write an `.IIF` as well, renumber accounts, set a division.
+
+Press **Convert** and the result panel shows the full report: totals, anything
+Drake would reject in red, warnings in amber, the files written, and the import
+steps. The status bar says plainly whether it is ready to import. *Help* has
+the export and import instructions, including what the Client Code is.
+
+Everything below is the same converter from the command line.
+
+## Building a standalone .exe
+
+So it can be handed to someone without Python installed. Must be run on
+Windows — PyInstaller does not cross-compile.
+
+```bat
+pip install pyinstaller
+pyinstaller --noconfirm --onefile --windowed ^
+            --name "QuickBooks to Drake" qb2drake_gui.pyw
+```
+
+The result is `dist\QuickBooks to Drake.exe`, a single file to copy anywhere.
+
 ## Install
+
 
 No dependencies for CSV/IIF input:
 
 ```bash
 python -m qb2drake --help          # run straight from the repo
-pip install -e .                   # or install the `qb2drake` command
+pip install -e .                   # or install `qb2drake` and `qb2drake-gui`
 pip install -e ".[excel]"          # add openpyxl for .xlsx input
 ```
+
+The app needs tkinter, which ships with Python on Windows and macOS. On
+Debian/Ubuntu it is a separate package: `sudo apt install python3-tk`.
 
 ## Quick start
 
@@ -301,8 +343,12 @@ if not result.report.ok:
 ## Tests
 
 ```bash
-python -m unittest discover -s tests -v
+python -m unittest discover -s tests -v     # 87 tests
+xvfb-run -a python -m unittest discover -s tests   # include the app tests headlessly
 ```
 
-51 tests covering each input format, the mapping rules, validation, and the
-generated files. `samples/` holds a small example of every supported export.
+87 tests covering each input format, the mapping rules, validation, the
+generated files, the conversion job, and the app itself — including that
+closing the window mid-conversion shuts down cleanly. The app tests skip
+automatically when there is no tkinter or no display. `samples/` holds a small
+example of every supported export.

@@ -171,6 +171,19 @@ def command_profile_from_template(args) -> int:
     return 0
 
 
+def command_gui(args) -> int:
+    try:
+        from .app import main as gui_main
+    except ImportError as exc:                  # tkinter missing from this Python
+        raise SystemExit(
+            "The desktop app needs tkinter, which this Python was built without.\n"
+            "On Debian/Ubuntu: sudo apt install python3-tk\n"
+            "On Windows and macOS it ships with python.org installers.\n"
+            f"(import error: {exc})"
+        )
+    return gui_main()
+
+
 def command_dump_profile(args) -> int:
     dump_profile(args.out)
     print(f"Wrote the default output layout to {args.out}")
@@ -267,6 +280,9 @@ def build_parser() -> argparse.ArgumentParser:
                                help="where to write the profile (default: "
                                     "drake_profile.json)")
     from_template.set_defaults(func=command_profile_from_template)
+
+    gui = subparsers.add_parser("gui", help="open the desktop app")
+    gui.set_defaults(func=command_gui)
 
     dump = subparsers.add_parser(
         "dump-profile", help="write the default output layout as JSON for editing")

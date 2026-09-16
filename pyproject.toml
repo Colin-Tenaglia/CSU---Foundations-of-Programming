@@ -20,5 +20,8 @@ excel = ["openpyxl>=3.0"]
 [project.scripts]
 qb2drake = "qb2drake.cli:main"
 
+[project.gui-scripts]
+qb2drake-gui = "qb2drake.app:main"
+
 [tool.setuptools]
 packages = ["qb2drake", "qb2drake.readers", "qb2drake.writers"]
