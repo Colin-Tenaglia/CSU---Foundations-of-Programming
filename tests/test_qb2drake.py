@@ -16,7 +16,7 @@ from decimal import Decimal
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from qb2drake import convert
-from qb2drake.detect import read, read_many, sniff
+from qb2drake.detect import UnsupportedInput, check_readable, read, read_many, sniff
 from qb2drake.mapping import ChartBuilder, MappingOptions, classify, journal_code
 from qb2drake.models import Account, Batch, JournalLine, Transaction, money
 from qb2drake.readers.reports import classify_report, find_header, parse_report
@@ -90,6 +90,55 @@ class DetectionTests(unittest.TestCase):
         self.assertEqual(classify_report({"date": 0, "debit": 1, "credit": 2}), "transactions")
         self.assertEqual(classify_report({"debit": 1, "credit": 2}), "trial_balance")
         self.assertEqual(classify_report({"account": 0, "acct_num": 1}), "account_listing")
+
+
+class CompanyFileTests(unittest.TestCase):
+    """QBB and friends cannot be read; the error has to say what to do."""
+
+    def write(self, tmp, name, data=b"\x00\x01binary\x00"):
+        path = os.path.join(tmp, name)
+        with open(path, "wb") as handle:
+            handle.write(data)
+        return path
+
+    def test_qbb_backup_is_refused_with_restore_instructions(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaises(UnsupportedInput) as caught:
+                read(self.write(tmp, "company.qbb"))
+            message = str(caught.exception)
+            self.assertIn("QuickBooks backup file", message)
+            self.assertIn("Restore a backup copy", message)
+            self.assertIn("General Ledger", message)
+
+    def test_every_proprietary_company_extension_is_named(self):
+        for extension in (".qbw", ".qbm", ".qbx", ".qba", ".qby", ".tlg", ".nd"):
+            with self.subTest(extension=extension), tempfile.TemporaryDirectory() as tmp:
+                with self.assertRaises(UnsupportedInput) as caught:
+                    check_readable(self.write(tmp, "company" + extension))
+                self.assertIn(extension, str(caught.exception))
+
+    def test_web_connect_file_gets_its_own_explanation(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaises(UnsupportedInput) as caught:
+                check_readable(self.write(tmp, "bank.qbo", b"OFXHEADER:100\n"))
+            message = str(caught.exception)
+            self.assertIn("bank or credit card statement", message)
+            self.assertNotIn("Restore a backup copy", message)
+
+    def test_renamed_binary_is_caught_before_the_parser(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaises(UnsupportedInput) as caught:
+                check_readable(self.write(tmp, "export.csv"))
+            self.assertIn("binary file", str(caught.exception))
+
+    def test_xlsx_is_not_mistaken_for_a_company_file(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            check_readable(self.write(tmp, "report.xlsx", b"PK\x03\x04\x00\x00"))
+
+    def test_real_samples_pass_the_check(self):
+        for name in ("quickbooks_export.iif", "journal.csv", "general_ledger.csv"):
+            with self.subTest(name=name):
+                check_readable(sample(name))
 
 
 class IIFTests(unittest.TestCase):

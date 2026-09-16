@@ -84,6 +84,23 @@ Format is detected from the file contents, so the extension does not matter.
 | Account Listing / Chart of Accounts | Account names, types, numbers, descriptions |
 | QuickBooks Online CSV exports | Same reports; the alternate column wording is recognised |
 
+### What it cannot read: .QBB and other company files
+
+`.QBB` (backup), `.QBW` (company file), `.QBM` (portable), and the Accountant's
+Copy formats `.QBX` / `.QBA` / `.QBY` are proprietary binary containers with no
+published specification. Nothing outside QuickBooks can open one, so the
+converter refuses them and prints the restore-and-export steps instead of
+failing with a parse error.
+
+The route is always the same: restore or open the file in QuickBooks Desktop,
+then export an IIF file or a General Ledger / Account Listing report to CSV and
+convert that. If you have no copy of QuickBooks, the file has to go back to
+whoever produced it — ask them for those two reports as CSV.
+
+`.QBO` (Web Connect) is refused for a different reason: it is a bank statement
+download, so it carries one side of each transaction and no chart of accounts.
+Import it into QuickBooks, categorise it, then export a report.
+
 CSV, TSV, and `.xlsx` are all read. Pass several files at once and they are
 merged — pairing an **Account Listing** with a **General Ledger** is the
 recommended combination, because the listing supplies the account types the

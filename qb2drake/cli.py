@@ -9,7 +9,7 @@ import sys
 from typing import List
 
 from . import __version__
-from .detect import read_many
+from .detect import UnsupportedInput, read_many
 from .mapping import DEFAULT_RANGES, ChartBuilder, MappingOptions, NORMAL_BALANCE
 from .models import sort_transactions
 from .validate import validate
@@ -227,6 +227,9 @@ def main(argv: List[str] = None) -> int:
     args = build_parser().parse_args(argv)
     try:
         return args.func(args)
+    except UnsupportedInput as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
     except (ValueError, OSError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
