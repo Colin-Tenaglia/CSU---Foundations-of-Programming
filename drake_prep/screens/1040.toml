@@ -1,0 +1,773 @@
+# Drake screen map — Form 1040
+#
+# Field order mirrors the IRS form box order, which is how Drake lays out its
+# information-return screens. It has NOT been walked against a live Drake install.
+# Do that once, correct anything that differs, then set verified = true and
+# record the Drake year you checked against.
+#
+# Editing rules:
+#   code       what you type in Drake's screen selector
+#   order      the sequence the worksheet prints in — set it to your keying order
+#   multi      true when you key one screen instance per source document
+#   doc_types  must match the doc_type strings in drakeprep/classify.py
+#   type       text | ein | ssn | money | date | code | checkbox | state | zip | percent | int
+#              ssn and ein are masked in every printed worksheet
+
+form = "1040"
+tax_year = 2025
+verified = false
+source_note = "Box order transcribed from the IRS forms. Verify against Drake before keying."
+
+# Figures used by the arithmetic checks in `prepdesk check`. Correct them for the
+# year you are preparing — they are not updated automatically.
+[limits]
+ss_wage_base = 176100
+ss_rate = 0.062
+medicare_rate = 0.0145
+medicare_additional_threshold_single = 200000
+medicare_additional_threshold_mfj = 250000
+capital_loss_ordinary_offset = 3000
+salt_cap = 10000
+medical_floor_pct = 0.075
+
+# ---------------------------------------------------------------- demographics
+
+[[screens]]
+code = "1"
+title = "Name and Address"
+order = 1
+wp_section = 100
+doc_types = ["Identification", "Organizer"]
+note = "Filing status drives nearly every limitation downstream. Confirm it against the organizer, not last year's return."
+fields = [
+  { id = "filing_status", box = "", label = "Filing status (1=S 2=MFJ 3=MFS 4=HOH 5=QSS)", type = "code", required = true },
+  { id = "tp_ssn", box = "", label = "Taxpayer SSN", type = "ssn", required = true },
+  { id = "tp_first", box = "", label = "Taxpayer first name", type = "text", required = true },
+  { id = "tp_last", box = "", label = "Taxpayer last name", type = "text", required = true },
+  { id = "tp_dob", box = "", label = "Taxpayer date of birth", type = "date", required = true },
+  { id = "tp_occupation", box = "", label = "Taxpayer occupation", type = "text" },
+  { id = "sp_ssn", box = "", label = "Spouse SSN", type = "ssn" },
+  { id = "sp_first", box = "", label = "Spouse first name", type = "text" },
+  { id = "sp_last", box = "", label = "Spouse last name", type = "text" },
+  { id = "sp_dob", box = "", label = "Spouse date of birth", type = "date" },
+  { id = "sp_occupation", box = "", label = "Spouse occupation", type = "text" },
+  { id = "street", box = "", label = "Street address", type = "text", required = true },
+  { id = "city", box = "", label = "City", type = "text", required = true },
+  { id = "state", box = "", label = "State", type = "state", required = true },
+  { id = "zip", box = "", label = "ZIP", type = "zip", required = true },
+  { id = "resident_state", box = "", label = "Resident state (if different)", type = "state" },
+  { id = "phone", box = "", label = "Daytime phone", type = "text" },
+  { id = "email", box = "", label = "Email", type = "text" },
+  { id = "presidential_tp", box = "", label = "Presidential election fund — taxpayer", type = "checkbox" },
+  { id = "presidential_sp", box = "", label = "Presidential election fund — spouse", type = "checkbox" },
+  { id = "digital_assets", box = "", label = "Digital asset question — yes/no", type = "code", required = true, note = "Answer from the organizer. A blank here stops the e-file." },
+]
+
+[[screens]]
+code = "2"
+title = "Dependents"
+order = 2
+multi = true
+wp_section = 100
+doc_types = []
+note = "One instance per dependent. Months in home drives EIC and HOH; get it right."
+fields = [
+  { id = "first_name", box = "", label = "First name", type = "text", required = true },
+  { id = "last_name", box = "", label = "Last name", type = "text", required = true },
+  { id = "ssn", box = "", label = "SSN", type = "ssn", required = true },
+  { id = "relationship", box = "", label = "Relationship", type = "text", required = true },
+  { id = "dob", box = "", label = "Date of birth", type = "date", required = true },
+  { id = "months_in_home", box = "", label = "Months lived in home", type = "int", required = true },
+  { id = "childcare_expense", box = "", label = "Childcare expense paid for this dependent", type = "money" },
+  { id = "eic_code", box = "", label = "EIC / CTC qualification code", type = "code" },
+  { id = "student", box = "", label = "Full-time student", type = "checkbox" },
+  { id = "disabled", box = "", label = "Disabled", type = "checkbox" },
+]
+
+# --------------------------------------------------------------------- income
+
+[[screens]]
+code = "W2"
+title = "Wages — Form W-2"
+order = 10
+multi = true
+wp_section = 200
+doc_types = ["W-2"]
+note = "Box 3 x 6.2% should equal box 4, and box 5 x 1.45% should equal box 6, up to the wage base. A break means a corrected W-2 or a keying error."
+fields = [
+  { id = "employee_ssn", box = "a", label = "Employee SSN", type = "ssn", required = true },
+  { id = "employer_ein", box = "b", label = "Employer ID number (EIN)", type = "ein", required = true },
+  { id = "employer_name", box = "c", label = "Employer name", type = "text", required = true },
+  { id = "employer_street", box = "c", label = "Employer street", type = "text" },
+  { id = "employer_city", box = "c", label = "Employer city", type = "text" },
+  { id = "employer_state", box = "c", label = "Employer state", type = "state" },
+  { id = "employer_zip", box = "c", label = "Employer ZIP", type = "zip" },
+  { id = "control_number", box = "d", label = "Control number", type = "text" },
+  { id = "wages", box = "1", label = "Wages, tips, other compensation", type = "money", required = true },
+  { id = "fed_withheld", box = "2", label = "Federal income tax withheld", type = "money" },
+  { id = "ss_wages", box = "3", label = "Social security wages", type = "money" },
+  { id = "ss_withheld", box = "4", label = "Social security tax withheld", type = "money" },
+  { id = "medicare_wages", box = "5", label = "Medicare wages and tips", type = "money" },
+  { id = "medicare_withheld", box = "6", label = "Medicare tax withheld", type = "money" },
+  { id = "ss_tips", box = "7", label = "Social security tips", type = "money" },
+  { id = "allocated_tips", box = "8", label = "Allocated tips", type = "money" },
+  { id = "dependent_care", box = "10", label = "Dependent care benefits", type = "money" },
+  { id = "nonqualified_plans", box = "11", label = "Nonqualified plans", type = "money" },
+  { id = "box12a_code", box = "12a", label = "Box 12a code", type = "code" },
+  { id = "box12a_amount", box = "12a", label = "Box 12a amount", type = "money" },
+  { id = "box12b_code", box = "12b", label = "Box 12b code", type = "code" },
+  { id = "box12b_amount", box = "12b", label = "Box 12b amount", type = "money" },
+  { id = "box12c_code", box = "12c", label = "Box 12c code", type = "code" },
+  { id = "box12c_amount", box = "12c", label = "Box 12c amount", type = "money" },
+  { id = "box12d_code", box = "12d", label = "Box 12d code", type = "code" },
+  { id = "box12d_amount", box = "12d", label = "Box 12d amount", type = "money" },
+  { id = "statutory_employee", box = "13", label = "Statutory employee", type = "checkbox" },
+  { id = "retirement_plan", box = "13", label = "Retirement plan", type = "checkbox" },
+  { id = "third_party_sick", box = "13", label = "Third-party sick pay", type = "checkbox" },
+  { id = "box14_desc", box = "14", label = "Box 14 description", type = "text" },
+  { id = "box14_amount", box = "14", label = "Box 14 amount", type = "money" },
+  { id = "state", box = "15", label = "State", type = "state" },
+  { id = "state_ein", box = "15", label = "Employer state ID number", type = "text" },
+  { id = "state_wages", box = "16", label = "State wages, tips, etc.", type = "money" },
+  { id = "state_withheld", box = "17", label = "State income tax", type = "money" },
+  { id = "local_wages", box = "18", label = "Local wages, tips, etc.", type = "money" },
+  { id = "local_withheld", box = "19", label = "Local income tax", type = "money" },
+  { id = "locality", box = "20", label = "Locality name", type = "text" },
+]
+
+[[screens]]
+code = "INT"
+title = "Interest Income — Form 1099-INT"
+order = 11
+multi = true
+wp_section = 200
+doc_types = ["1099-INT"]
+fields = [
+  { id = "payer_name", box = "", label = "Payer name", type = "text", required = true },
+  { id = "payer_tin", box = "", label = "Payer TIN", type = "ein" },
+  { id = "interest_income", box = "1", label = "Interest income", type = "money", required = true },
+  { id = "early_withdrawal", box = "2", label = "Early withdrawal penalty", type = "money" },
+  { id = "us_savings_bonds", box = "3", label = "Interest on U.S. savings bonds and Treasury obligations", type = "money" },
+  { id = "fed_withheld", box = "4", label = "Federal income tax withheld", type = "money" },
+  { id = "investment_expenses", box = "5", label = "Investment expenses", type = "money" },
+  { id = "foreign_tax", box = "6", label = "Foreign tax paid", type = "money" },
+  { id = "foreign_country", box = "7", label = "Foreign country or U.S. possession", type = "text" },
+  { id = "tax_exempt_interest", box = "8", label = "Tax-exempt interest", type = "money" },
+  { id = "private_activity", box = "9", label = "Specified private activity bond interest", type = "money" },
+  { id = "market_discount", box = "10", label = "Market discount", type = "money" },
+  { id = "bond_premium", box = "11", label = "Bond premium", type = "money" },
+  { id = "bond_premium_treasury", box = "12", label = "Bond premium on Treasury obligations", type = "money" },
+  { id = "bond_premium_tax_exempt", box = "13", label = "Bond premium on tax-exempt bond", type = "money" },
+  { id = "state", box = "15", label = "State", type = "state" },
+  { id = "state_withheld", box = "17", label = "State tax withheld", type = "money" },
+]
+
+[[screens]]
+code = "DIV"
+title = "Dividend Income — Form 1099-DIV"
+order = 12
+multi = true
+wp_section = 200
+doc_types = ["1099-DIV"]
+note = "Box 1b cannot exceed box 1a. Box 5 feeds the §199A deduction and is missed constantly."
+fields = [
+  { id = "payer_name", box = "", label = "Payer name", type = "text", required = true },
+  { id = "payer_tin", box = "", label = "Payer TIN", type = "ein" },
+  { id = "ordinary_dividends", box = "1a", label = "Total ordinary dividends", type = "money", required = true },
+  { id = "qualified_dividends", box = "1b", label = "Qualified dividends", type = "money" },
+  { id = "capital_gain_distr", box = "2a", label = "Total capital gain distributions", type = "money" },
+  { id = "unrecap_1250", box = "2b", label = "Unrecaptured section 1250 gain", type = "money" },
+  { id = "section_1202", box = "2c", label = "Section 1202 gain", type = "money" },
+  { id = "collectibles_28", box = "2d", label = "Collectibles (28%) gain", type = "money" },
+  { id = "section_897_ordinary", box = "2e", label = "Section 897 ordinary dividends", type = "money" },
+  { id = "section_897_capital", box = "2f", label = "Section 897 capital gain", type = "money" },
+  { id = "nondividend_distr", box = "3", label = "Nondividend distributions", type = "money" },
+  { id = "fed_withheld", box = "4", label = "Federal income tax withheld", type = "money" },
+  { id = "section_199a_dividends", box = "5", label = "Section 199A dividends", type = "money" },
+  { id = "investment_expenses", box = "6", label = "Investment expenses", type = "money" },
+  { id = "foreign_tax", box = "7", label = "Foreign tax paid", type = "money" },
+  { id = "foreign_country", box = "8", label = "Foreign country or U.S. possession", type = "text" },
+  { id = "cash_liquidation", box = "9", label = "Cash liquidation distributions", type = "money" },
+  { id = "noncash_liquidation", box = "10", label = "Noncash liquidation distributions", type = "money" },
+  { id = "exempt_interest_dividends", box = "12", label = "Exempt-interest dividends", type = "money" },
+  { id = "private_activity_dividends", box = "13", label = "Specified private activity bond interest dividends", type = "money" },
+  { id = "state", box = "14", label = "State", type = "state" },
+  { id = "state_withheld", box = "16", label = "State tax withheld", type = "money" },
+]
+
+[[screens]]
+code = "99N"
+title = "Nonemployee Compensation — Form 1099-NEC"
+order = 13
+multi = true
+wp_section = 200
+doc_types = ["1099-NEC"]
+note = "Must land on a Schedule C. Confirm which one before keying."
+fields = [
+  { id = "payer_name", box = "", label = "Payer name", type = "text", required = true },
+  { id = "payer_tin", box = "", label = "Payer TIN", type = "ein" },
+  { id = "recipient_tin", box = "", label = "Recipient TIN", type = "ssn" },
+  { id = "nonemployee_comp", box = "1", label = "Nonemployee compensation", type = "money", required = true },
+  { id = "direct_sales", box = "2", label = "Payer made direct sales over $5,000", type = "checkbox" },
+  { id = "fed_withheld", box = "4", label = "Federal income tax withheld", type = "money" },
+  { id = "state_withheld", box = "5", label = "State tax withheld", type = "money" },
+  { id = "state", box = "6", label = "State / Payer's state no.", type = "state" },
+  { id = "state_income", box = "7", label = "State income", type = "money" },
+  { id = "schedule_c_link", box = "", label = "Link to which Schedule C (business name)", type = "text", required = true },
+]
+
+[[screens]]
+code = "99M"
+title = "Miscellaneous Income — Form 1099-MISC"
+order = 14
+multi = true
+wp_section = 200
+doc_types = ["1099-MISC"]
+fields = [
+  { id = "payer_name", box = "", label = "Payer name", type = "text", required = true },
+  { id = "payer_tin", box = "", label = "Payer TIN", type = "ein" },
+  { id = "rents", box = "1", label = "Rents", type = "money" },
+  { id = "royalties", box = "2", label = "Royalties", type = "money" },
+  { id = "other_income", box = "3", label = "Other income", type = "money" },
+  { id = "fed_withheld", box = "4", label = "Federal income tax withheld", type = "money" },
+  { id = "fishing_boat", box = "5", label = "Fishing boat proceeds", type = "money" },
+  { id = "medical_payments", box = "6", label = "Medical and health care payments", type = "money" },
+  { id = "direct_sales", box = "7", label = "Payer made direct sales over $5,000", type = "checkbox" },
+  { id = "substitute_payments", box = "8", label = "Substitute payments in lieu of dividends or interest", type = "money" },
+  { id = "crop_insurance", box = "9", label = "Crop insurance proceeds", type = "money" },
+  { id = "attorney_proceeds", box = "10", label = "Gross proceeds paid to an attorney", type = "money" },
+  { id = "fish_purchased", box = "11", label = "Fish purchased for resale", type = "money" },
+  { id = "deferrals_409a", box = "12", label = "Section 409A deferrals", type = "money" },
+  { id = "golden_parachute", box = "14", label = "Excess golden parachute payments", type = "money" },
+  { id = "nonqualified_deferred", box = "15", label = "Nonqualified deferred compensation", type = "money" },
+  { id = "state_withheld", box = "16", label = "State tax withheld", type = "money" },
+  { id = "state", box = "17", label = "State / Payer's state no.", type = "state" },
+  { id = "state_income", box = "18", label = "State income", type = "money" },
+]
+
+[[screens]]
+code = "99R"
+title = "Retirement Distributions — Form 1099-R"
+order = 15
+multi = true
+wp_section = 200
+doc_types = ["1099-R"]
+note = "Box 7 code decides taxability and penalty. A code 1 with no exception on Form 5329 is the most common miss."
+fields = [
+  { id = "payer_name", box = "", label = "Payer name", type = "text", required = true },
+  { id = "payer_tin", box = "", label = "Payer TIN", type = "ein" },
+  { id = "gross_distribution", box = "1", label = "Gross distribution", type = "money", required = true },
+  { id = "taxable_amount", box = "2a", label = "Taxable amount", type = "money" },
+  { id = "taxable_not_determined", box = "2b", label = "Taxable amount not determined", type = "checkbox" },
+  { id = "total_distribution", box = "2b", label = "Total distribution", type = "checkbox" },
+  { id = "capital_gain", box = "3", label = "Capital gain (included in box 2a)", type = "money" },
+  { id = "fed_withheld", box = "4", label = "Federal income tax withheld", type = "money" },
+  { id = "employee_contributions", box = "5", label = "Employee contributions / Roth / insurance premiums", type = "money" },
+  { id = "net_unrealized_appreciation", box = "6", label = "Net unrealized appreciation in employer securities", type = "money" },
+  { id = "distribution_code", box = "7", label = "Distribution code(s)", type = "code", required = true },
+  { id = "ira_sep_simple", box = "7", label = "IRA / SEP / SIMPLE", type = "checkbox" },
+  { id = "other_amount", box = "8", label = "Other", type = "money" },
+  { id = "pct_total_distribution", box = "9a", label = "Your percentage of total distribution", type = "percent" },
+  { id = "total_employee_contributions", box = "9b", label = "Total employee contributions", type = "money" },
+  { id = "irr_allocable", box = "10", label = "Amount allocable to IRR within 5 years", type = "money" },
+  { id = "first_roth_year", box = "11", label = "1st year of designated Roth contributions", type = "int" },
+  { id = "state_withheld", box = "14", label = "State tax withheld", type = "money" },
+  { id = "state", box = "15", label = "State / Payer's state no.", type = "state" },
+  { id = "state_distribution", box = "16", label = "State distribution", type = "money" },
+  { id = "rollover_amount", box = "", label = "Rolled over within 60 days (amount)", type = "money", note = "Not on the form. Ask the client; box 7 will not tell you." },
+]
+
+[[screens]]
+code = "SSA"
+title = "Social Security Benefits — Form SSA-1099"
+order = 16
+multi = true
+wp_section = 200
+doc_types = ["SSA-1099"]
+fields = [
+  { id = "beneficiary", box = "", label = "Beneficiary (taxpayer or spouse)", type = "text", required = true },
+  { id = "benefits_paid", box = "3", label = "Benefits paid", type = "money" },
+  { id = "benefits_repaid", box = "4", label = "Benefits repaid to SSA", type = "money" },
+  { id = "net_benefits", box = "5", label = "Net benefits", type = "money", required = true },
+  { id = "fed_withheld", box = "6", label = "Voluntary federal income tax withheld", type = "money" },
+  { id = "medicare_premiums", box = "", label = "Medicare premiums deducted (description box)", type = "money", note = "Deductible on Schedule A or as SEHI. Read the description box, it is not numbered." },
+  { id = "lump_sum_prior_year", box = "", label = "Lump-sum payment for a prior year (amount and year)", type = "text" },
+]
+
+[[screens]]
+code = "99G"
+title = "Government Payments — Form 1099-G"
+order = 17
+multi = true
+wp_section = 200
+doc_types = ["1099-G"]
+fields = [
+  { id = "payer_name", box = "", label = "Payer name", type = "text", required = true },
+  { id = "payer_tin", box = "", label = "Payer TIN", type = "ein" },
+  { id = "unemployment", box = "1", label = "Unemployment compensation", type = "money" },
+  { id = "state_refund", box = "2", label = "State or local income tax refunds", type = "money" },
+  { id = "refund_tax_year", box = "3", label = "Box 2 amount is for tax year", type = "int" },
+  { id = "fed_withheld", box = "4", label = "Federal income tax withheld", type = "money" },
+  { id = "rtaa_payments", box = "5", label = "RTAA payments", type = "money" },
+  { id = "taxable_grants", box = "6", label = "Taxable grants", type = "money" },
+  { id = "agriculture_payments", box = "7", label = "Agriculture payments", type = "money" },
+  { id = "market_gain", box = "9", label = "Market gain", type = "money" },
+  { id = "state", box = "10a", label = "State", type = "state" },
+  { id = "state_withheld", box = "11", label = "State income tax withheld", type = "money" },
+  { id = "itemized_prior_year", box = "", label = "Did the client itemize in the box 3 year?", type = "code", note = "Decides whether box 2 is taxable at all. Check the prior-year return." },
+]
+
+[[screens]]
+code = "99K"
+title = "Payment Card and Third Party Network — Form 1099-K"
+order = 18
+multi = true
+wp_section = 200
+doc_types = ["1099-K"]
+note = "Gross, before fees and refunds. Reconcile to the books before it goes on a Schedule C or it overstates receipts."
+fields = [
+  { id = "filer_name", box = "", label = "Filer name", type = "text", required = true },
+  { id = "filer_tin", box = "", label = "Filer TIN", type = "ein" },
+  { id = "gross_amount", box = "1a", label = "Gross amount of payment card/third party network transactions", type = "money", required = true },
+  { id = "card_not_present", box = "1b", label = "Card not present transactions", type = "money" },
+  { id = "merchant_category", box = "2", label = "Merchant category code", type = "code" },
+  { id = "transaction_count", box = "3", label = "Number of payment transactions", type = "int" },
+  { id = "fed_withheld", box = "4", label = "Federal income tax withheld", type = "money" },
+  { id = "state", box = "6", label = "State", type = "state" },
+  { id = "state_withheld", box = "8", label = "State income tax withheld", type = "money" },
+  { id = "reconciled_to_books", box = "", label = "Amount agreed to books (and difference explained)", type = "money" },
+]
+
+[[screens]]
+code = "W2G"
+title = "Gambling Winnings — Form W-2G"
+order = 19
+multi = true
+wp_section = 200
+doc_types = ["W-2G"]
+fields = [
+  { id = "payer_name", box = "", label = "Payer name", type = "text", required = true },
+  { id = "payer_tin", box = "", label = "Payer TIN", type = "ein" },
+  { id = "gross_winnings", box = "1", label = "Reportable winnings", type = "money", required = true },
+  { id = "date_won", box = "2", label = "Date won", type = "date" },
+  { id = "wager_type", box = "3", label = "Type of wager", type = "text" },
+  { id = "fed_withheld", box = "4", label = "Federal income tax withheld", type = "money" },
+  { id = "transaction", box = "5", label = "Transaction", type = "text" },
+  { id = "race", box = "6", label = "Race", type = "text" },
+  { id = "winnings_from_identical", box = "7", label = "Winnings from identical wagers", type = "money" },
+  { id = "state_withheld", box = "15", label = "State income tax withheld", type = "money" },
+  { id = "losses_claimed", box = "", label = "Documented losses to claim on Schedule A", type = "money", note = "Capped at winnings. Needs a log, not an estimate." },
+]
+
+[[screens]]
+code = "8949"
+title = "Capital Transactions — Form 8949 / Schedule D"
+order = 20
+multi = true
+wp_section = 200
+doc_types = ["1099-B"]
+note = "One row per lot. If the broker CSV is clean, use Drake's 8949 import instead of keying — see `prepdesk export --format 8949`."
+fields = [
+  { id = "description", box = "1a", label = "Description of property", type = "text", required = true },
+  { id = "date_acquired", box = "1b", label = "Date acquired", type = "date" },
+  { id = "date_sold", box = "1c", label = "Date sold or disposed", type = "date", required = true },
+  { id = "proceeds", box = "1d", label = "Proceeds", type = "money", required = true },
+  { id = "cost_basis", box = "1e", label = "Cost or other basis", type = "money" },
+  { id = "adjustment_code", box = "1f", label = "Code(s) from instructions", type = "code" },
+  { id = "adjustment_amount", box = "1g", label = "Amount of adjustment", type = "money" },
+  { id = "form8949_box", box = "", label = "Form 8949 box (A/B/C short, D/E/F long)", type = "code", required = true },
+  { id = "basis_reported", box = "", label = "Basis reported to IRS", type = "checkbox" },
+  { id = "wash_sale", box = "", label = "Wash sale disallowed amount", type = "money" },
+]
+
+[[screens]]
+code = "C"
+title = "Schedule C — Business Income"
+order = 30
+multi = true
+wp_section = 300
+doc_types = ["Business P&L"]
+note = "Line 9 auto and line 30 home office both need substantiation in the file before they go on the return."
+fields = [
+  { id = "principal_business", box = "A", label = "Principal business or profession", type = "text", required = true },
+  { id = "business_code", box = "B", label = "Business code", type = "code", required = true },
+  { id = "business_name", box = "C", label = "Business name", type = "text" },
+  { id = "business_ein", box = "D", label = "Employer ID number", type = "ein" },
+  { id = "business_address", box = "E", label = "Business address", type = "text" },
+  { id = "accounting_method", box = "F", label = "Accounting method (cash/accrual/other)", type = "code", required = true },
+  { id = "material_participation", box = "G", label = "Materially participated", type = "checkbox" },
+  { id = "started_this_year", box = "H", label = "Started or acquired this business during the year", type = "checkbox" },
+  { id = "required_1099s", box = "I", label = "Required to file Forms 1099", type = "checkbox" },
+  { id = "filed_1099s", box = "J", label = "Did or will file required Forms 1099", type = "checkbox" },
+  { id = "gross_receipts", box = "1", label = "Gross receipts or sales", type = "money", required = true },
+  { id = "returns_allowances", box = "2", label = "Returns and allowances", type = "money" },
+  { id = "cogs", box = "4", label = "Cost of goods sold", type = "money" },
+  { id = "other_income", box = "6", label = "Other income", type = "money" },
+  { id = "advertising", box = "8", label = "Advertising", type = "money" },
+  { id = "car_truck", box = "9", label = "Car and truck expenses", type = "money" },
+  { id = "commissions_fees", box = "10", label = "Commissions and fees", type = "money" },
+  { id = "contract_labor", box = "11", label = "Contract labor", type = "money" },
+  { id = "depletion", box = "12", label = "Depletion", type = "money" },
+  { id = "depreciation", box = "13", label = "Depreciation and section 179", type = "money", note = "Comes from screen 4562, not keyed here." },
+  { id = "employee_benefits", box = "14", label = "Employee benefit programs", type = "money" },
+  { id = "insurance", box = "15", label = "Insurance (other than health)", type = "money" },
+  { id = "mortgage_interest", box = "16a", label = "Interest — mortgage (paid to banks)", type = "money" },
+  { id = "other_interest", box = "16b", label = "Interest — other", type = "money" },
+  { id = "legal_professional", box = "17", label = "Legal and professional services", type = "money" },
+  { id = "office_expense", box = "18", label = "Office expense", type = "money" },
+  { id = "pension_profit_sharing", box = "19", label = "Pension and profit-sharing plans", type = "money" },
+  { id = "rent_vehicles", box = "20a", label = "Rent or lease — vehicles, machinery, equipment", type = "money" },
+  { id = "rent_property", box = "20b", label = "Rent or lease — other business property", type = "money" },
+  { id = "repairs", box = "21", label = "Repairs and maintenance", type = "money" },
+  { id = "supplies", box = "22", label = "Supplies", type = "money" },
+  { id = "taxes_licenses", box = "23", label = "Taxes and licenses", type = "money" },
+  { id = "travel", box = "24a", label = "Travel", type = "money" },
+  { id = "meals", box = "24b", label = "Deductible meals", type = "money" },
+  { id = "utilities", box = "25", label = "Utilities", type = "money" },
+  { id = "wages", box = "26", label = "Wages (less employment credits)", type = "money" },
+  { id = "other_expenses", box = "27a", label = "Other expenses (attach detail)", type = "money" },
+  { id = "home_office", box = "30", label = "Business use of home", type = "money" },
+  { id = "vehicle_business_miles", box = "44a", label = "Business miles", type = "int" },
+  { id = "vehicle_total_miles", box = "44", label = "Total miles", type = "int" },
+  { id = "written_mileage_log", box = "47a", label = "Written evidence for the mileage", type = "checkbox" },
+]
+
+[[screens]]
+code = "E"
+title = "Schedule E — Rental and Royalty"
+order = 31
+multi = true
+wp_section = 300
+doc_types = ["Rental statement"]
+note = "Fair rental days and personal use days decide whether §280A limits the loss. Do not leave them blank."
+fields = [
+  { id = "property_address", box = "1a", label = "Property address", type = "text", required = true },
+  { id = "property_type", box = "1b", label = "Type of property (1-8)", type = "code", required = true },
+  { id = "fair_rental_days", box = "2", label = "Fair rental days", type = "int", required = true },
+  { id = "personal_use_days", box = "2", label = "Personal use days", type = "int", required = true },
+  { id = "qjv", box = "2", label = "Qualified joint venture", type = "checkbox" },
+  { id = "rents_received", box = "3", label = "Rents received", type = "money", required = true },
+  { id = "royalties_received", box = "4", label = "Royalties received", type = "money" },
+  { id = "advertising", box = "5", label = "Advertising", type = "money" },
+  { id = "auto_travel", box = "6", label = "Auto and travel", type = "money" },
+  { id = "cleaning_maintenance", box = "7", label = "Cleaning and maintenance", type = "money" },
+  { id = "commissions", box = "8", label = "Commissions", type = "money" },
+  { id = "insurance", box = "9", label = "Insurance", type = "money" },
+  { id = "legal_professional", box = "10", label = "Legal and other professional fees", type = "money" },
+  { id = "management_fees", box = "11", label = "Management fees", type = "money" },
+  { id = "mortgage_interest", box = "12", label = "Mortgage interest paid to banks", type = "money" },
+  { id = "other_interest", box = "13", label = "Other interest", type = "money" },
+  { id = "repairs", box = "14", label = "Repairs", type = "money" },
+  { id = "supplies", box = "15", label = "Supplies", type = "money" },
+  { id = "taxes", box = "16", label = "Taxes", type = "money" },
+  { id = "utilities", box = "17", label = "Utilities", type = "money" },
+  { id = "depreciation", box = "18", label = "Depreciation expense", type = "money", note = "From screen 4562." },
+  { id = "other_expenses", box = "19", label = "Other", type = "money" },
+  { id = "active_participation", box = "", label = "Active participation", type = "checkbox", note = "Gates the $25,000 special allowance under §469(i)." },
+]
+
+[[screens]]
+code = "K1P"
+title = "Schedule K-1 (Form 1065) — Partnership"
+order = 32
+multi = true
+wp_section = 200
+doc_types = ["K-1 (1065)", "K-1 (unspecified)"]
+note = "Box 20 code Z carries the §199A detail on a statement, not on the face of the K-1. Key it from the statement."
+fields = [
+  { id = "partnership_ein", box = "A", label = "Partnership EIN", type = "ein", required = true },
+  { id = "partnership_name", box = "B", label = "Partnership name", type = "text", required = true },
+  { id = "partner_tin", box = "E", label = "Partner TIN", type = "ssn" },
+  { id = "partner_type", box = "G", label = "General partner or LLC member-manager / Limited", type = "code" },
+  { id = "entity_type", box = "I1", label = "Type of entity", type = "text" },
+  { id = "profit_pct_end", box = "J", label = "Profit share — ending %", type = "percent" },
+  { id = "loss_pct_end", box = "J", label = "Loss share — ending %", type = "percent" },
+  { id = "capital_pct_end", box = "J", label = "Capital share — ending %", type = "percent" },
+  { id = "nonrecourse", box = "K", label = "Nonrecourse liabilities — ending", type = "money" },
+  { id = "qualified_nonrecourse", box = "K", label = "Qualified nonrecourse financing — ending", type = "money" },
+  { id = "recourse", box = "K", label = "Recourse liabilities — ending", type = "money" },
+  { id = "capital_beginning", box = "L", label = "Beginning capital account", type = "money" },
+  { id = "capital_contributed", box = "L", label = "Capital contributed during the year", type = "money" },
+  { id = "capital_current_year", box = "L", label = "Current year net income (loss)", type = "money" },
+  { id = "capital_withdrawals", box = "L", label = "Withdrawals and distributions", type = "money" },
+  { id = "capital_ending", box = "L", label = "Ending capital account", type = "money" },
+  { id = "ordinary_income", box = "1", label = "Ordinary business income (loss)", type = "money" },
+  { id = "rental_real_estate", box = "2", label = "Net rental real estate income (loss)", type = "money" },
+  { id = "other_rental", box = "3", label = "Other net rental income (loss)", type = "money" },
+  { id = "guaranteed_services", box = "4a", label = "Guaranteed payments for services", type = "money" },
+  { id = "guaranteed_capital", box = "4b", label = "Guaranteed payments for capital", type = "money" },
+  { id = "interest_income", box = "5", label = "Interest income", type = "money" },
+  { id = "ordinary_dividends", box = "6a", label = "Ordinary dividends", type = "money" },
+  { id = "qualified_dividends", box = "6b", label = "Qualified dividends", type = "money" },
+  { id = "royalties", box = "7", label = "Royalties", type = "money" },
+  { id = "short_term_gain", box = "8", label = "Net short-term capital gain (loss)", type = "money" },
+  { id = "long_term_gain", box = "9a", label = "Net long-term capital gain (loss)", type = "money" },
+  { id = "section_1231", box = "10", label = "Net section 1231 gain (loss)", type = "money" },
+  { id = "other_income_items", box = "11", label = "Other income (loss) — code and amount", type = "text" },
+  { id = "section_179", box = "12", label = "Section 179 deduction", type = "money" },
+  { id = "other_deductions", box = "13", label = "Other deductions — code and amount", type = "text" },
+  { id = "self_employment", box = "14", label = "Self-employment earnings (loss) — code and amount", type = "text" },
+  { id = "credits", box = "15", label = "Credits — code and amount", type = "text" },
+  { id = "k3_attached", box = "16", label = "Schedule K-3 is attached", type = "checkbox" },
+  { id = "amt_items", box = "17", label = "Alternative minimum tax items", type = "text" },
+  { id = "tax_exempt_nondeductible", box = "18", label = "Tax-exempt income and nondeductible expenses", type = "text" },
+  { id = "distributions", box = "19", label = "Distributions", type = "money" },
+  { id = "other_information", box = "20", label = "Other information — code and amount", type = "text" },
+  { id = "qbi_income", box = "20Z", label = "§199A QBI (from the box 20 Z statement)", type = "money" },
+  { id = "qbi_w2_wages", box = "20Z", label = "§199A W-2 wages", type = "money" },
+  { id = "qbi_ubia", box = "20Z", label = "§199A UBIA of qualified property", type = "money" },
+  { id = "basis_sufficient", box = "", label = "Outside basis supports any loss claimed", type = "checkbox", note = "§704(d). A loss in excess of basis suspends; it does not deduct." },
+]
+
+[[screens]]
+code = "K1S"
+title = "Schedule K-1 (Form 1120-S) — S Corporation"
+order = 33
+multi = true
+wp_section = 200
+doc_types = ["K-1 (1120S)"]
+note = "A loss claimed here needs Form 7203 behind it. If 7203 is not in the file, the loss is not supported."
+fields = [
+  { id = "corporation_ein", box = "A", label = "Corporation EIN", type = "ein", required = true },
+  { id = "corporation_name", box = "B", label = "Corporation name", type = "text", required = true },
+  { id = "shareholder_tin", box = "D", label = "Shareholder TIN", type = "ssn" },
+  { id = "ownership_pct", box = "F", label = "Shareholder's percentage of stock ownership", type = "percent" },
+  { id = "ordinary_income", box = "1", label = "Ordinary business income (loss)", type = "money" },
+  { id = "rental_real_estate", box = "2", label = "Net rental real estate income (loss)", type = "money" },
+  { id = "other_rental", box = "3", label = "Other net rental income (loss)", type = "money" },
+  { id = "interest_income", box = "4", label = "Interest income", type = "money" },
+  { id = "ordinary_dividends", box = "5a", label = "Ordinary dividends", type = "money" },
+  { id = "qualified_dividends", box = "5b", label = "Qualified dividends", type = "money" },
+  { id = "royalties", box = "6", label = "Royalties", type = "money" },
+  { id = "short_term_gain", box = "7", label = "Net short-term capital gain (loss)", type = "money" },
+  { id = "long_term_gain", box = "8a", label = "Net long-term capital gain (loss)", type = "money" },
+  { id = "section_1231", box = "9", label = "Net section 1231 gain (loss)", type = "money" },
+  { id = "other_income_items", box = "10", label = "Other income (loss) — code and amount", type = "text" },
+  { id = "section_179", box = "11", label = "Section 179 deduction", type = "money" },
+  { id = "other_deductions", box = "12", label = "Other deductions — code and amount", type = "text" },
+  { id = "credits", box = "13", label = "Credits — code and amount", type = "text" },
+  { id = "k3_attached", box = "14", label = "Schedule K-3 is attached", type = "checkbox" },
+  { id = "amt_items", box = "15", label = "Alternative minimum tax items", type = "text" },
+  { id = "basis_items", box = "16", label = "Items affecting shareholder basis — code and amount", type = "text" },
+  { id = "distributions", box = "16D", label = "Distributions (code D)", type = "money" },
+  { id = "other_information", box = "17", label = "Other information — code and amount", type = "text" },
+  { id = "qbi_income", box = "17V", label = "§199A QBI (from the box 17 V statement)", type = "money" },
+  { id = "qbi_w2_wages", box = "17V", label = "§199A W-2 wages", type = "money" },
+  { id = "qbi_ubia", box = "17V", label = "§199A UBIA of qualified property", type = "money" },
+  { id = "stock_basis_beginning", box = "", label = "Beginning stock basis (Form 7203 line 1)", type = "money", required = true },
+  { id = "debt_basis_beginning", box = "", label = "Beginning debt basis (Form 7203 Part II)", type = "money" },
+  { id = "form_7203_in_file", box = "", label = "Form 7203 is in the file", type = "checkbox", required = true },
+]
+
+[[screens]]
+code = "K1F"
+title = "Schedule K-1 (Form 1041) — Estate or Trust"
+order = 34
+multi = true
+wp_section = 200
+doc_types = ["K-1 (1041)"]
+fields = [
+  { id = "entity_ein", box = "A", label = "Estate or trust EIN", type = "ein", required = true },
+  { id = "entity_name", box = "C", label = "Fiduciary name", type = "text", required = true },
+  { id = "beneficiary_tin", box = "E", label = "Beneficiary TIN", type = "ssn" },
+  { id = "final_k1", box = "", label = "Final K-1", type = "checkbox" },
+  { id = "interest_income", box = "1", label = "Interest income", type = "money" },
+  { id = "ordinary_dividends", box = "2a", label = "Ordinary dividends", type = "money" },
+  { id = "qualified_dividends", box = "2b", label = "Qualified dividends", type = "money" },
+  { id = "net_short_term", box = "3", label = "Net short-term capital gain", type = "money" },
+  { id = "net_long_term", box = "4a", label = "Net long-term capital gain", type = "money" },
+  { id = "other_portfolio", box = "5", label = "Other portfolio and nonbusiness income", type = "money" },
+  { id = "ordinary_business", box = "6", label = "Ordinary business income", type = "money" },
+  { id = "rental_real_estate", box = "7", label = "Net rental real estate income", type = "money" },
+  { id = "other_rental", box = "8", label = "Other rental income", type = "money" },
+  { id = "directly_apportioned", box = "9", label = "Directly apportioned deductions — code and amount", type = "text" },
+  { id = "estate_tax_deduction", box = "10", label = "Estate tax deduction", type = "money" },
+  { id = "final_year_deductions", box = "11", label = "Final year deductions — code and amount", type = "text" },
+  { id = "amt_adjustment", box = "12", label = "Alternative minimum tax adjustment", type = "text" },
+  { id = "credits", box = "13", label = "Credits and credit recapture", type = "text" },
+  { id = "other_information", box = "14", label = "Other information — code and amount", type = "text" },
+]
+
+[[screens]]
+code = "4562"
+title = "Depreciation Detail — Form 4562"
+order = 40
+multi = true
+wp_section = 500
+doc_types = ["Depreciation schedule"]
+note = "One instance per asset. Prior depreciation must carry forward from last year's schedule, not be recomputed from scratch."
+fields = [
+  { id = "description", box = "", label = "Description of property", type = "text", required = true },
+  { id = "form_linked", box = "", label = "Links to which form/schedule (C, E, 4835, etc.)", type = "text", required = true },
+  { id = "date_acquired", box = "19", label = "Date placed in service", type = "date", required = true },
+  { id = "cost", box = "19", label = "Cost or other basis", type = "money", required = true },
+  { id = "business_use_pct", box = "26", label = "Business use percentage", type = "percent" },
+  { id = "method", box = "19", label = "Method (MACRS, SL, etc.)", type = "code", required = true },
+  { id = "convention", box = "19", label = "Convention (HY, MQ, MM)", type = "code" },
+  { id = "life", box = "19", label = "Recovery period (years)", type = "text", required = true },
+  { id = "section_179_elected", box = "6", label = "Section 179 elected", type = "money" },
+  { id = "bonus_election", box = "14", label = "Special depreciation allowance taken / elected out", type = "code" },
+  { id = "prior_depreciation", box = "", label = "Prior years' depreciation", type = "money", required = true },
+  { id = "current_depreciation", box = "", label = "Current year depreciation", type = "money" },
+  { id = "listed_property", box = "Part V", label = "Listed property", type = "checkbox" },
+  { id = "disposed_date", box = "", label = "Date sold or disposed (if disposed)", type = "date" },
+  { id = "sale_price", box = "", label = "Sale price (if disposed)", type = "money" },
+]
+
+# ---------------------------------------------------------------- deductions
+
+[[screens]]
+code = "A"
+title = "Schedule A — Itemized Deductions"
+order = 50
+wp_section = 300
+doc_types = ["1098 (mortgage interest)", "Charitable contributions", "Medical expenses", "Property tax"]
+note = "Compare the total against the standard deduction before keying anything. Most of these entries change nothing."
+fields = [
+  { id = "medical_expenses", box = "1", label = "Medical and dental expenses", type = "money" },
+  { id = "state_income_tax", box = "5a", label = "State and local income taxes (or sales taxes)", type = "money" },
+  { id = "sales_tax_elected", box = "5a", label = "Electing sales tax instead of income tax", type = "checkbox" },
+  { id = "real_estate_tax", box = "5b", label = "State and local real estate taxes", type = "money" },
+  { id = "personal_property_tax", box = "5c", label = "State and local personal property taxes", type = "money" },
+  { id = "other_taxes", box = "6", label = "Other taxes", type = "money" },
+  { id = "mortgage_interest_1098", box = "8a", label = "Home mortgage interest reported on Form 1098", type = "money" },
+  { id = "mortgage_interest_no_1098", box = "8b", label = "Home mortgage interest not reported on Form 1098", type = "money" },
+  { id = "points", box = "8c", label = "Points not reported on Form 1098", type = "money" },
+  { id = "investment_interest", box = "9", label = "Investment interest", type = "money" },
+  { id = "cash_contributions", box = "11", label = "Gifts by cash or check", type = "money" },
+  { id = "noncash_contributions", box = "12", label = "Gifts other than by cash or check", type = "money" },
+  { id = "contribution_carryover", box = "13", label = "Carryover from prior year", type = "money" },
+  { id = "other_itemized", box = "16", label = "Other itemized deductions", type = "money" },
+  { id = "mortgage_balance", box = "", label = "Average mortgage balance", type = "money", note = "Needed for the §163(h)(3) acquisition-debt limit. The 1098 shows it in the outstanding principal box." },
+  { id = "noncash_over_500", box = "", label = "Noncash gifts over $500 — Form 8283 support in file", type = "checkbox" },
+]
+
+[[screens]]
+code = "4"
+title = "Adjustments to Income — Schedule 1 Part II"
+order = 51
+wp_section = 300
+doc_types = ["1098-E"]
+fields = [
+  { id = "educator_expenses", box = "11", label = "Educator expenses", type = "money" },
+  { id = "hsa_deduction", box = "13", label = "HSA deduction (Form 8889)", type = "money" },
+  { id = "moving_expenses", box = "14", label = "Moving expenses (armed forces)", type = "money" },
+  { id = "deductible_se_tax", box = "15", label = "Deductible part of self-employment tax", type = "money", note = "Calculated. Do not key." },
+  { id = "sep_simple_qualified", box = "16", label = "Self-employed SEP, SIMPLE, and qualified plans", type = "money" },
+  { id = "se_health_insurance", box = "17", label = "Self-employed health insurance deduction", type = "money", note = "For a >2% S corp shareholder this must be in box 1 W-2 wages first." },
+  { id = "early_withdrawal_penalty", box = "18", label = "Penalty on early withdrawal of savings", type = "money" },
+  { id = "alimony_paid", box = "19a", label = "Alimony paid", type = "money" },
+  { id = "alimony_recipient_ssn", box = "19b", label = "Recipient's SSN", type = "ssn" },
+  { id = "divorce_date", box = "19c", label = "Date of original divorce or separation agreement", type = "date", note = "Agreements after 2018 are not deductible. Check the date before the amount." },
+  { id = "ira_deduction", box = "20", label = "IRA deduction", type = "money" },
+  { id = "student_loan_interest", box = "21", label = "Student loan interest deduction", type = "money" },
+]
+
+[[screens]]
+code = "2441"
+title = "Child and Dependent Care Expenses — Form 2441"
+order = 52
+multi = true
+wp_section = 300
+doc_types = ["Childcare receipt"]
+fields = [
+  { id = "provider_name", box = "1a", label = "Care provider name", type = "text", required = true },
+  { id = "provider_address", box = "1b", label = "Provider address", type = "text" },
+  { id = "provider_tin", box = "1c", label = "Provider TIN or SSN", type = "ein", required = true },
+  { id = "household_employee", box = "1d", label = "Provider is a household employee", type = "checkbox" },
+  { id = "amount_paid", box = "1e", label = "Amount paid to this provider", type = "money", required = true },
+  { id = "qualifying_person", box = "2a", label = "Qualifying person name", type = "text", required = true },
+  { id = "qualifying_person_ssn", box = "2b", label = "Qualifying person SSN", type = "ssn" },
+  { id = "expenses_for_person", box = "2d", label = "Qualified expenses for this person", type = "money" },
+  { id = "employer_benefits", box = "12", label = "Dependent care benefits from W-2 box 10", type = "money" },
+]
+
+[[screens]]
+code = "8863"
+title = "Education Credits — Form 8863"
+order = 53
+multi = true
+wp_section = 300
+doc_types = ["1098-T"]
+note = "1098-T box 1 is amounts billed or paid by the school, not necessarily what the client paid. Get the bursar statement."
+fields = [
+  { id = "student_name", box = "20", label = "Student name", type = "text", required = true },
+  { id = "student_ssn", box = "21", label = "Student SSN", type = "ssn", required = true },
+  { id = "institution_name", box = "22", label = "Educational institution name", type = "text", required = true },
+  { id = "institution_ein", box = "22", label = "Institution EIN", type = "ein" },
+  { id = "payments_received", box = "1", label = "1098-T box 1 — payments received for qualified expenses", type = "money" },
+  { id = "scholarships", box = "5", label = "1098-T box 5 — scholarships or grants", type = "money" },
+  { id = "adjusted_qualified_expenses", box = "27", label = "Adjusted qualified education expenses actually paid", type = "money", required = true },
+  { id = "books_supplies", box = "", label = "Books and required supplies (AOTC only)", type = "money" },
+  { id = "credit_claimed", box = "", label = "Credit claimed (AOTC or LLC)", type = "code", required = true },
+  { id = "prior_aotc_years", box = "23", label = "Years AOTC already claimed for this student", type = "int", note = "Four-year cap. Check the prior-year returns." },
+  { id = "at_least_half_time", box = "24", label = "Enrolled at least half time", type = "checkbox" },
+  { id = "felony_conviction", box = "26", label = "Felony drug conviction", type = "checkbox" },
+]
+
+[[screens]]
+code = "95A"
+title = "Health Insurance Marketplace — Form 1095-A / Form 8962"
+order = 54
+multi = true
+wp_section = 300
+doc_types = ["1095-A"]
+note = "Key all twelve months. A missing month understates the advance credit and produces a refund that will be clawed back."
+fields = [
+  { id = "marketplace_id", box = "1", label = "Marketplace-assigned policy number", type = "text", required = true },
+  { id = "policy_start", box = "10", label = "Policy start date", type = "date" },
+  { id = "policy_end", box = "11", label = "Policy termination date", type = "date" },
+  { id = "annual_premium", box = "33A", label = "Annual enrollment premium", type = "money" },
+  { id = "annual_slcsp", box = "33B", label = "Annual SLCSP premium", type = "money" },
+  { id = "annual_advance_ptc", box = "33C", label = "Annual advance payment of PTC", type = "money" },
+  { id = "monthly_detail_keyed", box = "21-32", label = "All monthly rows keyed (A, B, C by month)", type = "checkbox", required = true },
+  { id = "slcsp_zero_months", box = "B", label = "Months where column B is zero", type = "text", note = "A zero column B usually means the marketplace left it blank. Look it up on the SLCSP tool; do not key zero." },
+  { id = "shared_policy", box = "", label = "Policy shared with another tax family", type = "checkbox" },
+]
+
+# --------------------------------------------------------------- payments
+
+[[screens]]
+code = "ES"
+title = "Estimated Taxes Paid"
+order = 60
+wp_section = 100
+doc_types = ["Estimated tax payments"]
+note = "Dates matter as much as amounts — a late Q1 payment creates a Form 2210 penalty even if the annual total is right."
+fields = [
+  { id = "prior_year_overpayment", box = "", label = "Prior-year overpayment applied", type = "money" },
+  { id = "fed_q1_amount", box = "", label = "Federal Q1 paid", type = "money" },
+  { id = "fed_q1_date", box = "", label = "Federal Q1 date", type = "date" },
+  { id = "fed_q2_amount", box = "", label = "Federal Q2 paid", type = "money" },
+  { id = "fed_q2_date", box = "", label = "Federal Q2 date", type = "date" },
+  { id = "fed_q3_amount", box = "", label = "Federal Q3 paid", type = "money" },
+  { id = "fed_q3_date", box = "", label = "Federal Q3 date", type = "date" },
+  { id = "fed_q4_amount", box = "", label = "Federal Q4 paid", type = "money" },
+  { id = "fed_q4_date", box = "", label = "Federal Q4 date", type = "date" },
+  { id = "extension_payment", box = "", label = "Amount paid with extension", type = "money" },
+  { id = "state_code", box = "", label = "State", type = "state" },
+  { id = "state_q1_amount", box = "", label = "State Q1 paid", type = "money" },
+  { id = "state_q2_amount", box = "", label = "State Q2 paid", type = "money" },
+  { id = "state_q3_amount", box = "", label = "State Q3 paid", type = "money" },
+  { id = "state_q4_amount", box = "", label = "State Q4 paid", type = "money" },
+  { id = "prior_year_total_tax", box = "", label = "Prior-year total tax (for the safe harbor)", type = "money", required = true },
+]
+
+[[screens]]
+code = "PIN"
+title = "Direct Deposit and Signature"
+order = 70
+wp_section = 100
+doc_types = ["E-file authorization"]
+note = "Confirm bank details with the client verbally. A keyed-wrong routing number is not recoverable."
+fields = [
+  { id = "routing_number", box = "", label = "Routing number", type = "account" },
+  { id = "account_number", box = "", label = "Account number", type = "account" },
+  { id = "account_type", box = "", label = "Account type (checking/savings)", type = "code" },
+  { id = "bank_confirmed", box = "", label = "Bank details confirmed with client", type = "checkbox", required = true },
+  { id = "tp_pin", box = "", label = "Taxpayer PIN", type = "code" },
+  { id = "sp_pin", box = "", label = "Spouse PIN", type = "code" },
+  { id = "pin_signature_date", box = "", label = "PIN signature date", type = "date" },
+  { id = "ip_pin_tp", box = "", label = "Identity protection PIN — taxpayer", type = "code" },
+  { id = "ip_pin_sp", box = "", label = "Identity protection PIN — spouse", type = "code" },
+]

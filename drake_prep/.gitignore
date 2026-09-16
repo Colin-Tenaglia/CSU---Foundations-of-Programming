@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+# A vault holds live client documents. It must never be committed.
+PrepDesk/
+vault/
+*.vault/

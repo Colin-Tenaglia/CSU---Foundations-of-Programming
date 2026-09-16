@@ -1,0 +1,172 @@
+# Drake screen map — Form 1120-S
+# UNVERIFIED. Walk it against your Drake install before keying from it.
+
+form = "1120S"
+tax_year = 2025
+verified = false
+source_note = "Line order transcribed from Form 1120-S. Verify against Drake before keying."
+
+[[screens]]
+code = "1"
+title = "Name, Address, and General Information"
+order = 1
+wp_section = 100
+doc_types = ["Prior-year return", "Organizer"]
+fields = [
+  { id = "corporation_name", box = "", label = "Corporation name", type = "text", required = true },
+  { id = "ein", box = "B", label = "Employer ID number", type = "ein", required = true },
+  { id = "s_election_date", box = "E", label = "S election effective date", type = "date", required = true },
+  { id = "business_activity_code", box = "C", label = "Business activity code", type = "code", required = true },
+  { id = "date_incorporated", box = "D", label = "Date incorporated", type = "date" },
+  { id = "total_assets", box = "F", label = "Total assets at year end", type = "money", required = true, note = "Under $250,000 with receipts under $250,000 relieves Schedules L and M-1." },
+  { id = "accounting_method", box = "H", label = "Accounting method", type = "code", required = true },
+  { id = "shareholder_count", box = "I", label = "Number of shareholders during the year", type = "int", required = true },
+  { id = "final_return", box = "H", label = "Final return", type = "checkbox" },
+  { id = "amended_return", box = "H", label = "Amended return", type = "checkbox" },
+]
+
+[[screens]]
+code = "INC"
+title = "Income — Form 1120-S Page 1"
+order = 10
+wp_section = 400
+doc_types = ["Trial balance / GL", "Business P&L"]
+note = "Line 1a must tie to gross receipts per the books and to the 1099-Ks in the file. Reconcile before keying."
+fields = [
+  { id = "gross_receipts", box = "1a", label = "Gross receipts or sales", type = "money", required = true },
+  { id = "returns_allowances", box = "1b", label = "Returns and allowances", type = "money" },
+  { id = "cost_of_goods_sold", box = "2", label = "Cost of goods sold (Form 1125-A)", type = "money" },
+  { id = "net_gain_4797", box = "4", label = "Net gain (loss) from Form 4797", type = "money" },
+  { id = "other_income", box = "5", label = "Other income (loss)", type = "money" },
+]
+
+[[screens]]
+code = "DED"
+title = "Deductions — Form 1120-S Page 1"
+order = 11
+wp_section = 400
+doc_types = ["Trial balance / GL"]
+note = "Line 7 officer compensation of zero on a profitable S corp with active owners is the single most examined item on this return."
+fields = [
+  { id = "officer_compensation", box = "7", label = "Compensation of officers", type = "money", required = true },
+  { id = "salaries_wages", box = "8", label = "Salaries and wages (less employment credits)", type = "money" },
+  { id = "repairs_maintenance", box = "9", label = "Repairs and maintenance", type = "money" },
+  { id = "bad_debts", box = "10", label = "Bad debts", type = "money" },
+  { id = "rents", box = "11", label = "Rents", type = "money" },
+  { id = "taxes_licenses", box = "12", label = "Taxes and licenses", type = "money" },
+  { id = "interest", box = "13", label = "Interest (see §163(j))", type = "money" },
+  { id = "depreciation", box = "14", label = "Depreciation not claimed elsewhere", type = "money" },
+  { id = "depletion", box = "15", label = "Depletion", type = "money" },
+  { id = "advertising", box = "16", label = "Advertising", type = "money" },
+  { id = "pension_plans", box = "17", label = "Pension, profit-sharing, etc. plans", type = "money" },
+  { id = "employee_benefits", box = "18", label = "Employee benefit programs", type = "money" },
+  { id = "other_deductions", box = "19", label = "Other deductions (attach statement)", type = "money" },
+]
+
+[[screens]]
+code = "K"
+title = "Schedule K — Shareholders' Pro Rata Share Items"
+order = 20
+wp_section = 400
+doc_types = ["Trial balance / GL"]
+fields = [
+  { id = "ordinary_income", box = "1", label = "Ordinary business income (loss)", type = "money" },
+  { id = "rental_real_estate", box = "2", label = "Net rental real estate income (loss)", type = "money" },
+  { id = "other_rental", box = "3c", label = "Other net rental income (loss)", type = "money" },
+  { id = "interest_income", box = "4", label = "Interest income", type = "money" },
+  { id = "ordinary_dividends", box = "5a", label = "Ordinary dividends", type = "money" },
+  { id = "royalties", box = "6", label = "Royalties", type = "money" },
+  { id = "short_term_gain", box = "7", label = "Net short-term capital gain (loss)", type = "money" },
+  { id = "long_term_gain", box = "8a", label = "Net long-term capital gain (loss)", type = "money" },
+  { id = "section_1231", box = "9", label = "Net section 1231 gain (loss)", type = "money" },
+  { id = "section_179", box = "11", label = "Section 179 deduction", type = "money" },
+  { id = "charitable_contributions", box = "12a", label = "Charitable contributions", type = "money" },
+  { id = "investment_interest", box = "12b", label = "Investment interest expense", type = "money" },
+  { id = "distributions", box = "16d", label = "Distributions", type = "money", required = true, note = "Must tie to the AAA rollforward and to each shareholder's basis." },
+  { id = "tax_exempt_income", box = "16a", label = "Tax-exempt interest income", type = "money" },
+  { id = "nondeductible_expenses", box = "16c", label = "Nondeductible expenses", type = "money" },
+  { id = "qbi_income", box = "17V", label = "§199A qualified business income", type = "money" },
+  { id = "qbi_w2_wages", box = "17V", label = "§199A W-2 wages", type = "money" },
+  { id = "qbi_ubia", box = "17V", label = "§199A UBIA of qualified property", type = "money" },
+]
+
+[[screens]]
+code = "L"
+title = "Schedule L — Balance Sheet per Books"
+order = 30
+wp_section = 400
+doc_types = ["Trial balance / GL", "Bank statement"]
+note = "Cash must tie to the bank reconciliation, not to the book balance. The bank governs."
+fields = [
+  { id = "cash_end", box = "1", label = "Cash — end of year", type = "money" },
+  { id = "accounts_receivable_end", box = "2a", label = "Trade notes and accounts receivable — end", type = "money" },
+  { id = "inventories_end", box = "3", label = "Inventories — end", type = "money" },
+  { id = "buildings_end", box = "10a", label = "Buildings and other depreciable assets — end", type = "money" },
+  { id = "accumulated_depreciation_end", box = "10b", label = "Less accumulated depreciation — end", type = "money" },
+  { id = "other_assets_end", box = "14", label = "Other assets — end", type = "money" },
+  { id = "accounts_payable_end", box = "16", label = "Accounts payable — end", type = "money" },
+  { id = "shareholder_loans_end", box = "19", label = "Loans from shareholders — end", type = "money", required = true, note = "Tie to Form 7203 debt basis. A disagreement here is a finding, not a rounding." },
+  { id = "capital_stock", box = "22", label = "Capital stock", type = "money" },
+  { id = "additional_paid_in", box = "23", label = "Additional paid-in capital", type = "money" },
+  { id = "retained_earnings_end", box = "24", label = "Retained earnings — end", type = "money" },
+]
+
+[[screens]]
+code = "M2"
+title = "Schedule M-2 — AAA, OAA, and Distributions"
+order = 31
+wp_section = 600
+doc_types = ["Form 7203 / basis"]
+note = "A distribution in excess of AAA and basis is a taxable gain to the shareholder. Recompute it here, do not accept the software."
+fields = [
+  { id = "aaa_beginning", box = "1", label = "AAA — balance at beginning of year", type = "money", required = true },
+  { id = "aaa_ordinary_income", box = "2", label = "AAA — ordinary income", type = "money" },
+  { id = "aaa_other_additions", box = "3", label = "AAA — other additions", type = "money" },
+  { id = "aaa_loss", box = "4", label = "AAA — loss from page 1 line 21", type = "money" },
+  { id = "aaa_other_reductions", box = "5", label = "AAA — other reductions", type = "money" },
+  { id = "aaa_distributions", box = "7", label = "AAA — distributions", type = "money" },
+  { id = "aaa_ending", box = "8", label = "AAA — balance at end of year", type = "money" },
+  { id = "oaa_ending", box = "8", label = "OAA — balance at end of year", type = "money" },
+  { id = "accumulated_e_and_p", box = "", label = "Accumulated E&P from C corp years", type = "money" },
+]
+
+[[screens]]
+code = "4562"
+title = "Depreciation Detail — Form 4562"
+order = 40
+multi = true
+wp_section = 500
+doc_types = ["Depreciation schedule"]
+fields = [
+  { id = "description", box = "", label = "Description of property", type = "text", required = true },
+  { id = "date_acquired", box = "19", label = "Date placed in service", type = "date", required = true },
+  { id = "cost", box = "19", label = "Cost or other basis", type = "money", required = true },
+  { id = "method", box = "19", label = "Method", type = "code", required = true },
+  { id = "life", box = "19", label = "Recovery period", type = "text", required = true },
+  { id = "section_179_elected", box = "6", label = "Section 179 elected", type = "money" },
+  { id = "bonus_election", box = "14", label = "Special depreciation allowance / elected out", type = "code" },
+  { id = "prior_depreciation", box = "", label = "Prior years' depreciation", type = "money", required = true },
+  { id = "current_depreciation", box = "", label = "Current year depreciation", type = "money" },
+  { id = "disposed_date", box = "", label = "Date sold or disposed", type = "date" },
+  { id = "sale_price", box = "", label = "Sale price", type = "money" },
+]
+
+[[screens]]
+code = "K1"
+title = "Shareholder K-1 Allocation"
+order = 50
+multi = true
+wp_section = 600
+doc_types = ["Form 7203 / basis"]
+note = "One instance per shareholder. Ownership percentages must sum to 100 and the days owned must cover the year."
+fields = [
+  { id = "shareholder_name", box = "", label = "Shareholder name", type = "text", required = true },
+  { id = "shareholder_tin", box = "", label = "Shareholder TIN", type = "ssn", required = true },
+  { id = "shares_owned", box = "", label = "Shares owned", type = "int" },
+  { id = "ownership_pct", box = "F", label = "Ownership percentage", type = "percent", required = true },
+  { id = "days_owned", box = "", label = "Days owned (if ownership changed)", type = "int" },
+  { id = "stock_basis_beginning", box = "7203", label = "Beginning stock basis", type = "money", required = true },
+  { id = "debt_basis_beginning", box = "7203", label = "Beginning debt basis", type = "money" },
+  { id = "distributions_to_shareholder", box = "16D", label = "Distributions to this shareholder", type = "money" },
+  { id = "health_insurance_in_w2", box = "", label = ">2% shareholder health insurance included in W-2 box 1", type = "checkbox", note = "Must be in wages before it is deducted on the 1040." },
+]

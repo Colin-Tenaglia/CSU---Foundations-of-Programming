@@ -1,0 +1,9 @@
+# The desk runs on the standard library alone. Everything here is optional and
+# only improves how much text it can pull out of a document.
+#
+#   pip install -r requirements.txt
+#
+# Better than pypdf for PDF text: install poppler-utils for `pdftotext`.
+# For scans: install ocrmypdf and tesseract-ocr through your package manager.
+
+pypdf>=4.0 ; python_version >= "3.11"

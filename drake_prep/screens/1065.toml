@@ -1,0 +1,164 @@
+# Drake screen map — Form 1065
+# UNVERIFIED. Walk it against your Drake install before keying from it.
+
+form = "1065"
+tax_year = 2025
+verified = false
+source_note = "Line order transcribed from Form 1065. Verify against Drake before keying."
+
+[[screens]]
+code = "1"
+title = "Name, Address, and General Information"
+order = 1
+wp_section = 100
+doc_types = ["Prior-year return", "Organizer"]
+fields = [
+  { id = "partnership_name", box = "", label = "Partnership name", type = "text", required = true },
+  { id = "ein", box = "D", label = "Employer ID number", type = "ein", required = true },
+  { id = "business_activity", box = "A", label = "Principal business activity", type = "text", required = true },
+  { id = "business_code", box = "C", label = "Business code number", type = "code", required = true },
+  { id = "date_business_started", box = "E", label = "Date business started", type = "date" },
+  { id = "total_assets", box = "F", label = "Total assets at year end", type = "money", required = true },
+  { id = "accounting_method", box = "H", label = "Accounting method", type = "code", required = true },
+  { id = "partner_count", box = "I", label = "Number of Schedules K-1 attached", type = "int", required = true },
+  { id = "final_return", box = "G", label = "Final return", type = "checkbox" },
+  { id = "bba_partnership", box = "", label = "Subject to BBA centralized audit regime", type = "checkbox", required = true, note = "If not electing out, a partnership representative must be named on Schedule B-2." },
+  { id = "partnership_representative", box = "", label = "Partnership representative name", type = "text" },
+]
+
+[[screens]]
+code = "INC"
+title = "Income and Deductions — Form 1065 Page 1"
+order = 10
+wp_section = 400
+doc_types = ["Trial balance / GL", "Business P&L"]
+note = "Guaranteed payments on line 10 are not a distribution. Confirm which the books actually recorded."
+fields = [
+  { id = "gross_receipts", box = "1a", label = "Gross receipts or sales", type = "money", required = true },
+  { id = "returns_allowances", box = "1b", label = "Returns and allowances", type = "money" },
+  { id = "cost_of_goods_sold", box = "2", label = "Cost of goods sold (Form 1125-A)", type = "money" },
+  { id = "net_gain_4797", box = "6", label = "Net gain (loss) from Form 4797", type = "money" },
+  { id = "other_income", box = "7", label = "Other income (loss)", type = "money" },
+  { id = "salaries_wages", box = "9", label = "Salaries and wages (other than to partners)", type = "money" },
+  { id = "guaranteed_payments", box = "10", label = "Guaranteed payments to partners", type = "money" },
+  { id = "repairs_maintenance", box = "11", label = "Repairs and maintenance", type = "money" },
+  { id = "bad_debts", box = "12", label = "Bad debts", type = "money" },
+  { id = "rent", box = "13", label = "Rent", type = "money" },
+  { id = "taxes_licenses", box = "14", label = "Taxes and licenses", type = "money" },
+  { id = "interest", box = "15", label = "Interest (see §163(j))", type = "money" },
+  { id = "depreciation", box = "16a", label = "Depreciation", type = "money" },
+  { id = "depletion", box = "17", label = "Depletion", type = "money" },
+  { id = "retirement_plans", box = "18", label = "Retirement plans", type = "money" },
+  { id = "employee_benefits", box = "19", label = "Employee benefit programs", type = "money" },
+  { id = "other_deductions", box = "20", label = "Other deductions (attach statement)", type = "money" },
+]
+
+[[screens]]
+code = "K"
+title = "Schedule K — Partners' Distributive Share Items"
+order = 20
+wp_section = 400
+doc_types = ["Trial balance / GL"]
+fields = [
+  { id = "ordinary_income", box = "1", label = "Ordinary business income (loss)", type = "money" },
+  { id = "rental_real_estate", box = "2", label = "Net rental real estate income (loss)", type = "money" },
+  { id = "other_rental", box = "3c", label = "Other net rental income (loss)", type = "money" },
+  { id = "guaranteed_services", box = "4a", label = "Guaranteed payments for services", type = "money" },
+  { id = "guaranteed_capital", box = "4b", label = "Guaranteed payments for capital", type = "money" },
+  { id = "interest_income", box = "5", label = "Interest income", type = "money" },
+  { id = "ordinary_dividends", box = "6a", label = "Ordinary dividends", type = "money" },
+  { id = "royalties", box = "7", label = "Royalties", type = "money" },
+  { id = "short_term_gain", box = "8", label = "Net short-term capital gain (loss)", type = "money" },
+  { id = "long_term_gain", box = "9a", label = "Net long-term capital gain (loss)", type = "money" },
+  { id = "section_1231", box = "10", label = "Net section 1231 gain (loss)", type = "money" },
+  { id = "section_179", box = "12", label = "Section 179 deduction", type = "money" },
+  { id = "charitable_contributions", box = "13a", label = "Charitable contributions", type = "money" },
+  { id = "self_employment_earnings", box = "14a", label = "Net earnings from self-employment", type = "money" },
+  { id = "distributions_cash", box = "19a", label = "Distributions of cash and marketable securities", type = "money" },
+  { id = "distributions_property", box = "19b", label = "Distributions of other property", type = "money" },
+  { id = "qbi_income", box = "20Z", label = "§199A qualified business income", type = "money" },
+  { id = "qbi_w2_wages", box = "20Z", label = "§199A W-2 wages", type = "money" },
+  { id = "qbi_ubia", box = "20Z", label = "§199A UBIA of qualified property", type = "money" },
+]
+
+[[screens]]
+code = "L"
+title = "Schedule L — Balance Sheet per Books"
+order = 30
+wp_section = 400
+doc_types = ["Trial balance / GL", "Bank statement"]
+fields = [
+  { id = "cash_end", box = "1", label = "Cash — end of year", type = "money" },
+  { id = "accounts_receivable_end", box = "2a", label = "Trade notes and accounts receivable — end", type = "money" },
+  { id = "inventories_end", box = "3", label = "Inventories — end", type = "money" },
+  { id = "buildings_end", box = "9a", label = "Buildings and other depreciable assets — end", type = "money" },
+  { id = "accumulated_depreciation_end", box = "9b", label = "Less accumulated depreciation — end", type = "money" },
+  { id = "other_assets_end", box = "13", label = "Other assets — end", type = "money" },
+  { id = "accounts_payable_end", box = "15", label = "Accounts payable — end", type = "money" },
+  { id = "nonrecourse_liabilities_end", box = "18", label = "All nonrecourse loans — end", type = "money" },
+  { id = "partner_loans_end", box = "19a", label = "Loans from partners — end", type = "money" },
+  { id = "partners_capital_end", box = "21", label = "Partners' capital accounts — end", type = "money" },
+]
+
+[[screens]]
+code = "M2"
+title = "Schedule M-2 — Partners' Capital Accounts"
+order = 31
+wp_section = 600
+doc_types = ["Form 7203 / basis"]
+note = "Tax basis capital is required on the K-1. If the books are on GAAP or §704(b), the conversion is a workpaper, not a plug."
+fields = [
+  { id = "capital_beginning", box = "1", label = "Balance at beginning of year", type = "money", required = true },
+  { id = "capital_contributed", box = "2", label = "Capital contributed during the year", type = "money" },
+  { id = "net_income_books", box = "3", label = "Net income (loss) per books", type = "money" },
+  { id = "other_increases", box = "4", label = "Other increases", type = "money" },
+  { id = "distributions", box = "6", label = "Distributions", type = "money" },
+  { id = "other_decreases", box = "7", label = "Other decreases", type = "money" },
+  { id = "capital_ending", box = "9", label = "Balance at end of year", type = "money" },
+  { id = "capital_basis_method", box = "", label = "Capital account reporting method (tax basis required)", type = "code", required = true },
+]
+
+[[screens]]
+code = "4562"
+title = "Depreciation Detail — Form 4562"
+order = 40
+multi = true
+wp_section = 500
+doc_types = ["Depreciation schedule"]
+fields = [
+  { id = "description", box = "", label = "Description of property", type = "text", required = true },
+  { id = "date_acquired", box = "19", label = "Date placed in service", type = "date", required = true },
+  { id = "cost", box = "19", label = "Cost or other basis", type = "money", required = true },
+  { id = "method", box = "19", label = "Method", type = "code", required = true },
+  { id = "life", box = "19", label = "Recovery period", type = "text", required = true },
+  { id = "section_179_elected", box = "6", label = "Section 179 elected", type = "money" },
+  { id = "bonus_election", box = "14", label = "Special depreciation allowance / elected out", type = "code" },
+  { id = "prior_depreciation", box = "", label = "Prior years' depreciation", type = "money", required = true },
+  { id = "current_depreciation", box = "", label = "Current year depreciation", type = "money" },
+  { id = "disposed_date", box = "", label = "Date sold or disposed", type = "date" },
+  { id = "sale_price", box = "", label = "Sale price", type = "money" },
+]
+
+[[screens]]
+code = "K1"
+title = "Partner K-1 Allocation"
+order = 50
+multi = true
+wp_section = 600
+doc_types = ["Form 7203 / basis"]
+note = "One instance per partner. Liability allocations under §752 drive basis; a recourse loan allocated as nonrecourse changes the deductible loss."
+fields = [
+  { id = "partner_name", box = "", label = "Partner name", type = "text", required = true },
+  { id = "partner_tin", box = "E", label = "Partner TIN", type = "ssn", required = true },
+  { id = "partner_type", box = "G", label = "General or limited partner", type = "code", required = true },
+  { id = "profit_pct_end", box = "J", label = "Profit share — ending %", type = "percent", required = true },
+  { id = "loss_pct_end", box = "J", label = "Loss share — ending %", type = "percent" },
+  { id = "capital_pct_end", box = "J", label = "Capital share — ending %", type = "percent" },
+  { id = "nonrecourse_allocated", box = "K", label = "Nonrecourse liabilities allocated", type = "money" },
+  { id = "qualified_nonrecourse_allocated", box = "K", label = "Qualified nonrecourse financing allocated", type = "money" },
+  { id = "recourse_allocated", box = "K", label = "Recourse liabilities allocated", type = "money" },
+  { id = "capital_beginning", box = "L", label = "Beginning tax basis capital", type = "money", required = true },
+  { id = "capital_ending", box = "L", label = "Ending tax basis capital", type = "money" },
+  { id = "distributions_to_partner", box = "19", label = "Distributions to this partner", type = "money" },
+  { id = "special_allocation", box = "", label = "Special allocation applies (and has substantial economic effect)", type = "checkbox" },
+]
