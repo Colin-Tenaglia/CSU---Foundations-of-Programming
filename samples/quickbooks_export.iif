@@ -1,0 +1,31 @@
+!HDR	PROD	VER	REL	IIFVER	DATE	TIME	ACCNTNT	ACCNTNTSPLITTIME
+HDR	QuickBooks Pro	Version 23.0	Release R5P	1	9/1/2025	1725200000	N	0
+!ACCNT	NAME	REFNUM	TIMESTAMP	ACCNTTYPE	OBAMOUNT	DESC	ACCNUM	SCD
+ACCNT	Checking	1	0	BANK	0.00	Operating checking account	1010	
+ACCNT	Accounts Receivable	2	0	AR	0.00	Accounts Receivable	1200	
+ACCNT	Office Equipment	3	0	FIXASSET	0.00	Office equipment at cost	1500	
+ACCNT	Accounts Payable	4	0	AP	0.00	Accounts Payable	2000	
+ACCNT	Owner's Equity	5	0	EQUITY	0.00	Owner's capital	3000	
+ACCNT	Consulting Income	6	0	INC	0.00	Consulting revenue	4000	
+ACCNT	Utilities	7	0	EXP	0.00	Utilities	6200	
+ACCNT	Utilities:Electric	8	0	EXP	0.00	Electric service	6210	
+ACCNT	Utilities:Water	9	0	EXP	0.00	Water and sewer	6220	
+ACCNT	Interest Income	10	0	EXINC	0.00	Bank interest	7000	
+!TRNS	TRNSID	TRNSTYPE	DATE	ACCNT	NAME	CLASS	AMOUNT	DOCNUM	MEMO
+!SPL	SPLID	TRNSTYPE	DATE	ACCNT	NAME	CLASS	AMOUNT	DOCNUM	MEMO
+!ENDTRNS
+TRNS	1	CHECK	01/15/2025	Checking	City Power		-245.80	1001	January electric
+SPL	2	CHECK	01/15/2025	Utilities:Electric	City Power		245.80	1001	January electric
+ENDTRNS
+TRNS	3	INVOICE	01/18/2025	Accounts Receivable	Acme Corp		2500.00	2041	Consulting - January
+SPL	4	INVOICE	01/18/2025	Consulting Income	Acme Corp		-2500.00	2041	Consulting - January
+ENDTRNS
+TRNS	5	DEPOSIT	01/20/2025	Checking	Acme Corp		2500.00		Payment received
+SPL	6	DEPOSIT	01/20/2025	Accounts Receivable	Acme Corp		-2500.00		Payment received
+ENDTRNS
+TRNS	7	GENERAL JOURNAL	01/31/2025	Office Equipment			1800.00	JE-1	Purchased printer
+SPL	8	GENERAL JOURNAL	01/31/2025	Accounts Payable	Tech Supply		-1800.00	JE-1	Purchased printer
+ENDTRNS
+TRNS	9	DEPOSIT	01/31/2025	Checking			12.44		Interest credited
+SPL	10	DEPOSIT	01/31/2025	Interest Income			-12.44		Interest credited
+ENDTRNS
