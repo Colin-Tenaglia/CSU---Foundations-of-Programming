@@ -19,43 +19,45 @@ The persons named as beneficiaries in this Will are:
 | Beneficiary | Relationship to me |
 |---|---|
 | **David Tenaglia** | Brother |
-| **Andrew ______________** [last name] | Uncle |
+| **Andrew Tenaglia** | Uncle |
 | **Anthony Tenaglia** | Father |
 | **Erin Tenaglia** | Sister |
-| **Alina Nazarova** | ______________ [relationship] |
-| **Tamara ______________** [last name] | ______________ [relationship] |
+| **Alina Nazarova** | Significant other |
+| **Tamara Gerek** | Friend |
 
 References in this Will to any beneficiary by first name refer to the individual identified above.
 
-## ARTICLE III – PAYMENT OF DEBTS, EXPENSES, AND TAXES
+## ARTICLE III – PAYMENT OF DEBTS, EXPENSES, AND TAXES; DEFINITIONS
 
-I direct my Personal Representative to pay from my estate all of my legally enforceable debts, the expenses of my last illness and funeral, the costs of administering my estate, and any estate, inheritance, or similar taxes payable by reason of my death, before any distribution is made under Article IV. "Net Estate" as used in this Will means the value of all property I own at my death that passes under this Will, after payment of the foregoing items.
+**3.1** I direct my Personal Representative to pay from my estate all of my legally enforceable debts, the expenses of my last illness and funeral, the costs of administering my estate, and any estate, inheritance, or similar taxes payable by reason of my death, before any distribution is made under Article IV.
+
+**3.2** "**Net Estate**" means the value of all property I own at my death that passes under this Will, after payment of the items described in Section 3.1.
+
+**3.3** "**Fidelity Account**" means my individual (non-retirement) brokerage account maintained at Fidelity Investments, including all cash, securities, and other investments held in it, together with any successor or replacement account into which those assets are transferred. I acknowledge that the Fidelity Account currently carries a transfer-on-death (TOD) designation in favor of my brother, David Tenaglia, and that it will therefore pass to him outside of this Will.
+
+**3.4** "**Aggregate Estate**" means the sum of (a) my Net Estate and (b) the value, as of the date of my death, of the Fidelity Account and any other property that passes to David Tenaglia by reason of my death outside of this Will, including by beneficiary designation, transfer-on-death or payable-on-death registration, or right of survivorship.
 
 ## ARTICLE IV – DISPOSITION OF ESTATE
 
-### 4.1 Gift to my brother, David Tenaglia
+### 4.1 Share of my brother, David Tenaglia
 
-I give to my brother, **David Tenaglia**, if he survives me, **whichever of the following is greater in value** as of the date of my death:
+It is my intent that my brother, **David Tenaglia**, receive a total of **fifty percent (50%)** of my Aggregate Estate, and **no more and no less**, taking into account the Fidelity Account and any other property that passes to him outside of this Will.
 
-**(a)** my individual (non-retirement) brokerage account, including all cash, securities, and other investments held in it, currently maintained at ______________________ [brokerage firm], account ending in ______ [last four digits], together with any successor or replacement account into which those assets are transferred; **or**
-
-**(b)** an amount equal to **fifty percent (50%)** of my Net Estate.
-
-If the value of the brokerage account described in (a) is greater than fifty percent (50%) of my Net Estate, David shall receive the brokerage account in kind, and it shall constitute his entire share under this Article. If fifty percent (50%) of my Net Estate is the greater amount, David shall receive the brokerage account in kind plus such additional cash or other property from my estate as is necessary to bring the total value of his share to fifty percent (50%) of my Net Estate.
+Accordingly, if David survives me, I give him from my Net Estate an amount equal to (a) fifty percent (50%) of my Aggregate Estate, **minus** (b) the value, as of the date of my death, of the Fidelity Account and any other property passing to him outside of this Will. If the amount so calculated is zero or less, David shall receive nothing under this Will, and the property passing to him outside of this Will shall constitute his entire share of my Aggregate Estate. Nothing in this Will shall be construed to require David to return or contribute any property that passes to him outside of this Will.
 
 ### 4.2 Distribution of the remainder
 
 I give the balance of my Net Estate remaining after the gift under Section 4.1 (the "**Remaining Estate**") to the following persons, if they survive me, in the following proportions:
 
-| Beneficiary | Share of total Net Estate (when David's share is exactly 50%) | Proportion of the Remaining Estate |
+| Beneficiary | Intended share of my Aggregate Estate | Proportion of the Remaining Estate |
 |---|---|---|
-| **Andrew ______________**, my uncle | 10% | 20% |
+| **Andrew Tenaglia**, my uncle | 10% | 20% |
 | **Anthony Tenaglia**, my father | 10% | 20% |
 | **Erin Tenaglia**, my sister | 10% | 20% |
-| **Alina Nazarova** | 15% | 30% |
-| **Tamara ______________** | 5% | 10% |
+| **Alina Nazarova**, my significant other | 15% | 30% |
+| **Tamara Gerek**, my friend | 5% | 10% |
 
-It is my intent that these five beneficiaries share the Remaining Estate in the relative proportions **10 : 10 : 10 : 15 : 5**. If David's share under Section 4.1 equals exactly fifty percent (50%) of my Net Estate, these gifts will equal the percentages of my total Net Estate shown in the second column. If David's share exceeds fifty percent (50%) because the brokerage account is the greater amount, the Remaining Estate shall be divided among these beneficiaries in the same relative proportions, as shown in the third column.
+It is my intent that these five beneficiaries share the Remaining Estate in the relative proportions **10 : 10 : 10 : 15 : 5**, so that, when combined with David's fifty percent (50%) share under Section 4.1, my Aggregate Estate is divided as shown in the second column. If the property passing to David outside of this Will exceeds fifty percent (50%) of my Aggregate Estate, the Remaining Estate shall nevertheless be divided among these five beneficiaries in the same relative proportions, as shown in the third column.
 
 ### 4.3 Lapse of gifts
 
@@ -67,7 +69,7 @@ A beneficiary shall be deemed to have survived me only if he or she is living on
 
 ### 4.5 Non-probate assets
 
-I acknowledge that retirement accounts, life insurance, and accounts with beneficiary or transfer-on-death designations pass according to those designations and not under this Will. I intend to keep those designations consistent with the plan set out in this Will.
+I acknowledge that retirement accounts, life insurance, and accounts with beneficiary or transfer-on-death designations pass according to those designations and not under this Will. Except as provided in Sections 3.4 and 4.1 with respect to property passing to David Tenaglia, such property shall not be taken into account in computing the shares under this Article.
 
 ## ARTICLE V – PERSONAL REPRESENTATIVE
 
@@ -77,7 +79,7 @@ I acknowledge that retirement accounts, life insurance, and accounts with benefi
 
 **5.3** My Personal Representative shall have all powers granted to personal representatives under the laws of the State of ______________________, including without limitation the power to sell, lease, or otherwise dispose of real or personal property; to retain, invest, and reinvest estate assets; to distribute property in cash or in kind, or partly in each, and to value property for purposes of distribution; to settle claims; and to employ attorneys, accountants, and other professionals.
 
-**5.4** For purposes of Article IV, my Personal Representative's good-faith determination of the value of the brokerage account and of my Net Estate as of the date of my death shall be binding on all beneficiaries.
+**5.4** For purposes of Article IV, my Personal Representative's good-faith determination of the value of the Fidelity Account, of any other property passing to David Tenaglia outside of this Will, of my Net Estate, and of my Aggregate Estate as of the date of my death shall be binding on all beneficiaries.
 
 ## ARTICLE VI – GENERAL PROVISIONS
 
@@ -154,8 +156,8 @@ My commission expires: ______________________
 
 ## NOTES FOR COMPLETION (delete before signing)
 
-1. Fill in every blank: your city, county, and state; the last names of Andrew and Tamara and their relationship to you; Alina's relationship to you; the brokerage firm and last four digits of the account; and the name of your Personal Representative and an alternate.
-2. Confirm the brokerage account is an **individual** account with no transfer-on-death (TOD) beneficiary designation. A TOD designation would override Section 4.1, so either remove it or name David as the TOD beneficiary.
-3. Check your state's execution requirements. Most U.S. states require two adult witnesses who are not beneficiaries, and most accept a notarized self-proving affidavit (included above) to simplify probate.
-4. If you would prefer that Andrew, Anthony, Erin, Alina, and Tamara receive fixed percentages of the whole estate (10/10/10/15/5) regardless of the brokerage account's value, tell your attorney. Section 4.2 is currently drafted so their shares scale proportionally if the brokerage account exceeds half the estate.
+1. Fill in every blank: your city, county, and state, and the name of your Personal Representative and an alternate. Account numbers are intentionally omitted; the Fidelity Account is identified by institution and ownership, which is sufficient.
+2. **How David's 50% works.** Because the Fidelity Account is already TOD to David, it passes to him outside the will. Section 4.1 counts that account toward his 50% and tops him up from the probate estate only as needed. If the Fidelity Account alone is worth more than 50% of everything, a will cannot pull the excess back; David would keep the account and receive nothing further under the will. If you want a hard 50% cap in that scenario, the cleaner fix is to remove the TOD designation at Fidelity so the account passes under the will instead.
+3. Keep the TOD designation on the Fidelity Account limited to David. Adding other TOD beneficiaries, or TOD designations on other accounts, would change the math in Section 3.4.
+4. Check your state's execution requirements. Most U.S. states require two adult witnesses who are not beneficiaries, and most accept a notarized self-proving affidavit (included above) to simplify probate.
 5. Consider adding a guardianship article if you have or expect to have minor children, and a tangible-personal-property clause if you want particular items to go to particular people.
