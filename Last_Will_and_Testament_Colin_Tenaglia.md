@@ -6,7 +6,7 @@
 
 ---
 
-I, **Colin Tenaglia**, a resident of ______________________ [City], ______________________ [County], ______________________ [State], being of sound mind and memory and not acting under duress, menace, fraud, or the undue influence of any person, do hereby make, publish, and declare this instrument to be my Last Will and Testament.
+I, **Colin Tenaglia**, a resident of the City of Brookfield, Waukesha County, State of Wisconsin, being of sound mind and memory and not acting under duress, menace, fraud, or the undue influence of any person, do hereby make, publish, and declare this instrument to be my Last Will and Testament.
 
 ## ARTICLE I – REVOCATION OF PRIOR WILLS
 
@@ -73,17 +73,17 @@ I acknowledge that retirement accounts, life insurance, and accounts with benefi
 
 ## ARTICLE V – PERSONAL REPRESENTATIVE
 
-**5.1** I nominate and appoint ______________________ [name] as Personal Representative (Executor) of my estate. If that person is unable or unwilling to serve, I nominate ______________________ [alternate name] to serve in that capacity.
+**5.1** I nominate and appoint my father, **Anthony ("Tony") Tenaglia**, as Personal Representative (Executor) of my estate. If he is deceased, or is otherwise unable or unwilling to serve or to continue serving, I nominate my uncle, **Andrew Tenaglia**, as successor Personal Representative. If Andrew Tenaglia is also deceased, or is otherwise unable or unwilling to serve or to continue serving, I nominate my brother, **David Tenaglia**, as successor Personal Representative.
 
 **5.2** I direct that no bond or other security be required of any Personal Representative named in this Will, to the fullest extent permitted by law.
 
-**5.3** My Personal Representative shall have all powers granted to personal representatives under the laws of the State of ______________________, including without limitation the power to sell, lease, or otherwise dispose of real or personal property; to retain, invest, and reinvest estate assets; to distribute property in cash or in kind, or partly in each, and to value property for purposes of distribution; to settle claims; and to employ attorneys, accountants, and other professionals.
+**5.3** My Personal Representative shall have all powers granted to personal representatives under the laws of the State of Wisconsin, including without limitation the power to sell, lease, or otherwise dispose of real or personal property; to retain, invest, and reinvest estate assets; to distribute property in cash or in kind, or partly in each, and to value property for purposes of distribution; to settle claims; and to employ attorneys, accountants, and other professionals.
 
 **5.4** For purposes of Article IV, my Personal Representative's good-faith determination of the value of the Fidelity Account, of any other property passing to David Tenaglia outside of this Will, of my Net Estate, and of my Aggregate Estate as of the date of my death shall be binding on all beneficiaries.
 
 ## ARTICLE VI – GENERAL PROVISIONS
 
-**6.1 Governing law.** This Will shall be construed and administered in accordance with the laws of the State of ______________________.
+**6.1 Governing law.** This Will shall be construed and administered in accordance with the laws of the State of Wisconsin.
 
 **6.2 Severability.** If any provision of this Will is held invalid or unenforceable, the remaining provisions shall remain in full force and effect.
 
@@ -95,7 +95,7 @@ I acknowledge that retirement accounts, life insurance, and accounts with benefi
 
 ## SIGNATURE OF TESTATOR
 
-IN WITNESS WHEREOF, I have signed this Will, consisting of ______ pages including this page and the attestation and affidavit pages, on the ______ day of ______________________, 20____, at ______________________, ______________________.
+IN WITNESS WHEREOF, I have signed this Will, consisting of ______ pages including this page and the attestation and affidavit pages, on the ______ day of ______________________, 20____, at Brookfield, Wisconsin.
 
 <br>
 
@@ -130,9 +130,9 @@ Address: ______________________________________
 
 ## SELF-PROVING AFFIDAVIT
 
-STATE OF ______________________ )
+STATE OF WISCONSIN )
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;) ss.
-COUNTY OF ______________________ )
+COUNTY OF WAUKESHA )
 
 We, **Colin Tenaglia**, ______________________________, and ______________________________, the Testator and the witnesses, respectively, whose names are signed to the attached or foregoing instrument, being first duly sworn, do hereby declare to the undersigned authority that the Testator signed and executed the instrument as the Testator's Last Will and Testament, that the Testator signed willingly, that the Testator executed it as the Testator's free and voluntary act for the purposes therein expressed, and that each of the witnesses, in the presence and hearing of the Testator, signed the Will as witness, and that to the best of the witness's knowledge the Testator was at that time eighteen (18) years of age or older, of sound mind, and under no constraint or undue influence.
 
@@ -156,8 +156,8 @@ My commission expires: ______________________
 
 ## NOTES FOR COMPLETION (delete before signing)
 
-1. Fill in every blank: your city, county, and state, and the name of your Personal Representative and an alternate. Account numbers are intentionally omitted; the Fidelity Account is identified by institution and ownership, which is sufficient.
+1. Confirm the residence (Brookfield, Waukesha County, Wisconsin) and the executor succession (Anthony, then Andrew, then David) are correct. Account numbers are intentionally omitted; the Fidelity Account is identified by institution and ownership, which is sufficient.
 2. **How David's 50% works.** Because the Fidelity Account is already TOD to David, it passes to him outside the will. Section 4.1 counts that account toward his 50% and tops him up from the probate estate only as needed. If the Fidelity Account alone is worth more than 50% of everything, a will cannot pull the excess back; David would keep the account and receive nothing further under the will. If you want a hard 50% cap in that scenario, the cleaner fix is to remove the TOD designation at Fidelity so the account passes under the will instead.
 3. Keep the TOD designation on the Fidelity Account limited to David. Adding other TOD beneficiaries, or TOD designations on other accounts, would change the math in Section 3.4.
-4. Check your state's execution requirements. Most U.S. states require two adult witnesses who are not beneficiaries, and most accept a notarized self-proving affidavit (included above) to simplify probate.
+4. Wisconsin requires the will to be signed by you in the presence of two witnesses, who then sign within a reasonable time; use witnesses who are not beneficiaries. The self-proving affidavit above should be signed before a notary so the witnesses need not testify in probate. Wisconsin is a marital-property state, which can affect what counts as your estate if you later marry; revisit this will if your circumstances change.
 5. Consider adding a guardianship article if you have or expect to have minor children, and a tangible-personal-property clause if you want particular items to go to particular people.
